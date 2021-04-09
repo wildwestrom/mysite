@@ -14,7 +14,7 @@
     [:h2 {:class '[text-3xl py-2]} "What do we have here?"]
     [:p "Looks like some fine styles here!"]
     [:p "Welcome to my site!"]]
-   [:footer {:class '[text-xs text-center w-full p-4]}
+   [:footer {:class '[text-xs text-center w-full p-2]}
     [:p "My "
      [:a {:href  "https://gitlab.com/wildwestrom/cljs-tailwind-static"
           :class '[text-blue-500 visited:text-purple-500]}
