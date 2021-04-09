@@ -5,7 +5,9 @@ module.exports = {
     ],
     darkMode: 'media', // or 'media' or 'class'
     theme: {
-        extend: {}
+        extend: {
+            textColor: ['visited'],
+        }
     },
     variants: {},
     plugins: []
