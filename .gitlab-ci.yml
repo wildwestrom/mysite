@@ -1,7 +1,7 @@
 stages:
   - deploy
 deploy:
-  stage: build
+  stage: deploy
   image: clojure:openjdk-17-tools-deps-alpine
   script:
     - apt install nodejs
