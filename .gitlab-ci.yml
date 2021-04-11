@@ -3,6 +3,6 @@ stages:
 deploy:
   stage: deploy
   script:
-    - yarn install
-    - yarn release
+    - npm install
+    - npm release
     - if ["$CI_COMMIT_REF_NAME" == "master"]; then cp -R public/* /var/www/westrom.xyz/html; fi
