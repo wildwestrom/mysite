@@ -5,7 +5,7 @@
     "license": "AGPL-3.0-or-later",
     "scripts": {
         "new-index": "clojure -M src/app/index.clj",
-        "build": "yarn new-index && export NODE_ENV=production && postcss src/css/main.css -o public/css/main.css",
+        "build": "if [ ! -d \"public\" ]; then mkdir public/; fi && yarn new-index && export NODE_ENV=production && postcss src/css/main.css -o public/css/main.css",
         "watch:css": "postcss src/css/main.css -o public/css/main.css --watch",
         "watch:shadow": "shadow-cljs watch app",
         "start": "run-p new-index watch:css watch:shadow",
