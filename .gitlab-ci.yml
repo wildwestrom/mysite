@@ -5,8 +5,8 @@ deploy:
   image: clojure:openjdk-17-tools-deps-alpine
   script:
     - apk add yarn
-    - yarn install
-    - yarn release
     - mkdir public/
     - touch public/index.html
+    - yarn install
+    - yarn release
     - cp -R public/* /var/www/westrom.xyz/html
