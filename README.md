@@ -15,7 +15,7 @@ Before running for the first time run:
 
 - `cider-jack-in-cljs`
 
--connect-sibling-cljs option
+If using the cider-connect-sibling-cljs option:
 
 -  Select the **shadow** 
 -  Select **:app**
