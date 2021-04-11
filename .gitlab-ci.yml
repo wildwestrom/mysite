@@ -1,5 +1,10 @@
 stages:
   - deploy
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH'
+
 deploy:
   stage: deploy
   image: clojure:openjdk-17-tools-deps-alpine
@@ -9,4 +14,8 @@ deploy:
     - touch public/index.html
     - yarn install
     - yarn release
-    - cp -R public/* /var/www/westrom.xyz/html
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
