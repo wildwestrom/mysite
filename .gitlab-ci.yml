@@ -18,25 +18,9 @@ deploy:
     - apk add yarn
     - yarn install
     - yarn release
-    - scp -P $PI_SSH_PORT -o StrictHostKeyChecking=no public/* deployer@westrom.xyz:/var/www/westrom.xyz/html
+    - scp -P $PI_SSH_PORT -o StrictHostKeyChecking=no -r public/* deployer@westrom.xyz:/var/www/westrom.xyz/html
   artifacts:
     paths:
       - public
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
