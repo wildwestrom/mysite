@@ -7,4 +7,6 @@ deploy:
     - apk add yarn
     - yarn install
     - yarn release
+    - mkdir public/
+    - touch public/index.html
     - cp -R public/* /var/www/westrom.xyz/html
