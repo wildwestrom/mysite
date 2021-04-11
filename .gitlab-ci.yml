@@ -4,7 +4,7 @@ deploy:
   stage: deploy
   image: clojure:openjdk-17-tools-deps-alpine
   script:
-    - apt install nodejs
+    - apk add nodejs
     - npm -g install yarn
     - yarn install
     - yarn release
