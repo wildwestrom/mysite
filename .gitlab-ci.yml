@@ -8,4 +8,4 @@ deploy:
     - npm -g install yarn
     - yarn install
     - yarn release
-    - cp -R public/* /var/www/westrom.xyz/html; fi
+    - cp -R public/* /var/www/westrom.xyz/html
