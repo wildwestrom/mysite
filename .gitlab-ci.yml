@@ -8,12 +8,35 @@ workflow:
 deploy:
   stage: deploy
   image: clojure:openjdk-17-tools-deps-alpine
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$PI_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
   script:
     - apk add yarn
     - yarn install
     - yarn release
+    - scp -P $PI_SSH_PORT -o StrictHostKeyChecking=no public/* deployer@westrom.xyz:/var/www/westrom.xyz/html
   artifacts:
     paths:
       - public
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
