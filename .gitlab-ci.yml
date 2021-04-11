@@ -3,6 +3,7 @@ stages:
 deploy:
   stage: deploy
   script:
+    - export PATH=$HOME/.yarn/bin:$PATH
     - yarn install
     - yarn release
     - if ["$CI_COMMIT_REF_NAME" == "master"]; then cp -R public/* /var/www/westrom.xyz/html; fi
