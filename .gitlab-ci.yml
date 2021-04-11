@@ -18,8 +18,8 @@ deploy:
     - apk add yarn
     - yarn install
     - yarn release
-    - ssh -q -p $PI_SSH_PORT deployer@westrom.xyz "rm -rf /var/www/westrom.xyz/html/*"
-    - scp -q -P $PI_SSH_PORT -o StrictHostKeyChecking=no -r public/* deployer@westrom.xyz:/var/www/westrom.xyz/html
+    - ssh -q -p $PI_SSH_PORT -o "StrictHostKeyChecking=no" deployer@westrom.xyz "rm -rf /var/www/westrom.xyz/html/*"
+    - scp -q -P $PI_SSH_PORT -o "StrictHostKeyChecking=no" -r public/* deployer@westrom.xyz:/var/www/westrom.xyz/html
   artifacts:
     paths:
       - public
