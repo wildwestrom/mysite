@@ -4,11 +4,11 @@ module.exports = {
         './src/**/*.clj'
     ],
     darkMode: 'media', // or 'media' or 'class'
-    theme: {
+    theme: {},
+    variants: {
         extend: {
             textColor: ['visited'],
         }
     },
-    variants: {},
     plugins: []
 }
