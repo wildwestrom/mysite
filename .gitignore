@@ -16,6 +16,7 @@ pom.xml.asc
 .nrepl-*
 .DS_Store
 .calva
+.cljs_node_repl
 
 .hgignore
 .hg/
