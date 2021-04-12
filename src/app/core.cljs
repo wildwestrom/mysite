@@ -32,7 +32,10 @@ Trust me, you're gonna love it. A'ight? A'ight."]])
     [:span.inline-block "The rest is my own original work"] " "
     [:span.inline-block "unless otherwise specified."] [:br]
     [:span.inline-block "Copyright © 2021 Christian Westrom "] " "
-    [:span.inline-block "c.westrom@westrom.xyz"]]])
+    [:span.inline-block
+     [:a {:href  "mailto: c.westrom@westrom.xyz"
+          :class '[text-blue-200 hover:text-blue-300]}
+      "c.westrom@westrom.xyz"]]]])
 
 (defn app []
   [:div {:class '[flex flex-col
