@@ -1,6 +1,5 @@
 (ns app.core
-  (:require [reagent.core :as r]
-            [reagent.dom :as dom]))
+  (:require [reagent.dom :as dom]))
 
 (def body-class
   "dark:bg-gray-900")
@@ -27,8 +26,7 @@
 
 (defn mount-root [c]
   (dom/render [c]
-              (.getElementById js/document "app")
-              ))
+              (.getElementById js/document "app")))
 
 (defn ^:dev/after-load start []
   (js/console.log "start")
