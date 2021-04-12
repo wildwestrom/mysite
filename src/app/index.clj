@@ -5,10 +5,10 @@
 (def noscript? false)
 
 (def html-data
-  {:description "Generic description"
+  {:description "West's Site: A blog, projects, CV, and more."
    :keywords    ["programming" "clojure" "clojurescript" "web development" "javascript"]
-   :author      "Johnny Appleseed"
-   :title       "An Awesome Static Site"})
+   :author      "Christian Westrom"
+   :title       "My Personal Website"})
 
 (defn index-html
   [html-data]
