@@ -8,12 +8,13 @@
   [:div {:class '[flex flex-col h-screen
                   justify-between p-6]}
 
-   [:header {:class '[text-lg italic underline font-serif]} "West's Super Awesome Homepage!"]
+   [:header {:class '[text-lg italic underline font-serif]}
+    [:h1 "West's Super Awesome Homepage!"]]
 
    [:div {:id    "content"
           :class '[flex-1 mb-auto px-5 pr-18]}
 
-    [:h1 {:class '[text-3xl py-2 italic]} "Welcome, to my site!"]
+    [:h2 {:class '[text-3xl py-2 italic]} "Welcome, to my site!"]
     [:p {:class '[font-mono]}"Pretty soon you're gonna see my blog and other goodies.
 Trust me, you're gonna love it. A'ight? A'ight."]]
 
@@ -24,8 +25,8 @@ Trust me, you're gonna love it. A'ight? A'ight."]]
       "static site generator"]
      " is licensed under the "
      [:a {:href  "https://www.gnu.org/licenses/agpl-3.0.html"
-          :class '[text-blue-500 visited:text-purple-500]} "AGPL license"] ". " [:wbr]
-     "The rest is my own original work unless otherwise specified. " [:wbr]
+          :class '[text-blue-500 visited:text-purple-500]} "AGPL license"] ". " [:br]
+     "The rest is my own original work unless otherwise specified. " [:br]
      "Copyright © 2021 Christian Westrom c.westrom@westrom.xyz"]]])
 
 (defn mount-root [c]
