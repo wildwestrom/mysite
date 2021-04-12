@@ -25,7 +25,7 @@ Trust me, you're gonna love it. A'ight? A'ight."]]
       "static site generator"]
      " is licensed under the "
      [:a {:href  "https://www.gnu.org/licenses/agpl-3.0.html"
-          :class '[text-blue-500 visited:text-purple-500]} "AGPL license"] ". " [:br]
+          :class '[text-blue-500 visited:text-purple-500]} "GNU AGPL license"] ". " [:br]
      "The rest is my own original work unless otherwise specified. " [:br]
      "Copyright © 2021 Christian Westrom c.westrom@westrom.xyz"]]])
 

@@ -34,7 +34,7 @@ See [Generating Production Code](https://shadow-cljs.github.io/docs/UsersGuide.h
 
 ## License
 
-My static site generator is licensed under the [AGPL license](https://www.gnu.org/licenses/agpl-3.0.html).
+My static site generator is licensed under the [GNU AGPL license](https://www.gnu.org/licenses/agpl-3.0.html).
 
 The rest is my own original work unless otherwise specified.
 
