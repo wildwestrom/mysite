@@ -28,7 +28,8 @@ Trust me, you're gonna love it. A'ight? A'ight."]])
     [:span.inline-block "under the "
      [:a {:href   "https://www.gnu.org/licenses/agpl-3.0.html"
           :target "_blank"
-          :class  '[text-blue-500 visited:text-purple-500]} "GNU AGPL license"] "."] [:br]
+          :class  '[text-blue-500 visited:text-purple-500]}
+      "GNU AGPL license"] "."] [:br]
     [:span.inline-block "The rest is my own original work"] " "
     [:span.inline-block "unless otherwise specified."] [:br]
     [:span.inline-block "Copyright © 2021 Christian Westrom "] " "
