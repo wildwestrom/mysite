@@ -4,17 +4,19 @@
 (def body-classes
   '[dark:bg-gray-900 dark:text-gray-300])
 
+;; Views
 (def navbar
   [:header {:class '[text-lg italic underline font-serif]}
    [:h1 "West's Super Awesome Homepage!"]])
 
-(def greeting
+(def content
   [:div {:id    "content"
-         :class '[flex-1 mb-auto px-5 pr-18]}
+         :class '[flex-1 mb-auto px-5]}
 
    [:h2 {:class '[text-3xl py-2 italic]} "Welcome, to my site!"]
-   [:p {:class '[font-mono]}"Pretty soon you're gonna see my blog and other goodies.
-Trust me, you're gonna love it. A'ight? A'ight."]])
+   [:p {:class '[]}
+    "Pretty soon you're gonna see my blog and other goodies." [:br]
+    "Trust me, you're gonna love it. A'ight? A'ight."]])
 
 (def license
   [:footer {:class '[text-xs text-center]}
@@ -38,13 +40,19 @@ Trust me, you're gonna love it. A'ight? A'ight."]])
           :class '[text-blue-200 hover:text-blue-300]}
       "c.westrom@westrom.xyz"]]]])
 
+;;(defn blog-post [postdata])
+
 (defn app []
   [:div {:class '[flex flex-col
                   justify-between px-6 pt-4 pb-2]}
    [:div {:class '[h-screen]}
     navbar
-    greeting]
+    ;;(doseq [postdata posts]
+    ;;  (blogpost postdata))
+    content]
    license])
+
+;; Render
 
 (defn mount-root [c]
   (dom/render [c]
