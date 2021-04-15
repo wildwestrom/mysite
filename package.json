@@ -9,17 +9,18 @@
         "watch:css": "postcss src/css/main.css -o public/css/main.css --watch",
         "watch:shadow": "shadow-cljs watch app",
         "start": "run-p new-index watch:css watch:shadow",
-        "release": "yarn build && shadow-cljs release app"
+        "release": "yarn build && shadow-cljs release app",
+        "clean": "rm -rf public/"
     },
     "devDependencies": {
-        "@fullhuman/postcss-purgecss": "^4.0.0",
+        "@fullhuman/postcss-purgecss": "^4.0.3",
         "autoprefixer": "^10.2.3",
-        "cssnano": "^4.1.10",
+        "cssnano": "^5.0.1",
         "npm-run-all": "^4.1.5",
         "postcss": "^8.2.4",
         "postcss-cli": "^8.3.1",
         "postcss-import": "^14.0.0",
-        "shadow-cljs": "2.11.15",
+        "shadow-cljs": "2.12.5",
         "tailwindcss": "^2.0.2"
     },
     "dependencies": {
