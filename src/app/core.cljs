@@ -40,9 +40,9 @@ Leo vel fringilla est ullamcorper eget nulla. Elementum curabitur vitae nunc sed
   [:div {:id    "content"
          :class '[min-h-screen flex flex-col]}
    (topbar "West's Super Awesome Homepage!" "Home" "/")
-   [:div {:class '[flex-grow items-center]}
-    [:h2 {:class '[text-3xl p-4 italic]}
-     "Welcome, to my site!"]]])
+   [:div {:class '[flex-grow flex justify-center items-center]}
+    [:h2 {:class '[text-5xl p-4 italic]}
+     "Welcome," [:br {:class '[sm:block hidden]}] " to my site!"]]])
 
 (def license
   [:footer {:class '[p-4 text-xs text-center self-center]}
@@ -71,14 +71,16 @@ Leo vel fringilla est ullamcorper eget nulla. Elementum curabitur vitae nunc sed
 
 (def contact
   [:div {:class '[min-h-screen flex flex-col items-stretch]}
-   (topbar '("You seem pretty sweet." [:br]
-             "We should get lunch sometime.")
+   (topbar "Let's get in touch."
            "Contact" "/contact")
    [:div {:class '[flex-grow self-center flex flex-col]}
-    [:ul {:class '[p-4 flex flex-col flex-grow justify-center]}
-     [:li {:class '[py-2]} "Email: " data/email]
-     [:li {:class '[py-2]} "Gitlab: " data/gitlab]
-     [:li {:class '[py-2]} "Discord: " data/discord]]]
+    [:div {:class '[p-4 flex flex-col flex-grow justify-center]}
+     [:h2 {:class '[pb-4 text-2xl]} "You seem pretty sweet." [:br]
+      "We should get lunch sometime."]
+     [:ul
+      [:li {:class '[p-2]} "Email: " data/email]
+      [:li {:class '[p-2]} "Gitlab: " data/gitlab]
+      [:li {:class '[p-2]} "Discord: " data/discord]]]]
    license])
 
 (defn app []
