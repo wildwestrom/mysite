@@ -8,7 +8,7 @@ module.exports = {
         isProduction && require('@fullhuman/postcss-purgecss')({
             content: [
                 './src/app/core.cljs',
-                './src/app/index.clj',
+                './public/index.html',
             ],
             defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
         }),

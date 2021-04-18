@@ -1,29 +1,24 @@
 (ns app.index
   (:require [hiccup.page :as hiccup]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [app.data :as data]))
 
 (def noscript? false)
 
-(def html-data
-  {:description "West's Site: A blog, projects, CV, and more."
-   :keywords    ["programming" "clojure" "clojurescript" "web development" "javascript"]
-   :author      "Christian Westrom"
-   :title       "My Personal Website"})
-
 (defn index-html
-  [html-data]
+  []
   (hiccup/html5 {:lang "en" :id "root"}
                 [:head {}
                  [:meta {:charset "UTF-8"}]
                  [:meta {:name    "description",
-                         :content (:description html-data)}]
+                         :content data/description}]
                  [:meta {:name    "keywords",
-                         :content (string/join "," (:keywords html-data))}]
+                         :content (string/join "," data/keywords)}]
                  [:meta {:name    "author",
-                         :content (:author html-data)}]
+                         :content data/author}]
                  [:meta {:name    "viewport",
                          :content "width=device-width, initial-scale=1.0"}]
-                 [:title {} (:title html-data)]
+                 [:title {} data/title]
                  [:link {:rel  "stylesheet",
                          :href "/css/main.css"}]]
                 [:body {:id "body"}
@@ -33,4 +28,4 @@
                  [:div {:id "app"}]
                  [:script {:src "/js/main.js", :type "text/javascript"}]]))
 
-(spit "./public/index.html" (index-html html-data))
+(spit "./public/index.html" (index-html))
