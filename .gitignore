@@ -1,5 +1,4 @@
 /node_modules
-/public
 /target
 /checkouts
 /src/gen
@@ -13,7 +12,6 @@ pom.xml.asc
 .cpcache
 .idea
 .lein-*
-.nrepl-*
 .DS_Store
 .calva
 .cljs_node_repl
@@ -23,3 +21,7 @@ pom.xml.asc
 .clj-kondo
 .lsp
 yarn.lock
+
+/public/js
+/public/css
+/public/index.html
