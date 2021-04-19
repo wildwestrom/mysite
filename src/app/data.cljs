@@ -1,6 +1,6 @@
 (ns app.data)
 
-(def title "My Personal Website")
+(def title "West's Personal Website")
 (def email "c.westrom@westrom.xyz")
 (def gitlab "https://gitlab.com/wildwestrom")
 (def discord "@West#7965")
