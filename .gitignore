@@ -21,7 +21,3 @@ pom.xml.asc
 .clj-kondo
 .lsp
 yarn.lock
-
-/public/js
-/public/css
-/public/index.html

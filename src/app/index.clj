@@ -1,7 +1,7 @@
 (ns app.index
   (:require [hiccup.page :as hiccup]
             [clojure.string :as string]
-            [app.data :as data]))
+            [app.data :refer [data]]))
 
 (def noscript? false)
 
@@ -11,14 +11,14 @@
                 [:head {}
                  [:meta {:charset "UTF-8"}]
                  [:meta {:name    "description",
-                         :content data/description}]
+                         :content (:descriptiond data)}]
                  [:meta {:name    "keywords",
-                         :content (string/join "," data/keywords)}]
+                         :content (string/join "," (:keywords data))}]
                  [:meta {:name    "author",
-                         :content data/author}]
+                         :content (:author data)}]
                  [:meta {:name    "viewport",
                          :content "width=device-width, initial-scale=1.0"}]
-                 [:title {} data/title]
+                 [:title {} (:title data)]
                  [:link {:rel  "stylesheet",
                          :href "/css/main.css"}]]
                 [:body {:id "body"}
