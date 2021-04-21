@@ -10,4 +10,5 @@
    :author      "Christian Westrom"
    :year        "2021"
    :description "West's Site: A blog, projects, CV, and more."
-   :keywords}) ["programming" "clojure" "clojurescript" "web development" "javascript"]
+   :keywords    '["programming" "clojure" "clojurescript" "web development" "javascript"]
+   })
