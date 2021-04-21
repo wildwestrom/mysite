@@ -10,6 +10,7 @@
         "watch:shadow": "shadow-cljs watch app",
         "start": "run-p new-index watch:css watch:shadow",
         "release": "yarn build && shadow-cljs release app",
+        "clean": "rm -rf public/js public/css public/index.html"
     },
     "devDependencies": {
         "@fullhuman/postcss-purgecss": "^4.0.3",
