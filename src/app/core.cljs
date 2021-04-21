@@ -91,7 +91,7 @@ Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISH
     [:br]
     "Copyright © " (:year data) " " (:author data) " "
     [:br {:class '[xs:hidden block]}]
-    (generic-link data/email data/email true)]])
+    (generic-link (:email data) (:email data) true)]])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Pages
@@ -124,9 +124,9 @@ Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISH
       "We should get lunch sometime."]
      [:ul
       [:li {:class '[p-2]}
-       (generic-link data/email data/email true)]
+       (generic-link (:email data) (:email data) true)]
       [:li {:class '[p-2]}
-       (generic-link data/gitlab data/gitlab)]]]]
+       (generic-link (:gitlab data) (:gitlab data))]]]]
    [license]])
 
 ;; Routing
