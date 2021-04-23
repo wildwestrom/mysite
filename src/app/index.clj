@@ -1,9 +1,12 @@
 (ns app.index
   (:require [hiccup.page :as hiccup]
             [clojure.string :as string]
-            [app.data :refer [data]]))
+            [clojure.edn :as edn]))
 
 (def noscript? false)
+
+(def data
+  (edn/read-string (slurp "./site-data.edn")))
 
 (defn index-html
   []
@@ -11,7 +14,7 @@
                 [:head {}
                  [:meta {:charset "UTF-8"}]
                  [:meta {:name    "description",
-                         :content (:descriptiond data)}]
+                         :content (:description data)}]
                  [:meta {:name    "keywords",
                          :content (string/join "," (:keywords data))}]
                  [:meta {:name    "author",
@@ -26,6 +29,6 @@
                    [:noscript {} "You need to enable JavaScript to run this app."]
                    nil)
                  [:div {:id "app"}]
-                 [:script {:src "/js/main.js", :type "text/javascript"}]]))
+                 [:script {:src "/js/compiled/main.js", :type "text/javascript"}]]))
 
 (spit "./public/index.html" (index-html))

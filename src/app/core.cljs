@@ -1,26 +1,37 @@
 (ns app.core
-  (:require [reagent.core :as r]
+  (:require [app.data :refer [data]]
+            [clojure.edn :as edn]
+            [reagent.core :as r]
             [reagent.dom :as dom]
-            [app.data :refer [data]]
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]
             [reitit.coercion.spec :as rss]))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Data
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def root-classes '[bg-white dark:bg-black])
 
 (def blog-post
   {:title "Lorem Ipsum",
    :date  "2021 4 20",
-   :body  "Yeah there's nothing much to see here. Sooner or later I'll get around to implementing my blog. It'll be pretty sweet. It's gonna parse org-mode documents and give a little preview in this here box. Trust me, you're gonna love it.
-Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISHOLE!"})
+   :body  "Yeah there's nothing much to see here. Sooner or later I'll get around to implementing my blog. It'll be pretty sweet. It's gonna parse org-mode documents and give a little preview in this here box. Trust me, you're gonna love it. "})
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (def data
+;;   {:title       "West's Personal Website"
+;;    :email       "c.westrom@westrom.xyz"
+;;    :gitlab      "https://gitlab.com/wildwestrom"
+;;    :github      "https://github.com/wildwestrom"
+;;    :discord     "@West#7965"
+;;    :author      "Christian Westrom"
+;;    :year        "2021"
+;;    :description "West's Site: A blog, projects, CV, and more."
+;;    :keywords    ["programming" "clojure" "clojurescript" "web development" "javascript"]})
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Components
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn navbar []
   [:nav {:class '[bg-black bg-opacity-50
@@ -29,8 +40,7 @@ Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISH
                   grid grid-flow-col grid-cols-2
                   underline italic]}
    [:div {:class '[p-2]}
-    [:a {:href (rfe/href ::homepage) :title "Home"}
-     [:h1 {:class '[]} "Home"]]]
+    [:a {:href (rfe/href ::homepage) :title "Home"} "Home"]]
    [:div {:class '[p-2 justify-end inline-flex]}
     [:div {:class '[px-2]}
      [:a {:href (rfe/href ::blog) :title "Blog"} "Blog"]]
@@ -93,9 +103,9 @@ Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISH
     [:br {:class '[xs:hidden block]}]
     (generic-link (:email data) (:email data) true)]])
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Pages
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn home-page []
   [:div {:class '[min-h-screen flex flex-col]}
@@ -158,7 +168,7 @@ Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISH
   (rfe/start!
     (rf/router routes {:data {:coercion rss/coercion}})
     (fn [m] (reset! match m))
-    ;; set to false to enable HistoryAPI
+    ;; Set to false to enable history and not use # symbols in url.
     {:use-fragment true}))
 
 ;; Main Page
@@ -172,22 +182,21 @@ Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISH
        (let [view (:view (:data @match))]
          [view @match]))]))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Render
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn inject-styles [classes]
   (doseq [class classes]
     (.classList.add
       (.getElementById js/document "root") class)))
 
-(defn mount-root [c]
-  (dom/render [c]
-              (.getElementById js/document "app")))
+(defn mount-root [component]
+  (dom/render component (.getElementById js/document "app")))
 
 (defn ^:dev/after-load start []
-(js/console.log "start")
-(mount-root app))
+  (js/console.log "start")
+  (mount-root app))
 
 (defn ^:export init []
   (js/console.log "init")
