@@ -1,8 +1,5 @@
 {
-    "name": "shadow-static",
-    "version": "0.0.3",
     "private": true,
-    "license": "AGPL-3.0-or-later",
     "scripts": {
         "new-index": "if [ ! -d \"public\" ]; then mkdir public/; fi && clojure -M src/app/index.clj",
         "build": "yarn new-index && export NODE_ENV=production && postcss src/css/main.css -o public/css/main.css",

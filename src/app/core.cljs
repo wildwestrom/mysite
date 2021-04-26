@@ -6,8 +6,7 @@
 
 (def blog-post
   {:title "Lorem Ipsum"
-   :body  "Yeah there's nothing much to see here. Sooner or later I'll get around to implementing my blog. It'll be pretty sweet. It's gonna parse org-mode documents and give a little preview in this here box. Trust me, you're gonna love it.
-Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISHOLE!"})
+   :body  "Yeah there's nothing much to see here."})
 
 ;; Views
 (defn topbar [message title route]
@@ -38,7 +37,7 @@ Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISH
 (def content
   [:div {:id    "content"
          :class '[min-h-screen flex flex-col]}
-   (topbar "West's Homepage!" "Home" "/")
+   (topbar "My Homepage!" "Home" "/")
    [:div {:class '[flex-grow flex justify-center items-center]}
     [:h2 {:class '[text-5xl p-4 italic]}
      "Welcome," [:br {:class '[sm:block hidden]}] " to my site!"]]])
@@ -54,12 +53,10 @@ Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISH
 (def license
   [:footer {:class '[p-4 text-xs text-center self-center]}
    [:p "My "
-    (generic-link "https://gitlab.com/wildwestrom/mysite" "static site generator")
+    (generic-link "https://github.com/wildwestrom/mysite" "static site generator")
     " is licensed" [:br {:class '[xs:block hidden]}]  " under the "
     (generic-link "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
     "." [:br]
-    "The rest is my own original work" [:br {:class '[xs:block hidden]}]
-    " unless otherwise specified." [:br]
     "Copyright © " data/year " " data/author " " [:br {:class '[xs:block hidden]}]
     (generic-link data/email data/email true)]])
 
@@ -75,7 +72,7 @@ Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISH
       [:li {:class '[p-2]}
        (generic-link data/email data/email true)]
       [:li {:class '[p-2]}
-       (generic-link data/gitlab data/gitlab)]]]]
+       (generic-link data/github data/github)]]]]
    license])
 
 (defn app []

@@ -1,10 +1,12 @@
 (ns app.data)
 
-(def title "My Personal Website")
-(def email "c.westrom@westrom.xyz")
-(def gitlab "https://gitlab.com/wildwestrom")
-(def discord "@West#7965")
-(def author "Christian Westrom")
+;; Add your metadata here.
+
+(def title "My Awesome Website")
+(def email "GreatWriter@example.com")
+(def github "https://github.com/username")
+(def discord "@Person#1111")
+(def author "Great Writer")
 (def year "2021")
-(def description "West's Site: A blog, projects, CV, and more.")
+(def description "Add a description here.")
 (def keywords ["programming" "clojure" "clojurescript" "web development" "javascript"])
