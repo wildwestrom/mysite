@@ -1,8 +1,9 @@
 (ns app.core
-  (:require [app.data :refer [data]]
-            [clojure.edn :as edn]
+  (:require [clojure.edn :as edn]
+            [clojure.string]
             [reagent.core :as r]
-            [reagent.dom :as dom]
+            [reagent.dom]
+            [shadow.resource]
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]
             [reitit.coercion.spec :as rss]))
@@ -16,18 +17,9 @@
 (def blog-post
   {:title "Lorem Ipsum",
    :date  "2021 4 20",
-   :body  "Yeah there's nothing much to see here. Sooner or later I'll get around to implementing my blog. It'll be pretty sweet. It's gonna parse org-mode documents and give a little preview in this here box. Trust me, you're gonna love it. "})
+   :body  "Yeah there's nothing much to see here."})
 
-;; (def data
-;;   {:title       "West's Personal Website"
-;;    :email       "c.westrom@westrom.xyz"
-;;    :gitlab      "https://gitlab.com/wildwestrom"
-;;    :github      "https://github.com/wildwestrom"
-;;    :discord     "@West#7965"
-;;    :author      "Christian Westrom"
-;;    :year        "2021"
-;;    :description "West's Site: A blog, projects, CV, and more."
-;;    :keywords    ["programming" "clojure" "clojurescript" "web development" "javascript"]})
+(def data (edn/read-string (shadow.resource/inline "./site-data.edn")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Components
@@ -45,8 +37,7 @@
     [:div {:class '[px-2]}
      [:a {:href (rfe/href ::blog) :title "Blog"} "Blog"]]
     [:div {:class '[px-2]}
-     [:a {:href (rfe/href ::contact) :title "Contact"} "Contact"]]
-    ]])
+     [:a {:href (rfe/href ::contact) :title "Contact"} "Contact"]]]])
 
 (defn blog-post-preview []
   [:div {:class '[border-2 rounded border-gray-500
@@ -88,7 +79,7 @@
   [:footer {:class '[p-2 text-xs text-center self-center]}
    [:p "My "
     (generic-link
-      "https://gitlab.com/wildwestrom/mysite" "static site generator")
+      "https://github.com/wildwestrom/mysite" "static site generator")
     " is licensed"
     [:br {:class '[xs:hidden block]}]
     " under the "
@@ -108,26 +99,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn home-page []
-  [:div {:class '[min-h-screen flex flex-col]}
-   [navbar]
+  [:div {:class '[flex flex-col flex-grow]}
    [:div {:class '[flex-grow flex justify-center items-center]}
     [:h2 {:class '[text-5xl p-4 italic]}
      "Welcome," [:br {:class '[sm:block hidden]}] " to my site!"]]])
 
 (defn blog-preview-page []
-  [:div {:class '[min-h-screen]}
-   [navbar]
+  [:div {:class '[flex-grow]}
    (blog-post-preview)])
 
 (defn blog-post-page []
-  [:div {:class '[min-h-screen]}
-   [navbar]
-   (blog-post-main-view blog-post)
-   ])
+  [:div {:class '[]}
+   (blog-post-main-view blog-post)])
 
 (defn contact-page []
-  [:div {:class '[min-h-screen flex flex-col items-stretch]}
-   [navbar]
+  [:div {:class '[flex-grow flex flex-col items-stretch]}
    [:div {:class '[flex-grow self-center flex flex-col]}
     [:div {:class '[p-4 flex flex-col flex-grow justify-center]}
      [:h2 {:class '[pb-4 text-2xl]} "You seem pretty sweet." [:br]
@@ -136,10 +122,12 @@
       [:li {:class '[p-2]}
        (generic-link (:email data) (:email data) true)]
       [:li {:class '[p-2]}
-       (generic-link (:gitlab data) (:gitlab data))]]]]
+       (generic-link (:github data) (:github data))]]]]
    [license]])
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Routing
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def routes
   [["/"
@@ -171,16 +159,19 @@
     ;; Set to false to enable history and not use # symbols in url.
     {:use-fragment true}))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Main Page
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn app []
-  (let [state (r/atom 0)]
-    [:div {:class '[text-gray-800 bg-gray-50
-                    dark:text-gray-300 dark:bg-gray-700
-                    subpixel-antialiased]}
-     (if @match
-       (let [view (:view (:data @match))]
-         [view @match]))]))
+  [:div {:class '[text-gray-800 bg-gray-50
+                  dark:text-gray-300 dark:bg-gray-700
+                  subpixel-antialiased min-h-screen
+                  flex flex-col]}
+   [navbar]
+   (if @match
+     (let [view (:view (:data @match))]
+       [view @match]))])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Render
@@ -192,7 +183,7 @@
       (.getElementById js/document "root") class)))
 
 (defn mount-root [component]
-  (dom/render component (.getElementById js/document "app")))
+  (reagent.dom/render component (.getElementById js/document "app")))
 
 (defn ^:dev/after-load start []
   (js/console.log "start")

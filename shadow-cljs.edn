@@ -15,8 +15,7 @@
          {:init-fn app.core/init}}
 
         :devtools
-        {
-         ;; before live-reloading any code call this function
+        {;; before live-reloading any code call this function
          :before-load app.core/stop
          ;; after live-reloading finishes call this function
          :after-load  app.core/start

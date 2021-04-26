@@ -12,6 +12,7 @@ pom.xml.asc
 .cpcache
 .idea
 .lein-*
+.nrepl-*
 .DS_Store
 .calva
 .cljs_node_repl

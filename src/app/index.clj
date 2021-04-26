@@ -3,10 +3,10 @@
             [clojure.string :as string]
             [clojure.edn :as edn]))
 
-(def noscript? false)
+(def noscript-msg? true)
 
 (def data
-  (edn/read-string (slurp "./site-data.edn")))
+  (edn/read-string (slurp "src/app/site-data.edn")))
 
 (defn index-html
   []
@@ -25,10 +25,10 @@
                  [:link {:rel  "stylesheet",
                          :href "/css/main.css"}]]
                 [:body {:id "body"}
-                 (if noscript?
-                   [:noscript {} "You need to enable JavaScript to run this app."]
-                   nil)
                  [:div {:id "app"}]
-                 [:script {:src "/js/compiled/main.js", :type "text/javascript"}]]))
+                 [:script {:src "/js/compiled/main.js", :type "text/javascript"}]
+                 (if noscript-msg?
+                   [:noscript {} "You need to enable JavaScript to run this app."]
+                   nil)]))
 
 (spit "./public/index.html" (index-html))

@@ -6,8 +6,7 @@
         "watch:css": "postcss src/css/main.css -o public/css/main.css --watch",
         "watch:shadow": "shadow-cljs watch app",
         "start": "run-p new-index watch:css watch:shadow",
-        "release": "yarn build && shadow-cljs release app",
-        "clean": "rm -rf target; rm -rf public/js/compiled public/css public/index.html"
+        "release": "yarn build && shadow-cljs release app"
     },
     "devDependencies": {
         "@fullhuman/postcss-purgecss": "^4.0.3",
