@@ -1,0 +1,9 @@
+[{:title   "Lorem Ipsum",
+  :post-id "2903ec1d",
+  :date    "2021 4 20",
+  :body    "Yeah there's nothing much to see here."}
+
+ {:title   "Lorem Ipsum 2",
+  :post-id "b939fc4f",
+  :date    "1969 4 20",
+  :body    "Nothing much to see here either."}]

@@ -4,7 +4,6 @@
             [reagent.core :as r]
             [reagent.dom :as r.dom]
             [shadow.resource]
-            ;; [spec-tools.data-spec :as ds]
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]
             [reitit.coercion.spec :as rss]))
@@ -13,12 +12,9 @@
 ;; Data
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def root-classes '[bg-white dark:bg-black])
+(defonce match (r/atom nil))
 
-(def blog-post
-  {:title "Lorem Ipsum",
-   :date  "2021 4 20",
-   :body  "Yeah there's nothing much to see here."})
+(def blog-posts (edn/read-string (shadow.resource/inline "./blog-posts.edn")))
 
 (def data (edn/read-string (shadow.resource/inline "./site-data.edn")))
 
@@ -34,42 +30,48 @@
                   grid grid-flow-col grid-cols-2
                   underline italic]}
    [:div {:class '[p-2]}
-    [:a {:href (rfe/href ::homepage) :title "Home"} "Home"]]
+    [:a {:href (rfe/href ::home) :title "Home"} "Home"]]
    [:div {:class '[p-2 justify-end inline-flex]}
     [:div {:class '[px-2]}
      [:a {:href (rfe/href ::blog) :title "Blog"} "Blog"]]
     [:div {:class '[px-2]}
      [:a {:href (rfe/href ::contact) :title "Contact"} "Contact"]]]])
 
-(defn blog-post-preview []
+(defn display-date
+  [date-string]
+  (let [date (js/Date. date-string)]
+    (. date (toLocaleDateString))))
+
+(defn blog-post-preview
+  [blog-post]
   [:div {:class '[border-2 rounded border-gray-500
                   m-8 pt-2 pb-4 px-4
                   bg-gray-200 dark:bg-gray-800]}
    [:div {:class '[flex]}
-    [:a {:href  (rfe/href ::post {:id (clojure.string/replace (:title blog-post) #"\s" "-")})
+    [:a {:href  (rfe/href ::post {:id (:post-id blog-post)})
          :class '[]}
      [:h1 {:class '[text-2xl]} (:title blog-post)]]]
    [:p {:class '[text-xs py-0.5 text-gray-500]}
-    (let [date (js/Date. (:date blog-post))]
-      (. date (toLocaleDateString)))]
+    (display-date (:date blog-post))]
    [:p {:class '[text-sm overflow-ellipsis line-clamp-5
                  text-gray-600 dark:text-gray-400]}
     (:body blog-post)]])
 
-(defn blog-post-main-view [blog-post]
+(defn blog-post-main-view
+  [blog-post]
   [:article {:class '[m-2 mt-6 pt-2 pb-4 px-2 sm:px-8]}
    [:div {:class '[prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto]}
     [:h1 (:title blog-post)]
 
     [:p {:class '[py-2 text-gray-700]}
      "Written on "
-     (let [date (js/Date. (:date blog-post))]
-       (. date (toLocaleDateString)))]
+     (display-date (:date blog-post))]
 
     [:p {:class '[align-self-end px-2 mt-10]}
      (:body blog-post)]]])
 
-(defn generic-link [link message & mail?]
+(defn generic-link
+  [link message & mail?]
   (let [link (cond (not (nil? mail?)) (str "mailto: " link)
                    :else              link)]
     [:a {:href   link
@@ -77,7 +79,8 @@
          :class  '[text-blue-500 hover:text-blue-600
                    dark:text-blue-300 dark:hover:text-blue-200]} message]))
 
-(defn license []
+(defn license
+  []
   [:footer {:class '[p-2 text-xs text-center self-center]}
    [:p "West's "
     (generic-link
@@ -100,21 +103,29 @@
 ;; Pages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn home-page []
+(defn home-page
+  []
   [:div {:class '[flex flex-col flex-grow]}
    [:div {:class '[flex-grow flex justify-center items-center]}
     [:h2 {:class '[text-5xl p-4 italic]}
      "Welcome," [:br {:class '[sm:block hidden]}] " to my site!"]]])
 
-(defn blog-preview-page []
+(defn blog-preview-page
+  []
   [:div {:class '[flex-grow]}
-   (blog-post-preview)])
+   (for [post blog-posts]
+     ^{:key (:post-id post)}
+     [blog-post-preview post])])
 
-(defn blog-post-page []
-  [:div {:class '[]}
-   (blog-post-main-view blog-post)])
+(defn blog-post-page
+  []
+  (let [id   (->> @match :parameters :path :id)
+        post (first (filter #(= id (:post-id %)) blog-posts))]
+    [:div {:class '[]}
+     (blog-post-main-view post)]))
 
-(defn contact-page []
+(defn contact-page
+  []
   [:div {:class '[flex-grow flex flex-col items-stretch]}
    [:div {:class '[flex-grow self-center flex flex-col]}
     [:div {:class '[p-4 flex flex-col flex-grow justify-center]}
@@ -131,11 +142,9 @@
 ;; Routing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defonce match (r/atom nil))
-
 (def routes
   [["/"
-    {:name ::homepage
+    {:name ::home
      :view home-page}]
 
    ["/blog"
@@ -143,10 +152,9 @@
      :view blog-preview-page}]
 
    ["/blog/:id"
-    {:name ::post
-     :view blog-post-page
-     ;; :parameters {:path  {:id int?}
-     ;;              :query {(ds/opt :foo) keyword?}}
+    {:name       ::post
+     :view       blog-post-page
+     :parameters {:path {:id string?}}
      }]
 
    ["/contact"
@@ -154,20 +162,23 @@
      :view contact-page}]
    ])
 
-(defn router-init! []
+(def router
+  (rf/router routes {:data {:coercion rss/coercion}}))
+
+(defn router-init!
+  []
   (rfe/start!
-    (rf/router routes {:data {:coercion rss/coercion}})
+    router
     (fn [m] (reset! match m))
     ;; set to false to enable HistoryAPI
     {:use-fragment true}))
-
-(router-init!)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Main Page
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn app []
+(defn app
+  []
   [:div {:class '[text-gray-800 bg-gray-50
                   dark:text-gray-300 dark:bg-gray-700
                   subpixel-antialiased min-h-screen
@@ -181,23 +192,21 @@
 ;; Render
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn inject-styles [classes]
-  (doseq [class classes]
-    (.classList.add
-      (.getElementById js/document "root") class)))
-
-(defn mount-root [component]
+(defn mount-root
+  [component]
   (reagent.dom/render component (.getElementById js/document "app")))
 
-(defn ^:dev/after-load start []
+(defn ^:dev/after-load start
+  []
   (js/console.log "start")
   (mount-root [app]))
 
-(defn ^:export init []
+(defn ^:export init
+  []
   (js/console.log "init")
   (router-init!)
-  (inject-styles root-classes)
   (start))
 
-(defn ^:dev/before-load stop []
+(defn ^:dev/before-load stop
+  []
   (js/console.log "stop"))
