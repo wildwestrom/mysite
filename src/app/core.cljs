@@ -2,8 +2,9 @@
   (:require [clojure.edn :as edn]
             [clojure.string]
             [reagent.core :as r]
-            [reagent.dom]
+            [reagent.dom :as r.dom]
             [shadow.resource]
+            ;; [spec-tools.data-spec :as ds]
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]
             [reitit.coercion.spec :as rss]))
@@ -25,7 +26,8 @@
 ;; Components
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn navbar []
+(defn navbar
+  []
   [:nav {:class '[bg-black bg-opacity-50
                   p-2 text-lg font-serif
                   text-gray-50 dark:text-gray-300
@@ -77,7 +79,7 @@
 
 (defn license []
   [:footer {:class '[p-2 text-xs text-center self-center]}
-   [:p "My "
+   [:p "West's "
     (generic-link
       "https://github.com/wildwestrom/mysite" "static site generator")
     " is licensed"
@@ -129,6 +131,8 @@
 ;; Routing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defonce match (r/atom nil))
+
 (def routes
   [["/"
     {:name ::homepage
@@ -150,14 +154,14 @@
      :view contact-page}]
    ])
 
-(defonce match (r/atom nil))
-
 (defn router-init! []
   (rfe/start!
     (rf/router routes {:data {:coercion rss/coercion}})
     (fn [m] (reset! match m))
-    ;; Set to false to enable history and not use # symbols in url.
+    ;; set to false to enable HistoryAPI
     {:use-fragment true}))
+
+(router-init!)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Main Page
@@ -187,7 +191,7 @@
 
 (defn ^:dev/after-load start []
   (js/console.log "start")
-  (mount-root app))
+  (mount-root [app]))
 
 (defn ^:export init []
   (js/console.log "init")
