@@ -47,13 +47,16 @@ jobs:
          name: finished build
          path: ~/repo/public
   deploy:
-    machine:
-      enabled: true
+    docker:
+      - image: cimg/base
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - $RASPI_DEPLOY_SSH_FINGERPRINT
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST ""
+            scp -q -P $RASPI_DEPLOY_PORT -r ~/repo/public/* deployer@westrom.xyz:/var/www/westrom.xyz/html
 
 workflows:
   version: 2
