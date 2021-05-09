@@ -14,9 +14,11 @@
 
 (defonce match (r/atom nil))
 
-(def blog-posts (edn/read-string (shadow.resource/inline "./blog-posts.edn")))
+(def blog-posts
+  (edn/read-string (shadow.resource/inline "posts/blog-posts.edn")))
 
-(def data (edn/read-string (shadow.resource/inline "./site-data.edn")))
+(def data
+  (edn/read-string (shadow.resource/inline "config/site-data.edn")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Components
@@ -154,13 +156,11 @@
    ["/blog/:id"
     {:name       ::post
      :view       blog-post-page
-     :parameters {:path {:id string?}}
-     }]
+     :parameters {:path {:id string?}}}]
 
    ["/contact"
     {:name ::contact
-     :view contact-page}]
-   ])
+     :view contact-page}]])
 
 (def router
   (rf/router routes {:data {:coercion rss/coercion}}))

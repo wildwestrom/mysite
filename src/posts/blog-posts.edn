@@ -6,4 +6,14 @@
  {:title   "Lorem Ipsum 2",
   :post-id "b939fc4f",
   :date    "1969 4 20",
+  :body    "Nothing much to see here either."}
+
+ {:title   "Lorem Ipsum 3",
+  :post-id "hr9ftujw",
+  :date    "1969 4 20",
+  :body    "Nothing much to see here either."}
+
+ {:title   "Lorem Ipsum 4",
+  :post-id "zu35z0r0",
+  :date    "1969 4 20",
   :body    "Nothing much to see here either."}]
