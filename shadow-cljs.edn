@@ -1,15 +1,25 @@
 ;; shadow-cljs configuration
 {:deps true
 
+ ;; set an nrepl port for connection to a REPL.
  :nrepl
  {:port 3333}
 
  :builds
  {:app {:target     :browser
-        :output-dir "public/js"
-        :asset-path "/js"
-        :modules    {:main
-                     {:init-fn app.core/init}}
-        :devtools   {:after-load app.core/start
-                     :http-root  "public"
-                     :http-port  3000}}}}
+        :output-dir "public/js/compiled"
+        :asset-path "/js/compiled"
+
+        :modules
+        {:main
+         {:init-fn app.core/init}}
+
+        :devtools
+        {;; before live-reloading any code call this function
+         :before-load app.core/stop
+         ;; after live-reloading finishes call this function
+         :after-load  app.core/start
+         ;; serve the public directory over http at port 3000
+         :http-root   "public"
+         :http-port   3000
+         :preloads    [devtools.preload]}}}}
