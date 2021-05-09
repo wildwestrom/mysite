@@ -17,32 +17,27 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          name: Restore Yarn and Clojure Dependency Cache
+          name: Restore Node and Clojure Dependency Cache
           keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
-            - v1-dependencies-{{ checksum "deps.edn" }}
+            - 'clj-node-{{ checksum "deps.edn" }}-{{ checksum "package.json" }}'
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-            - yarn-packages-
+            - 'clj-node'
 
       - run:
-          name: Install Yarn Dependencies
-          command: yarn install --immutable
+          name: Install Node Dependencies
+          command: yarn install
 
       - run:
           name: Run the project
           command: yarn release
 
       - save_cache:
-          name: Save Yarn Dependency Cache
+          name: Save Node Dependency Cache
           paths:
+            - ~/.m2
             - ~/.cache/yarn
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-      - save_cache:
-          name: Save Clojure Dependency Cache
-          paths:
-          - ~/.m2
-          key: v1-dependencies-{{ checksum "deps.edn" }}
+            - ~/repo/node_modules
+          key: 'clj-node-{{ checksum "deps.edn" }}-{{ checksum "package.json" }}'
       - store_artifacts:
          name: finished build
          path: ~/repo/public
