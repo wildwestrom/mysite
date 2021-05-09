@@ -43,17 +43,19 @@ jobs:
           paths:
           - ~/.m2
           key: v1-dependencies-{{ checksum "deps.edn" }}
-      - store_artifacts:
-         name: finished build
-         path: ~/repo/public
+
   deploy:
-    machine:
-      enabled: true
+    docker:
+      - image: cimg/base
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "$RASPI_DEPLOY_SSH_FINGERPRINT"
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST ""
+            ssh deployer@westrom.xyz -p $RASPI_DEPLOY_PORT "rm -rf /var/www/westrom.xyz/html/*"
+            scp deployer@westrom.xyz -P $RASPI_DEPLOY_PORT -r ~/repo/public/* deployer@westrom.xyz:/var/www/westrom.xyz/html
 
 workflows:
   version: 2
