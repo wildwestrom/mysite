@@ -17,14 +17,14 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          name: Restore Node and Clojure Dependency Cache
+          name: Restore node and Clojure dependency cache.
           keys:
             - 'clj-node-{{ checksum "deps.edn" }}-{{ checksum "package.json" }}'
             # fallback to using the latest cache if no exact match is found
             - 'clj-node'
 
       - run:
-          name: Install Node Dependencies
+          name: Install node dependencies.
           command: yarn install
 
       - run:
@@ -32,7 +32,7 @@ jobs:
           command: yarn release
 
       - save_cache:
-          name: Save Node Dependency Cache
+          name: Save dependency cache.
           paths:
             - ~/.m2
             - ~/.cache/yarn
@@ -43,7 +43,7 @@ jobs:
          path: ~/repo/public
   deploy:
     docker:
-      - image: cimg/base
+      - image: circleci/base
     steps:
       - add_ssh_keys:
           fingerprints:
