@@ -38,16 +38,13 @@ jobs:
             - ~/.cache/yarn
             - ~/repo/node_modules
           key: 'clj-node-{{ checksum "deps.edn" }}-{{ checksum "package.json" }}'
-      - store_artifacts:
-         name: finished build
-         path: ~/repo/public
   deploy:
     docker:
       - image: cimg/base:2021.04
     steps:
       - add_ssh_keys:
           fingerprints:
-            - $RASPI_DEPLOY_SSH_FINGERPRINT
+            - $RASPI_DEPLOY_FINGERPRINT
       - run:
           name: Deploy Over SSH
           command: |
