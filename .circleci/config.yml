@@ -50,7 +50,7 @@ jobs:
           name: Deploy with scp.
           command: |
             ssh-keyscan -p 34334 westrom.xyz >> ~/.ssh/known_hosts
-            scp -P 34334 -o "StrictHostKeyChecking=no" -r public/* deployer@westrom.xyz:/var/www/westrom.xyz/html/
+            rsync -avzO --no-p -e 'ssh -p 34334' --progress ~/repo/public/ deployer@westrom.xyz:/var/www/westrom.xyz/html/
 
 workflows:
   version: 2
