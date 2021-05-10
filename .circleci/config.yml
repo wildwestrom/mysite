@@ -45,7 +45,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "7a:b1:64:0b:dd:23:26:32:4e:a8:26:df:26:a3:1e:59"
+            - "f1:8b:23:49:dd:04:44:48:91:fe:d3:6f:66:b3:91:17"
       - run:
           name: Deploy with rsync.
           command: |
