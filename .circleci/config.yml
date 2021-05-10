@@ -50,7 +50,7 @@ jobs:
           command: |
             sudo apt update
             sudo apt install rsync
-            rsync -avzO --no-p --inplace -e 'ssh -p $RASPI_DEPLOY_PORT' --progress ~/repo/public/ deployer@westrom.xyz:/var/www/westrom.xyz/html/
+            rsync -avzO --no-p --inplace -e 'ssh -p 34334' --progress ~/repo/public/ deployer@westrom.xyz:/var/www/westrom.xyz/html/
 
 workflows:
   version: 2
