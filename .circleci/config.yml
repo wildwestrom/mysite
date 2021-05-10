@@ -17,14 +17,14 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          name: Restore node and Clojure dependency cache
+          name: Restore node and Clojure dependency cache.
           keys:
             - 'clj-node-{{ checksum "deps.edn" }}-{{ checksum "package.json" }}'
             # fallback to using the latest cache if no exact match is found
             - 'clj-node'
 
       - run:
-          name: Install node dependencies
+          name: Install node dependencies.
           command: yarn install
 
       - run:
@@ -32,7 +32,7 @@ jobs:
           command: yarn release
 
       - save_cache:
-          name: Save dependency cache
+          name: Save dependency cache.
           paths:
             - ~/.m2
             - ~/.cache/yarn
@@ -47,10 +47,10 @@ jobs:
           fingerprints:
             - "f1:8b:23:49:dd:04:44:48:91:fe:d3:6f:66:b3:91:17"
       - run:
-          name: Install rsync
+          name: Install rsync.
           command: sudo apt update && sudo apt install rsync
       - run:
-          name: Deploy via rsync
+          name: Deploy via rsync.
           command: |
             ssh-keyscan -p 34334 westrom.xyz >> ~/.ssh/known_hosts
             rsync -avzO --no-p -e 'ssh -p 34334' --progress ~/repo/public/ deployer@westrom.xyz:/var/www/westrom.xyz/html/
