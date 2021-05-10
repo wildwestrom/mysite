@@ -49,6 +49,7 @@ jobs:
       - run:
           name: Deploy with rsync.
           command: |
+            echo '[westrom.xyz]:34334 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAdr/wHib41Sy3nWZg/Yv8p04IjHJHR5+Ph9iH3ojBJ8swLz4TyVNWcpCQx276LQ9gjQsoAaQCyfDT0mlTnApaA= >> ~/.ssh/known_hosts'
             scp -P 34334 -o "StrictHostKeyChecking=no" -r public/* deployer@westrom.xyz:/var/www/westrom.xyz/html/
 
 workflows:
