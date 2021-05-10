@@ -45,11 +45,11 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "56:e7:b9:61:77:38:dd:88:58:b1:f9:f9:7a:55:fd:e5"
+            - "2f:21:9f:f7:7a:7a:05:2c:e6:d0:21:7f:f2:a4:8d:ba"
       - run:
           name: Deploy with rsync.
           command: |
-            echo '[westrom.xyz]:34334 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAdr/wHib41Sy3nWZg/Yv8p04IjHJHR5+Ph9iH3ojBJ8swLz4TyVNWcpCQx276LQ9gjQsoAaQCyfDT0mlTnApaA= >> ~/.ssh/known_hosts'
+            echo '[westrom.xyz]:34334 rsa AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAdr/wHib41Sy3nWZg/Yv8p04IjHJHR5+Ph9iH3ojBJ8swLz4TyVNWcpCQx276LQ9gjQsoAaQCyfDT0mlTnApaA= >> ~/.ssh/known_hosts'
             scp -P 34334 -o "StrictHostKeyChecking=no" -r public/* deployer@westrom.xyz:/var/www/westrom.xyz/html/
 
 workflows:
