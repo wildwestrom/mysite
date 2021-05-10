@@ -45,7 +45,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "2f:21:9f:f7:7a:7a:05:2c:e6:d0:21:7f:f2:a4:8d:ba"
+            - "7a:b1:64:0b:dd:23:26:32:4e:a8:26:df:26:a3:1e:59"
       - run:
           name: Deploy with scp.
           command: |
