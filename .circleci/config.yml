@@ -48,7 +48,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            scp -P $RASPI_DEPLOY_PORT -r ~/repo/public/* deployer@westrom.xyz:/var/www/westrom.xyz/html
+            rsync -avzO --no-p -e 'ssh -p $RASPI_DEPLOY_PORT' --progress ~/repo/public/ deployer@westrom.xyz:/var/www/westrom.xyz/html/
 
 workflows:
   version: 2
