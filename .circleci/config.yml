@@ -47,8 +47,9 @@ jobs:
           fingerprints:
             - "7a:b1:64:0b:dd:23:26:32:4e:a8:26:df:26:a3:1e:59"
       - run:
-          name: Deploy with scp.
+          name: Deploy with rsync.
           command: |
+            sudo apt update && sudo apt install rsync
             ssh-keyscan -p 34334 westrom.xyz >> ~/.ssh/known_hosts
             rsync -avzO --no-p -e 'ssh -p 34334' --progress ~/repo/public/ deployer@westrom.xyz:/var/www/westrom.xyz/html/
 
