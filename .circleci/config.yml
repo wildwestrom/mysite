@@ -49,7 +49,7 @@ jobs:
           name: Deploy with rsync.
           command: |
             sudo apt update && sudo apt install rsync
-            echo 'westrom.xyz:34334 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAdr/wHib41Sy3nWZg/Yv8p04IjHJHR5+Ph9iH3ojBJ8swLz4TyVNWcpCQx276LQ9gjQsoAaQCyfDT0mlTnApaA=' >> ~/.ssh/known_hosts
+            echo '[westrom.xyz]:34334 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAdr/wHib41Sy3nWZg/Yv8p04IjHJHR5+Ph9iH3ojBJ8swLz4TyVNWcpCQx276LQ9gjQsoAaQCyfDT0mlTnApaA=' >> ~/.ssh/known_hosts
             rsync -avzO --no-p --inplace -e 'ssh -p 34334' --progress ~/repo/public/ deployer@westrom.xyz:/var/www/westrom.xyz/html/
 
 workflows:
