@@ -44,11 +44,11 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - $RASPI_DEPLOY_FINGERPRINT
+            - "56:e7:b9:61:77:38:dd:88:58:b1:f9:f9:7a:55:fd:e5"
       - run:
           name: Deploy Over SSH
           command: |
-            scp -q -P $RASPI_DEPLOY_PORT -r ~/repo/public/* deployer@westrom.xyz:/var/www/westrom.xyz/html
+            scp -P $RASPI_DEPLOY_PORT -r ~/repo/public/* deployer@westrom.xyz:/var/www/westrom.xyz/html
 
 workflows:
   version: 2
