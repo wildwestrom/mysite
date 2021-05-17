@@ -52,7 +52,6 @@ jobs:
       - run:
           name: Deploy via rsync
           command: |
-            echo '[westrom.xyz]:34334,[71.47.80.56]:34334 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAdr/wHib41Sy3nWZg/Yv8p04IjHJHR5+Ph9iH3ojBJ8swLz4TyVNWcpCQx276LQ9gjQsoAaQCyfDT0mlTnApaA=' >> ~/.ssh/known_hosts
             ssh-keyscan -p 34334 westrom.xyz >> ~/.ssh/known_hosts
             rsync -avzO --no-p -e 'ssh -p 34334' --delete --progress ~/repo/public/ deployer@westrom.xyz:/var/www/westrom.xyz/html
             ssh -p 34334 deployer@westrom.xyz 'chmod -R 755 /var/www/westrom.xyz/html'
