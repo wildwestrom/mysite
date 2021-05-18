@@ -194,11 +194,7 @@
 
 (defn mount-root
   [component]
-<<<<<<< HEAD
   (r.dom/render component (.getElementById js/document "app")))
-=======
-  (r.dom/render component (.getElementById js/document "app")))
->>>>>>> master
 
 (defn ^:dev/after-load start
   []
