@@ -194,7 +194,7 @@
 
 (defn mount-root
   [component]
-  (reagent.dom/render component (.getElementById js/document "app")))
+  (r.dom/render component (.getElementById js/document "app")))
 
 (defn ^:dev/after-load start
   []

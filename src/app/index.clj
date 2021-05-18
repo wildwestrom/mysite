@@ -47,5 +47,4 @@
                   [:h1 "404: File not found"]]]))
 
 (spit "./public/index.html" (index-html))
-
 (spit "./public/404.html" (html-404))
