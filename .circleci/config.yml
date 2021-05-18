@@ -60,7 +60,7 @@ jobs:
           name: Deploy via rsync
           command: |
             ssh-keyscan -p 34334 westrom.xyz >> ~/.ssh/known_hosts
-            rsync -avzO --no-p -e 'ssh -p 34334' --delete --progress ~/repo/public deployer@westrom.xyz:/var/www/westrom.xyz/html
+            rsync -avzO --no-perms -e 'ssh -p 34334' --delete --progress ~/repo/public deployer@westrom.xyz:/var/www/westrom.xyz/html
             ssh -p 34334 deployer@westrom.xyz 'chmod -R 755 /var/www/westrom.xyz/html'
 
 workflows:
