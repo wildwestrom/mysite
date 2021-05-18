@@ -1,49 +1,79 @@
 (ns app.core
-  (:require [reagent.dom :as dom]
-            [app.data :as data]))
+  (:require [clojure.edn :as edn]
+            [clojure.string]
+            [reagent.core :as r]
+            [reagent.dom :as r.dom]
+            [shadow.resource]
+            [reitit.frontend :as rf]
+            [reitit.frontend.easy :as rfe]
+            [reitit.coercion.spec :as rss]))
 
-(def root-classes '[bg-white dark:bg-black])
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Data
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def blog-post
-  {:title "Lorem Ipsum"
-   :body  "Yeah there's nothing much to see here. Sooner or later I'll get around to implementing my blog. It'll be pretty sweet. It's gonna parse org-mode documents and give a little preview in this here box. Trust me, you're gonna love it.
-Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISHOLE!"})
+(defonce match (r/atom nil))
 
-;; Views
-(defn topbar [message title route]
-  [:div {:class '[bg-black bg-opacity-50
+(def blog-posts
+  (edn/read-string (shadow.resource/inline "posts/blog-posts.edn")))
+
+(def data
+  (edn/read-string (shadow.resource/inline "config/site-data.edn")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Components
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn navbar
+  []
+  [:nav {:class '[bg-black bg-opacity-50
                   p-2 text-lg font-serif
                   text-gray-50 dark:text-gray-300
-                  sticky top-0]}
-   [:a {:href  route
-        :title title}
-    [:h1 {:class '[underline italic p-2]}
-     message]]])
+                  grid grid-flow-col grid-cols-2
+                  underline italic]}
+   [:div {:class '[p-2]}
+    [:a {:href (rfe/href ::home) :title "Home"} "Home"]]
+   [:div {:class '[p-2 justify-end inline-flex]}
+    [:div {:class '[px-2]}
+     [:a {:href (rfe/href ::blog) :title "Blog"} "Blog"]]
+    [:div {:class '[px-2]}
+     [:a {:href (rfe/href ::contact) :title "Contact"} "Contact"]]]])
 
-(defn blog-post-small []
+(defn display-date
+  [date-string]
+  (let [date (js/Date. date-string)]
+    (. date (toLocaleDateString))))
+
+(defn blog-post-preview
+  [blog-post]
   [:div {:class '[border-2 rounded border-gray-500
-                  m-8 mt-16 pt-2 pb-4 px-4
+                  m-8 pt-2 pb-4 px-4
                   bg-gray-200 dark:bg-gray-800]}
-   [:a {:href (str "/" (:title blog-post))}
-    [:h1 {:class '[text-2xl]} (:title blog-post)]]
-   [:p {:class '[overflow-ellipsis line-clamp-5 text-gray-600 dark:text-gray-400]}
+   [:div {:class '[flex]}
+    [:a {:href  (rfe/href ::post {:id (:post-id blog-post)})
+         :class '[]}
+     [:h1 {:class '[text-2xl]} (:title blog-post)]]]
+   [:p {:class '[text-xs py-0.5 text-gray-500]}
+    (display-date (:date blog-post))]
+   [:p {:class '[text-sm overflow-ellipsis line-clamp-5
+                 text-gray-600 dark:text-gray-400]}
     (:body blog-post)]])
 
-(def blog-posts-overview
-  [:div {:id    "blog"
-         :class '[min-h-screen]}
-   (topbar "Here's some cool blog posts you can check out." "Blog" "/blog")
-   (blog-post-small)])
+(defn blog-post-main-view
+  [blog-post]
+  [:article {:class '[m-2 mt-6 pt-2 pb-4 px-2 sm:px-8]}
+   [:div {:class '[prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto]}
+    [:h1 (:title blog-post)]
 
-(def content
-  [:div {:id    "content"
-         :class '[min-h-screen flex flex-col]}
-   (topbar "West's Homepage!" "Home" "/")
-   [:div {:class '[flex-grow flex justify-center items-center]}
-    [:h2 {:class '[text-5xl p-4 italic]}
-     "Welcome," [:br {:class '[sm:block hidden]}] " to my site!"]]])
+    [:p {:class '[py-2 text-gray-700]}
+     "Written on "
+     (display-date (:date blog-post))]
 
-(defn generic-link [link message & mail?]
+    [:p {:class '[align-self-end px-2 mt-10]}
+     (:body blog-post)]]])
+
+(defn generic-link
+  [link message & mail?]
   (let [link (cond (not (nil? mail?)) (str "mailto: " link)
                    :else              link)]
     [:a {:href   link
@@ -51,55 +81,132 @@ Penishole. Yes, I said penishole. Did I stutter? Here, I'll say it again. PENISH
          :class  '[text-blue-500 hover:text-blue-600
                    dark:text-blue-300 dark:hover:text-blue-200]} message]))
 
-(def license
-  [:footer {:class '[p-4 text-xs text-center self-center]}
-   [:p "My "
-    (generic-link "https://gitlab.com/wildwestrom/mysite" "static site generator")
-    " is licensed" [:br {:class '[xs:block hidden]}]  " under the "
-    (generic-link "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
+(defn license
+  []
+  [:footer {:class '[p-2 text-xs text-center self-center]}
+   [:p "West's "
+    (generic-link
+      "https://github.com/wildwestrom/mysite" "static site generator")
+    " is licensed"
+    [:br {:class '[xs:hidden block]}]
+    " under the "
+    (generic-link
+      "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
     "." [:br]
-    "The rest is my own original work" [:br {:class '[xs:block hidden]}]
-    " unless otherwise specified." [:br]
-    "Copyright © " data/year " " data/author " " [:br {:class '[xs:block hidden]}]
-    (generic-link data/email data/email true)]])
+    "The rest is my own original work"
+    [:br {:class '[xs:hidden block]}]
+    " unless otherwise specified."
+    [:br]
+    "Copyright © " (:year data) " " (:author data) " "
+    [:br {:class '[xs:hidden block]}]
+    (generic-link (:email data) (:email data) true)]])
 
-(def contact
-  [:div {:class '[min-h-screen flex flex-col items-stretch]}
-   (topbar "Let's get in touch."
-           "Contact" "/contact")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Pages
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn home-page
+  []
+  [:div {:class '[flex flex-col flex-grow]}
+   [:div {:class '[flex-grow flex justify-center items-center]}
+    [:h2 {:class '[text-5xl p-4 italic]}
+     "Welcome," [:br {:class '[sm:block hidden]}] " to my site!"]]])
+
+(defn blog-preview-page
+  []
+  [:div {:class '[flex-grow]}
+   (for [post blog-posts]
+     ^{:key (:post-id post)}
+     [blog-post-preview post])])
+
+(defn blog-post-page
+  []
+  (let [id   (->> @match :parameters :path :id)
+        post (first (filter #(= id (:post-id %)) blog-posts))]
+    [:div {:class '[]}
+     (blog-post-main-view post)]))
+
+(defn contact-page
+  []
+  [:div {:class '[flex-grow flex flex-col items-stretch]}
    [:div {:class '[flex-grow self-center flex flex-col]}
     [:div {:class '[p-4 flex flex-col flex-grow justify-center]}
      [:h2 {:class '[pb-4 text-2xl]} "You seem pretty sweet." [:br]
       "We should get lunch sometime."]
      [:ul
       [:li {:class '[p-2]}
-       (generic-link data/email data/email true)]
+       (generic-link (:email data) (:email data) true)]
       [:li {:class '[p-2]}
-       (generic-link data/gitlab data/gitlab)]]]]
-   license])
+       (generic-link (:github data) (:github data))]]]]
+   [license]])
 
-(defn app []
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Routing
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def routes
+  [["/"
+    {:name ::home
+     :view home-page}]
+
+   ["/blog"
+    {:name ::blog
+     :view blog-preview-page}]
+
+   ["/blog/:id"
+    {:name       ::post
+     :view       blog-post-page
+     :parameters {:path {:id string?}}}]
+
+   ["/contact"
+    {:name ::contact
+     :view contact-page}]])
+
+(def router
+  (rf/router routes {:data {:coercion rss/coercion}}))
+
+(defn router-init!
+  []
+  (rfe/start!
+    router
+    (fn [m] (reset! match m))
+    ;; set to false to enable HistoryAPI
+    {:use-fragment true}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Main Page
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn app
+  []
   [:div {:class '[text-gray-800 bg-gray-50
-                  dark:text-gray-300 dark:bg-gray-700]}
-   content
-   blog-posts-overview
-   contact])
+                  dark:text-gray-300 dark:bg-gray-700
+                  subpixel-antialiased min-h-screen
+                  flex flex-col]}
+   [navbar]
+   (if @match
+     (let [view (:view (:data @match))]
+       [view @match]))])
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Render
-(defn mount-root [c]
-(dom/render [c]
-            (.getElementById js/document "app")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn ^:dev/after-load start []
-(js/console.log "start")
-(mount-root app))
+(defn mount-root
+  [component]
+  (reagent.dom/render component (.getElementById js/document "app")))
 
-(defn ^:export init []
-(js/console.log "init")
-(doseq [class root-classes]
-  (.classList.add
-    (.getElementById js/document "root") class))
-(start))
+(defn ^:dev/after-load start
+  []
+  (js/console.log "start")
+  (mount-root [app]))
 
-(defn ^:dev/before-load stop []
+(defn ^:export init
+  []
+  (js/console.log "init")
+  (router-init!)
+  (start))
+
+(defn ^:dev/before-load stop
+  []
   (js/console.log "stop"))

@@ -1,20 +1,17 @@
 {
-    "name": "shadow-static",
-    "version": "0.0.3",
     "private": true,
-    "license": "AGPL-3.0-or-later",
     "scripts": {
-        "new-index": "if [ ! -d \"public\" ]; then mkdir public/; fi && clojure -M src/app/index.clj",
+        "new-index": "clojure -M src/app/index.clj",
         "build": "yarn new-index && export NODE_ENV=production && postcss src/css/main.css -o public/css/main.css",
         "watch:css": "postcss src/css/main.css -o public/css/main.css --watch",
         "watch:shadow": "shadow-cljs watch app",
         "start": "run-p new-index watch:css watch:shadow",
-        "release": "yarn build && shadow-cljs release app",
-        "clean": "rm -rf public/"
+        "release": "yarn build && shadow-cljs release app"
     },
     "devDependencies": {
         "@fullhuman/postcss-purgecss": "^4.0.3",
         "@tailwindcss/line-clamp": "^0.2.0",
+        "@tailwindcss/typography": "^0.4.0",
         "autoprefixer": "^10.2.3",
         "cssnano": "^5.0.1",
         "npm-run-all": "^4.1.5",
