@@ -43,6 +43,10 @@ jobs:
             - ~/.cache/yarn
             - ~/repo/node_modules
           key: 'clj-node-{{ checksum "deps.edn" }}-{{ checksum "package.json" }}'
+
+      - store_artifacts:
+          path: ~/repo/public
+
   deploy:
     docker:
       - image: cimg/base:2021.04
