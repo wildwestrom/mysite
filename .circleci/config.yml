@@ -31,6 +31,11 @@ jobs:
           name: Run the project
           command: yarn release
 
+      - persist_to_workspace:
+         root: ~/
+         paths:
+          - repo/public
+
       - save_cache:
           name: Save dependency cache
           paths:
@@ -41,8 +46,10 @@ jobs:
   deploy:
     docker:
       - image: cimg/base:2021.04
-    working_directory: ~/repo
+    working_directory: ~/
     steps:
+      - attach_workspace:
+          at: ~/repo/public
       - add_ssh_keys:
           fingerprints:
             - "f1:8b:23:49:dd:04:44:48:91:fe:d3:6f:66:b3:91:17"
