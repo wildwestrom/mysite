@@ -1,24 +1,19 @@
 (ns app.core
-  (:require [clojure.edn :as edn]
-            [clojure.string]
+  (:require [clojure.string]
             [reagent.core :as r]
             [reagent.dom :as r.dom]
-            [shadow.resource]
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]
-            [reitit.coercion.spec :as rss]))
+            [reitit.coercion.spec :as rss]
+            [app.data :as data :refer [data]]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Data
+;; State
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defonce match (r/atom nil))
 
-(def blog-posts
-  (edn/read-string (shadow.resource/inline "posts/blog-posts.edn")))
-
-(def data
-  (edn/read-string (shadow.resource/inline "config/site-data.edn")))
+(defonce blog-posts (r/atom nil))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Components
@@ -50,27 +45,24 @@
                   m-8 pt-2 pb-4 px-4
                   bg-gray-200 dark:bg-gray-800]}
    [:div {:class '[flex]}
-    [:a {:href  (rfe/href ::post {:id (:post-id blog-post)})
+    [:a {:href  (rfe/href ::post {:id (-> blog-post :data :id)})
          :class '[]}
-     [:h1 {:class '[text-2xl]} (:title blog-post)]]]
+     [:h1 {:class '[text-2xl]} (:title (-> blog-post :data :title))]]]
    [:p {:class '[text-xs py-0.5 text-gray-500]}
-    (display-date (:date blog-post))]
+    (display-date (-> blog-post :data :date))]
    [:p {:class '[text-sm overflow-ellipsis line-clamp-5
                  text-gray-600 dark:text-gray-400]}
-    (:body blog-post)]])
+    (:content blog-post)]])
 
 (defn blog-post-main-view
   [blog-post]
   [:article {:class '[m-2 mt-6 pt-2 pb-4 px-2 sm:px-8]}
    [:div {:class '[prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto]}
-    [:h1 (:title blog-post)]
-
+    [:h1 (-> blog-post :data :title)]
     [:p {:class '[py-2 text-gray-700]}
      "Written on "
-     (display-date (:date blog-post))]
-
-    [:p {:class '[align-self-end px-2 mt-10]}
-     (:body blog-post)]]])
+     (display-date (:date (:data blog-post)))]
+    [:article {:dangerouslySetInnerHTML {:__html (:content blog-post)}}]]])
 
 (defn generic-link
   [link message & mail?]
@@ -86,12 +78,12 @@
   [:footer {:class '[p-2 text-xs text-center self-center]}
    [:p "West's "
     (generic-link
-      "https://github.com/wildwestrom/mysite" "static site generator")
+     "https://github.com/wildwestrom/mysite" "static site generator")
     " is licensed"
     [:br {:class '[xs:hidden block]}]
     " under the "
     (generic-link
-      "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
+     "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
     "." [:br]
     "The rest is my own original work"
     [:br {:class '[xs:hidden block]}]
@@ -115,14 +107,14 @@
 (defn blog-preview-page
   []
   [:div {:class '[flex-grow]}
-   (for [post blog-posts]
-     ^{:key (:post-id post)}
-     [blog-post-preview post])])
+   (for [blog-post @blog-posts]
+     ^{:key (-> blog-post :data :id)}
+     [blog-post-preview (:content blog-post)])])
 
 (defn blog-post-page
   []
   (let [id   (->> @match :parameters :path :id)
-        post (first (filter #(= id (:post-id %)) blog-posts))]
+        post (first (filter #(= id (-> % :data :id)) @blog-posts))]
     [:div {:class '[]}
      (blog-post-main-view post)]))
 
@@ -168,10 +160,10 @@
 (defn router-init!
   []
   (rfe/start!
-    router
-    (fn [m] (reset! match m))
+   router
+   (fn [m] (reset! match m))
     ;; set to false to enable HistoryAPI
-    {:use-fragment true}))
+   {:use-fragment true}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Main Page
@@ -186,7 +178,10 @@
    [navbar]
    (if @match
      (let [view (:view (:data @match))]
-       [view @match]))])
+       [view @match])
+     (.log js/console
+           (str "Match not found.\n `(:data @match)`:"
+                (:data @match))))])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Render
@@ -198,15 +193,15 @@
 
 (defn ^:dev/after-load start
   []
-  (js/console.log "start")
+  (.log js/console "start")
   (mount-root [app]))
 
 (defn ^:export init
   []
-  (js/console.log "init")
+  (.log js/console "init")
   (router-init!)
   (start))
 
 (defn ^:dev/before-load stop
   []
-  (js/console.log "stop"))
+  (.log js/console "stop"))

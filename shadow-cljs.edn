@@ -1,25 +1,36 @@
-;; shadow-cljs configuration
-{:deps true
+{:deps {:aliases [:dev]}
 
- ;; set an nrepl port for connection to a REPL.
  :nrepl
- {:port 3333}
+ {:port 3333
+  :nrepl {:middleware [refactor-nrepl.middleware/wrap-refactor]}}
+
+ ;; :dev-http {4000 "public"}
 
  :builds
  {:app {:target     :browser
         :output-dir "public/js/compiled"
         :asset-path "/js/compiled"
 
-        :modules
-        {:main
-         {:init-fn app.core/init}}
+        :compiler-options {:output-feature-set :es-next
+                           :optimizations :whitespace}
 
-        :devtools
-        {;; before live-reloading any code call this function
-         :before-load app.core/stop
-         ;; after live-reloading finishes call this function
-         :after-load  app.core/start
-         ;; serve the public directory over http at port 3000
-         :http-root   "public"
-         :http-port   3000
-         :preloads    [devtools.preload]}}}}
+        :modules {:main {:init-fn app.core/init}}
+
+        :devtools {:before-load app.core/stop
+                   :after-load  app.core/start
+                   :http-root   "public"
+                   :http-port   3000
+                   :preloads    [devtools.preload]}}
+
+  :script {:target :node-script
+           :output-to "scripts/js/org_processor.js"
+           :exports-var scripts.org-processor/main
+
+           :main scripts.org-processor/main
+
+           ;; :release {:compiler-options {:optimizations :simple
+           ;;                              :variable-renaming :off
+           ;;                              :property-renaming :off
+           ;;                              :pretty-print true
+           ;;                              :source-map true}}
+           }}}

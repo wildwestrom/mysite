@@ -1,0 +1,16 @@
+#+TITLE: Orgmode Parsing Experiments
+#+SUBTITLE: Adventures in parsing org documents.
+#+DATE: 2021-04-21
+#+TAGS: programming clojure clojurescript jamstack org-mode
+#+ID: parsing-org-experiment
+
+Org mode is an amazing way to write documents. It has a plethora of features that make it just a treat to use.
+* Trying different parsers.
+  I spent a lot of time looking for a good parser that would turn orgmode documents into usable data. Well I found a lot!
+** 200ok-ch/org-parser
+   I figured the easiest solution would be to use a Clojure library for this. Unfortunately, [[https://github.com/200ok-ch/org-parser][this guy's library]] did not work as well as I had hoped. It would not properly parse basic things like unnumbered lists lists and source code blocks due to a bug.
+   Since this was the best Clojure parser, I decided to try looking for a way to use a node package.
+** orgzly/org-java
+   Doesn't really fit my purposes.
+** rasendubi/uniorg
+   This parser was written in typescript, available on npm, and parses in the same way org-mode parses. Luckily, after the original creator worked out a fatal bug, I finally got a parser that works really well!
