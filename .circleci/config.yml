@@ -71,6 +71,7 @@ jobs:
       - run:
           name: Deploy via rsync
           command: |
+            pwd
             ssh-keyscan -p 34334 westrom.xyz >> ~/.ssh/known_hosts
             rsync -vzrl --delete-after -e 'ssh -p 34334' --progress ~/repo/public deployer@westrom.xyz:/var/www/westrom.xyz/html
 
@@ -82,6 +83,6 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: master
+          # filters:
+          #   branches:
+          #     only: master
