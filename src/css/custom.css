@@ -1,0 +1,7 @@
+/* purgecss start ignore */
+
+.prose article {
+    @apply dark:text-gray-300
+}
+
+/* purgecss end ignore */

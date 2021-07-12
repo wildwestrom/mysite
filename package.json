@@ -1,12 +1,14 @@
 {
     "private": true,
     "scripts": {
-        "new-index": "clojure -M src/app/index.clj",
-        "build": "yarn new-index && export NODE_ENV=production && postcss src/css/main.css -o public/css/main.css",
+        "build:index": "mkdir -p public/ && clojure -M src/app/index.clj",
+        "build:css": "export NODE_ENV=production && postcss src/css/main.css -o public/css/main.css",
+        "build:app": "shadow-cljs release app",
+        "build:org-to-data": "uniorg-util --edn -i posts -o public/posts -m _ALL_POSTS",
+        "release": "run-s build:org-to-data build:index build:css build:app",
         "watch:css": "postcss src/css/main.css -o public/css/main.css --watch",
-        "watch:shadow": "shadow-cljs watch app",
-        "start": "run-p new-index watch:css watch:shadow",
-        "release": "yarn build && shadow-cljs release app"
+        "watch:app": "shadow-cljs watch app",
+        "watch": "run-p watch:css watch:app"
     },
     "devDependencies": {
         "@fullhuman/postcss-purgecss": "^4.0.3",
@@ -14,15 +16,18 @@
         "@tailwindcss/typography": "^0.4.0",
         "autoprefixer": "^10.2.3",
         "cssnano": "^5.0.1",
+        "is-buffer": "^2.0.5",
+        "nightwind": "^1.1.12",
         "npm-run-all": "^4.1.5",
-        "postcss": "^8.2.4",
+        "postcss": "^8.3.5",
         "postcss-cli": "^8.3.1",
         "postcss-import": "^14.0.0",
-        "shadow-cljs": "2.12.5",
-        "tailwindcss": "^2.0.2"
+        "shadow-cljs": "2.14.6",
+        "tailwindcss": "^2.2.4",
+        "uniorg-util": "^0.1.7"
     },
     "dependencies": {
-        "highlight.js": "^10.5.0",
+        "highlight.js": "^11.0.1",
         "react": "^17.0.1",
         "react-dom": "^17.0.1"
     }

@@ -8,20 +8,23 @@ jobs:
   build:
     docker:
       - image: circleci/clojure:tools-deps-node
+
     working_directory: ~/repo
+
     environment:
-      # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
-          name: Restore node and Clojure dependency cache
+          name: Restore cljs dependency cache
           keys:
-            - 'clj-node-{{ checksum "deps.edn" }}-{{ checksum "package.json" }}'
-            # fallback to using the latest cache if no exact match is found
-            - 'clj-node'
+            - 'cljs-{{ checksum "deps.edn" }}'
+            - 'cljs'
+      - restore_cache:
+          name: Restore node dependency cache
+          keys:
+            - 'node-{{ checksum "yarn.lock" }}'
+            - 'node'
 
       - run:
           name: Install node dependencies
@@ -37,12 +40,21 @@ jobs:
           - repo/public
 
       - save_cache:
-          name: Save dependency cache
+          name: Save cljs dependency cache
           paths:
             - ~/.m2
+          key: 'cljs-{{ checksum "deps.edn" }}'
+
+      - save_cache:
+          name: Save node dependency cache
+          paths:
             - ~/.cache/yarn
             - ~/repo/node_modules
-          key: 'clj-node-{{ checksum "deps.edn" }}-{{ checksum "package.json" }}'
+          key: 'node-{{ checksum "yarn.lock" }}'
+
+      - store_artifacts:
+          path: ~/repo/public
+
   deploy:
     docker:
       - image: cimg/base:2021.04

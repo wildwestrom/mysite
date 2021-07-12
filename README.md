@@ -10,20 +10,17 @@ Before running for the first time run:
 
 ### CLI
 
-`yarn start`
+`yarn watch`
 
 ### [CIDER](https://cider.mx/) (Emacs)
 
-- `cider-jack-in-cljs`
-
-If using the cider-connect-sibling-cljs option:
-
--  Select **shadow**
--  Select **:app**
-
-Visit 'http://localhost:3000' in a browser? (y or n)
-
-- Enter `y`
+- `M-x`
+- `sesman-start`
+- Select command: `cider-connect-cljs`
+- host: `localhost`
+- port: `3333`
+- repl-type: `shadow`
+- build: `node-repl`
 
 ## Release
 

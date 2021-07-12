@@ -26,9 +26,13 @@
                          :href "/css/main.css"}]]
                 [:body
                  [:div {:id "app"}]
-                 [:script {:src "/js/compiled/main.js", :type "text/javascript"}]
+                 [:script {:src "/js/compiled/main.js"
+                           :type "text/javascript"}]
+                 [:script {:src "/js/compiled/main.js"
+                           :type "text/javascript"}]
                  (if noscript-msg?
-                   [:noscript {} "You need to enable JavaScript to run this app."]
+                   [:noscript
+                    "You need to enable JavaScript to run this app."]
                    nil)]))
 
 (defn html-404
