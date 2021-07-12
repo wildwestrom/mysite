@@ -61,7 +61,7 @@ jobs:
     working_directory: ~/
     steps:
       - attach_workspace:
-          at: ~/repo/public
+          at: ~/
       - add_ssh_keys:
           fingerprints:
             - "f1:8b:23:49:dd:04:44:48:91:fe:d3:6f:66:b3:91:17"
