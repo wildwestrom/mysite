@@ -11,8 +11,7 @@
         :output-dir "public/js/compiled"
         :asset-path "/js/compiled"
 
-        :compiler-options {:output-feature-set :es-next
-                           :optimizations      :whitespace}
+        :compiler-options {:output-feature-set :es-next}
 
         :modules {:main {:init-fn app.core/init}}
 

@@ -7,7 +7,8 @@ module.exports = {
         require('autoprefixer'),
         isProduction && require('@fullhuman/postcss-purgecss')({
             content: [
-                './src/app/core.cljs',
+                './src/app/**.cljs',
+                './src/app/**.clj',
             ],
             defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
         }),
