@@ -1,7 +1,7 @@
-{:deps {:aliases [:dev]}
+{:deps true
 
  :nrepl
- {:port 3333
+ {:port  3333
   :nrepl {:middleware [refactor-nrepl.middleware/wrap-refactor]}}
 
  ;; :dev-http {4000 "public"}
@@ -12,7 +12,7 @@
         :asset-path "/js/compiled"
 
         :compiler-options {:output-feature-set :es-next
-                           :optimizations :whitespace}
+                           :optimizations      :whitespace}
 
         :modules {:main {:init-fn app.core/init}}
 
@@ -20,17 +20,4 @@
                    :after-load  app.core/start
                    :http-root   "public"
                    :http-port   3000
-                   :preloads    [devtools.preload]}}
-
-  :script {:target :node-script
-           :output-to "scripts/js/org_processor.js"
-           :exports-var scripts.org-processor/main
-
-           :main scripts.org-processor/main
-
-           ;; :release {:compiler-options {:optimizations :simple
-           ;;                              :variable-renaming :off
-           ;;                              :property-renaming :off
-           ;;                              :pretty-print true
-           ;;                              :source-map true}}
-           }}}
+                   :preloads    [devtools.preload]}}}}

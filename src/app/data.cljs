@@ -1,63 +1,36 @@
 (ns app.data
   (:require [clojure.edn :as edn]
-            [reagent.core :as r]
+            [clojure.pprint :as pp]
+            [reagent.core :as reagent]
             [shadow.resource]
-            ;; [ajax.core :refer [GET json-response-format]]
-            [clojure.core.async :as a]
-            ;; [cljs.core.async.interop :refer-macros [<p!]]
-            ;; [superv.async :refer [S] :refer-macros [<?*]]
-            ))
+            [lambdaisland.fetch :as fetch]
+            [kitchen-async.promise :as p]))
 
-(def data
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; State
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defonce match (reagent/atom nil))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Other stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def global-config
   (edn/read-string (shadow.resource/inline "config/site-data.edn")))
 
-(def dev-root "http://localhost:3000/")
-(def post-route "posts/")
+(def posts-route "posts/")
+
 (defn uri [filestr]
-  (str dev-root post-route filestr ".json"))
+  (str posts-route filestr))
 
-(def all-posts-uri (uri "_ALL_POSTS"))
+(def all-posts-uri (uri "_ALL_POSTS.edn"))
 
-;; (defn get-json
-;;   [uri]
-;;   (->
-;;    (js/fetch uri)
-;;    (.then (fn [res] (js->clj (.json res) :keywordize-keys :true)))
-;;    (.catch (fn [err] (.log js/console err)))))
-
-;; (defn get-blog-posts
-;;   []
-;;   (let [out (async/chan)]
-;;     (go (-> (get-json all-posts-uri)
-;;             (.then (fn [posts]
-;;                      (doseq [post posts]
-;;                        (let [post-uri (uri post)]
-;;                          (->
-;;                           (get-json post-uri)
-;;                           (.then (fn [post] (put! out post))))))))))))
-
-(def temp-1 (r/atom ()))
-
-(defn swap-async!
-  [atom chan fun & args]
-  (a/go
-    (let [val (a/<! chan)]
-      (apply swap! atom fun val args))))
-
-
-;; (defn get-all-posts
-;;   []
-;;   (go
-;;     (try
-;;       (let [all-posts (js->clj (<p! (.json (<p! (js/fetch all-posts-uri)))) :keywordize-keys :true)]
-;;         (<?* S
-;;              (for [post all-posts]
-;;                (go
-;;                  (js->clj (<p! (.json (<p! (js/fetch (uri post))))) :keywordize-keys :true)))))
-;;       (catch js/Error err (js/console.log err)))))
-
-(js/console.log (GET all-posts-uri))
-
-;; (swap-async! temp-1 )
-
-#_(deref temp-1)
+(defn store-posts-data
+  [a]
+  (let [extract-body (fn [res] (edn/read-string (:body res)))]
+    (p/let [filenames  (fetch/get all-posts-uri)
+            files      (extract-body filenames)
+            files-resp (p/all (map #(fetch/get (uri %)) files))]
+      (reset! a (map extract-body files-resp))
+      (js/console.log "Received blog-posts"))))

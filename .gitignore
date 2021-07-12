@@ -4,12 +4,12 @@
 /.idea/
 /.lsp/
 /.log/
+/.clj-kondo/
 .dir-locals.el
-.clj-kondo
 .nrepl-port
 
 /node_modules/
-public/
+/public/
 yarn-error.log
 
 .DS_Store

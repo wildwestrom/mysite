@@ -10,7 +10,7 @@ Before running for the first time run:
 
 ### CLI
 
-`yarn start`
+`yarn watch`
 
 ### [CIDER](https://cider.mx/) (Emacs)
 
