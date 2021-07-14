@@ -1,0 +1,86 @@
+#+TITLE: Datomic Pitfalls
+#+SUBTITLE: Have you tried using Datomic? Were you confused by its documentation? You may have fallen into these two pitfalls.
+#+DATE: 2021-07-13
+#+TAGS: programming clojure datomic database
+#+ID: datomic-pitfalls
+
+* What is Datomic?
+  Datomic is a database. From what I hear, it's much nicer to work with than SQL. I don't want to worry about concatenating strings to make queries. I just want to pass around Clojure data like I always do.
+
+  Anyway, I went along the documentation trying to figure out how to use Datomic, and I just couldn't get passed a couple blocks until a friend from lambdaisland helped me out.
+
+* The two pitfalls of learning Datomic.
+** Where do I get Datomic in the first place?
+   This isn't really a pitfall, so much as it was not easy for me to find this information.
+   So when I started out, I used a library called [[https://github.com/juji-io/datalevin][Datalevin]], which mimics Datomic's API. It was good enough for my purposes, but it isn't quite up to par with Datomic itself.
+   Anyway, the free version is called =com.Datomic/Datomic-free=. You can add the latest version to your project by copying the info from [[https://clojars.org/com.datomic/datomic-free][clojars]].
+
+** Pitfall #1 - Schema-Data Mismatch
+   A schema looks like a vector of maps. Each map will have 3 required attributes.
+
+   These attributes are:
+   1. ~:db/ident~
+   2. ~:db/valueType~
+   3. ~:db/cardinality~
+
+   These get passed into a map. Looking something like this:
+   #+BEGIN_SRC clojure
+   {:db/ident       :item/id-number
+    :db/valueType   :db.type/int
+    :db/cardinality :db.cardinality/one}
+   #+END_SRC clojure
+
+   You will get an error if you try to pass in data that doesn't match the type you defined. I encountered this when parsing csv data as the csv library I was using takes everything as strings.
+
+   #+BEGIN_SRC clojure
+   {:item/id-number (Integer/parseInt "1111")}
+   #+END_SRC clojure
+
+** Pitfall #2 - Query mistakes
+   Queries are written in a language called datalog, a variant of prolog for data.
+
+   Querying the connection won't work.
+   #+BEGIN_SRC clojure
+ (d/q '[:find ?e
+        :where [?e :item/item-number]] conn)
+   #+END_SRC clojure
+
+   For some reason it's abstracted by the `db` function.
+   #+BEGIN_SRC clojure
+ (d/q '[:find ?e
+        :where [?e :item/item-number]] (d/db conn))
+   #+END_SRC clojure
+
+   Set an alias for convenience.
+   #+BEGIN_SRC clojure
+ (def db (d/db conn))
+   #+END_SRC clojure
+
+   This one won't work.
+   #+BEGIN_SRC clojure
+ (d/q [:find ?e
+       :where [?e :item/item-number]] db)
+   #+END_SRC clojure
+
+   The query must be quoted before passed to the query function.
+   #+BEGIN_SRC clojure
+ (d/q '[:find ?e
+        :where [?e :item/item-number]] db)
+   #+END_SRC clojure
+   The one above returns the IDs of each entity.
+
+   This one reuturns the items.
+   #+BEGIN_SRC clojure
+ (d/q '[:find ?c
+        :where
+        [?e :item/item-number ?c]] (d/db conn))
+   #+END_SRC clojure
+
+* YouTube Video
+  This was a highly abstract overview of a few different difficulties you may experience with Datomic. You may find this video to be more helpful in understanding how to use Datomic.
+
+  #+BEGIN_EXPORT html
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/mYTfZeN65_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  #+END_EXPORT
+
+  You can follow along with this video using my [[https://gist.github.com/wildwestrom/526738f5eb6a0dd30aa7bb47c31f5d80][gist]].
