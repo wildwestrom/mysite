@@ -6,11 +6,15 @@ Find me at [https://www.westrom.xyz/](https://www.westrom.xyz/).
 ## Develop
 
 Before running for the first time run:
-`yarn install`
+```shell
+yarn install
+```
 
 ### CLI
 
-`yarn watch`
+```shell
+yarn watch
+```
 
 ### [CIDER](https://cider.mx/) (Emacs)
 
@@ -23,8 +27,11 @@ Before running for the first time run:
 - build: `node-repl`
 
 ## Release
+This command will install dependencies as well as run the entire project. This means you can use it when running for the first time.
 
-`yarn release`
+```shell
+yarn release
+```
 
 See [Generating Production Code](https://shadow-cljs.github.io/docs/UsersGuide.html#release) for more information.
 

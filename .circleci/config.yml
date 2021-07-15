@@ -27,10 +27,6 @@ jobs:
             - 'node'
 
       - run:
-          name: Install node dependencies
-          command: yarn install
-
-      - run:
           name: Run the project
           command: yarn release
 

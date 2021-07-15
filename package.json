@@ -1,11 +1,12 @@
 {
     "private": true,
     "scripts": {
+        "deps": "yarn install",
         "build:index": "mkdir -p public/ && clojure -M src/app/index.clj",
         "build:css": "export NODE_ENV=production && postcss src/css/main.css -o public/css/main.css",
         "build:app": "shadow-cljs release app",
         "build:org-to-data": "uniorg-util --edn -i posts -o public/posts -m _ALL_POSTS",
-        "release": "run-s build:index build:org-to-data build:css build:app",
+        "release": "run-s deps build:index build:org-to-data build:css build:app",
         "watch:css": "postcss src/css/main.css -o public/css/main.css --watch",
         "watch:app": "shadow-cljs watch app",
         "watch": "run-p watch:css watch:app"
