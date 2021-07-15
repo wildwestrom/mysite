@@ -51,21 +51,16 @@
         :where [?e :item/item-number]] (d/db conn))
    #+END_SRC
 
-   Set an alias for convenience.
-   #+BEGIN_SRC clojure
- (def db (d/db conn))
-   #+END_SRC
-
    This one won't work.
    #+BEGIN_SRC clojure
  (d/q [:find ?e
-       :where [?e :item/item-number]] db)
+       :where [?e :item/item-number]] (d/db conn))
    #+END_SRC
 
    The query must be quoted before passed to the query function.
    #+BEGIN_SRC clojure
  (d/q '[:find ?e
-        :where [?e :item/item-number]] db)
+        :where [?e :item/item-number]] (d/db conn))
    #+END_SRC
    The one above returns the IDs of each entity.
 
