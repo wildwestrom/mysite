@@ -28,13 +28,13 @@
    {:db/ident       :item/id-number
     :db/valueType   :db.type/int
     :db/cardinality :db.cardinality/one}
-   #+END_SRC clojure
+   #+END_SRC
 
    You will get an error if you try to pass in data that doesn't match the type you defined. I encountered this when parsing csv data as the csv library I was using takes everything as strings.
 
    #+BEGIN_SRC clojure
    {:item/id-number (Integer/parseInt "1111")}
-   #+END_SRC clojure
+   #+END_SRC
 
 ** Pitfall #2 - Query mistakes
    Queries are written in a language called datalog, a variant of prolog for data.
