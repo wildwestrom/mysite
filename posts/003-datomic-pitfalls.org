@@ -43,30 +43,30 @@
    #+BEGIN_SRC clojure
  (d/q '[:find ?e
         :where [?e :item/item-number]] conn)
-   #+END_SRC clojure
+   #+END_SRC
 
    For some reason it's abstracted by the `db` function.
    #+BEGIN_SRC clojure
  (d/q '[:find ?e
         :where [?e :item/item-number]] (d/db conn))
-   #+END_SRC clojure
+   #+END_SRC
 
    Set an alias for convenience.
    #+BEGIN_SRC clojure
  (def db (d/db conn))
-   #+END_SRC clojure
+   #+END_SRC
 
    This one won't work.
    #+BEGIN_SRC clojure
  (d/q [:find ?e
        :where [?e :item/item-number]] db)
-   #+END_SRC clojure
+   #+END_SRC
 
    The query must be quoted before passed to the query function.
    #+BEGIN_SRC clojure
  (d/q '[:find ?e
         :where [?e :item/item-number]] db)
-   #+END_SRC clojure
+   #+END_SRC
    The one above returns the IDs of each entity.
 
    This one reuturns the items.
@@ -74,13 +74,11 @@
  (d/q '[:find ?c
         :where
         [?e :item/item-number ?c]] (d/db conn))
-   #+END_SRC clojure
+   #+END_SRC
 
 * YouTube Video
   This was a highly abstract overview of a few different difficulties you may experience with Datomic. You may find this video to be more helpful in understanding how to use Datomic.
 
-  #+BEGIN_EXPORT html
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/mYTfZeN65_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  #+END_EXPORT
+  #+HTML: <iframe width="560" height="315" src="https://www.youtube.com/embed/mYTfZeN65_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   You can follow along with this video using my [[https://gist.github.com/wildwestrom/526738f5eb6a0dd30aa7bb47c31f5d80][gist]].

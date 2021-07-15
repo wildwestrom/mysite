@@ -33,21 +33,4 @@
                     "You need to enable JavaScript to run this app."]
                    nil)]))
 
-(defn html-404
-  []
-  (hiccup/html5 {:lang "en"}
-                [:head {}
-                 [:meta {:name    "description"
-                         :content "404 - Not Found"}]
-                 [:meta {:name    "viewport",
-                         :content "width=device-width, initial-scale=1.0"}]
-                 [:title {} (str (:title data) "404")]
-                 [:link {:rel  "stylesheet",
-                         :href "/css/main.css"}]]
-                [:body
-                 [:div.404
-                  [:h1 "404: File not found"]]]))
-
 (spit "./public/index.html" (index-html))
-
-(spit "./public/404.html" (html-404))
