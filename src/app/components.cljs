@@ -18,8 +18,8 @@
 (defn inject-dark-mode
   []
   (.appendChild (.appendChild (.querySelector js/document "head")
-                            (.createElement js/document "script"))
-              (.createTextNode js/document (init))))
+                              (.createElement js/document "script"))
+                (.createTextNode js/document (init))))
 
 (defn- highlight-code-block [node]
   (if (-> node
@@ -137,7 +137,9 @@
   []
   (let [id   (->> @data/match :parameters :path :id)
         post (first (filter #(= id (-> % :meta :id)) @blog-posts))]
-    [:div [blog-post-main-view post]]))
+    [:div
+     [blog-post-main-view post]
+     [license]]))
 
 (defn contact-page
   []
