@@ -20,7 +20,8 @@
     component/router
     (fn [m] (reset! data/match m))
     ;; set to false to enable HistoryAPI
-    {:use-fragment false}))
+    ;; Never-mind this makes a huge fucking bug
+    {:use-fragment true}))
 
 (defn mount-root
   [component]
