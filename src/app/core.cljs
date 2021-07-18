@@ -20,7 +20,7 @@
     component/router
     (fn [m] (reset! data/match m))
     ;; set to false to enable HistoryAPI
-    {:use-fragment true}))
+    {:use-fragment false}))
 
 (defn mount-root
   [component]
