@@ -55,7 +55,7 @@
    This is the worst part. Slowness, for something as simple as editing text would be unacceptable, if it weren't for all the amazing features and integration offered by the Emacs ecosystem.
 
 * Some Potential Solutions
-  My frustrations with Spacemacs battle it out every day against the reasons I can't imagine leaving Spacemacs. It seems like there are
+  My frustrations with Spacemacs battle it out every day against the reasons I can't imagine leaving Spacemacs. While there are no quick and easy solutions, here are a few solutions I've thought of.
 
 ** Create a Minimal Configuration
    Although the problems with performance largely stem from the age and single-threaded nature of the program, it can run faster and more stably with careful planning.
