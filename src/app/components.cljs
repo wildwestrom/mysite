@@ -33,7 +33,7 @@
 (defn navbar
   []
   [:nav {:class ["bg-black" "bg-opacity-50"
-                 "p-2" "text-lg" "font-serif"
+                 "py-2" "px-8" "text-lg" "font-serif"
                  "text-gray-50" "grid"
                  "grid-flow-col" "grid-cols-2"
                  "underline" "italic"]}
@@ -55,7 +55,7 @@
 (defn blog-post-preview
   [blog-post]
   [:div {:class ["border-2" "rounded" "border-gray-500"
-                 "m-8" "pt-2" "pb-4" "px-4"
+                 "m-2" "pt-2" "pb-4" "px-4"
                  "bg-gray-200"]}
    [:div {:class ["flex"]}
     [:a {:href  (rfe/href ::post {:id (-> blog-post :meta :id)})}
@@ -128,7 +128,8 @@
 
 (defn blog-preview-page
   []
-  [:div {:class ["flex-grow"]}
+  [:div {:class ["max-w-prose" "self-center"
+                 "flex" "flex-col" "flex-initial" "items-stretch"]}
    (for [blog-post @blog-posts]
      ^{:key (-> blog-post :meta :id)}
      [blog-post-preview blog-post])])
