@@ -15,7 +15,7 @@
         "@fullhuman/postcss-purgecss": "^4.0.3",
         "@tailwindcss/line-clamp": "^0.2.0",
         "@tailwindcss/typography": "^0.4.0",
-        "autoprefixer": "^10.3.0",
+        "autoprefixer": "^10.3.1",
         "cssnano": "^5.0.1",
         "is-buffer": "^2.0.5",
         "nightwind": "^1.1.12",
@@ -25,7 +25,7 @@
         "postcss-import": "^14.0.0",
         "shadow-cljs": "2.15.1",
         "tailwindcss": "^2.2.4",
-        "uniorg-util": "^0.1.7"
+        "uniorg-util": "^0.2.1"
     },
     "dependencies": {
         "highlight.js": "^11.1.0",
