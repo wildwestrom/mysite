@@ -57,14 +57,13 @@
   [:div {:class ["border-2" "rounded" "border-gray-500"
                  "m-2" "pt-2" "pb-4" "px-4"
                  "bg-gray-200"]}
-   [:div {:class ["flex"]}
-    [:a {:href  (rfe/href ::post {:id (-> blog-post :meta :id)})}
-     [:h2 {:class ["text-2xl"]} (-> blog-post :meta :title)]]]
-   [:p {:class ["text-xs py-0.5 text-gray-500"]}
-    (display-date (-> blog-post :meta :date))]
-   [:p {:class ["text-sm" "overflow-ellipsis" "line-clamp-5"
-                "text-gray-600"]}
-    (-> blog-post :meta :subtitle)]])
+   [:a {:href (rfe/href ::post {:id (-> blog-post :meta :id)})}
+    [:h2 {:class ["text-2xl"]} (-> blog-post :meta :title)]
+    [:p {:class ["text-xs py-0.5 text-gray-500"]}
+     (display-date (-> blog-post :meta :date))]
+    [:p {:class ["text-sm" "overflow-ellipsis" "line-clamp-5"
+                 "text-gray-600"]}
+     (-> blog-post :meta :subtitle)]]])
 
 (defn blog-post-main-view
   [blog-post]
@@ -128,7 +127,7 @@
 
 (defn blog-preview-page
   []
-  [:div {:class ["max-w-prose" "self-center"
+  [:div {:class ["max-w-prose" "self-center" "pt-2"
                  "flex" "flex-col" "flex-initial" "items-stretch"]}
    (for [blog-post @blog-posts]
      ^{:key (-> blog-post :meta :id)}
