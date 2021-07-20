@@ -74,6 +74,13 @@
 * YouTube Video
   This was a highly abstract overview of a few different difficulties you may experience with Datomic. You may find this video to be more helpful in understanding how to use Datomic.
 
-  #+HTML: <iframe width="560" height="315" src="https://www.youtube.com/embed/mYTfZeN65_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  #+BEGIN_EXPORT html
+  <div class="youtube-video-container">
+    <iframe width="560" height="315" frameborder="0" src="https://www.youtube.com/embed/mYTfZeN65_s" title="YouTube video player" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen>
+    </iframe>
+  </div>
+  #+END_EXPORT
+
+  # https://youtu.be/mYTfZeN65_s
 
   You can follow along with this video using my [[https://gist.github.com/wildwestrom/526738f5eb6a0dd30aa7bb47c31f5d80][gist]].

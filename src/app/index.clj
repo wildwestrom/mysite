@@ -26,7 +26,7 @@
                          :href "/css/main.css"}]]
                 [:body
                  [:div {:id "app"}]
-                 [:script {:src "/js/compiled/main.js"
+                 [:script {:src  "/js/compiled/main.js"
                            :type "text/javascript"}]
                  (if noscript-msg?
                    [:noscript

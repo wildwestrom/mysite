@@ -165,7 +165,7 @@
   [:div {:class ["flex" "flex-col" "flex-grow"]}
    [:div {:class ["flex-grow" "flex" "justify-center" "items-center"]}
     [:h2 {:class ["text-5xl" "p-4" "italic"]}
-     "Welcome," [:br {:class ["sm:block" "hidden"]}] " to my site!"]]])
+     "Welcome," [:br {:class ["block" "sm:hidden"]}] " to my site!"]]])
 
 (defn blog-preview-page
   []
