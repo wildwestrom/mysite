@@ -30,6 +30,10 @@
     (doseq [block (.querySelectorAll (r.dom/dom-node node) "pre code")]
       (.highlightElement hljs block))))
 
+(defn dark-light-button
+  []
+  [:button {:onClick toggle} "🌞🌚"])
+
 (defn navbar
   []
   [:nav {:class ["bg-black" "bg-opacity-50"
@@ -45,12 +49,17 @@
     [:div {:class ["px-2"]}
      [:a {:href (rfe/href ::contact) :title "Contact"} "Contact"]]
     [:div {:class ["px-2"]}
-     [:button {:onClick toggle} "🌞🌚"]]]])
+     [dark-light-button]]]])
 
 (defn display-date
   [date-string]
   (let [date (js/Date. date-string)]
     (. date (toLocaleDateString))))
+
+(defn this-year
+  []
+  (let [now (js/Date.)]
+    (.getFullYear now)))
 
 (defn blog-post-preview
   [blog-post]
@@ -76,7 +85,6 @@
         [:div
          [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
          [:p {:class ["pb-4" "text-gray-500"]}
-          "Written on "
           (display-date (-> blog-post :meta :date))]
          [:article {:class ["prose" "prose-sm" "sm:prose"
                             "lg:prose-lg" "mx-auto"]
@@ -96,19 +104,19 @@
   [:footer {:class ["p-2" "text-xs" "text-center" "self-center"]}
    [:p "West's "
     (generic-link
-     "https://github.com/wildwestrom/mysite" "static site generator")
+      "https://github.com/wildwestrom/mysite" "static site generator")
     " is licensed"
     [:br {:class ["xs:hidden" "block"]}]
     " under the "
     (generic-link
-     "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
+      "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
     "." [:br]
     "The rest is my own original work"
     [:br {:class ["xs:hidden" "block"]}]
     " unless otherwise specified."
     [:br]
     "Copyright © "
-    (:year data/global-config) " "
+    (this-year) " "
     (:author data/global-config) " "
     [:br {:class ["xs:hidden" "block"]}]
     (generic-link (:email data/global-config)

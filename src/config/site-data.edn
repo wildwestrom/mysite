@@ -4,6 +4,5 @@
  :github      "https://github.com/wildwestrom"
  :discord     "West#7965"
  :author      "Christian Westrom"
- :year        "2021"
  :description "My site"
  :keywords    ["programming" "clojure" "clojurescript" "web development" "javascript"]}
