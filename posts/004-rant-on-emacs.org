@@ -46,11 +46,11 @@
 
    The reasons for this are out of scope, but nevertheless, this is nearly unacceptable.
 
-   I even installed the =native-comp= branch of Emacs 28. It gives marginal speed improvements. One big problem is that it halts when I try to evaluate a function that returns a very large collection or string.
+   I even installed the "native-comp" branch of Emacs 28, also known as "gccemacs". It gives marginal speed improvements. One big problem is that it halts when I try to evaluate a function that returns a very large collection or string. I believe this is a long standing issue with Emacs having trouble dealing with long lines; see [[http://ergoemacs.org/emacs/blog_past_2018-06.html][2018-06-29]] and [[http://ergoemacs.org/emacs/blog_past_2019-05.html][2019-06-07]] from Xah Lee's blog, and this [[https://www.reddit.com/r/emacs/comments/6qpbka/elisp_for_text_processing_in_buffers/][Reddit post]].
 
    Even as I type now, I am feeling the lag and bugginess as I see my screen flash white or stop updating for seemingly no reason, only to go back to normal when I press a key.
 ** It's Arcane
-   Xah Lee explains this in much [[http://ergoemacs.org/emacs/emacs_modernization.html][more detail]]. But basically, there are a lot of historical holdovers from the 1980s still in Emacs, and would take quite a lot of effort to change. This includes things like [[http://ergoemacs.org/emacs/modernization.html][keybindings]], arcane terminology, [[http://ergoemacs.org/emacs/modernization_menu.html][terrible UI design]], a [[http://ergoemacs.org/emacs/emacs_manual_problem.html][terrible manual]] (use [[http://ergoemacs.org/emacs/emacs_basics.html][Xah's]] instead) etc.
+   Xah Lee explains this in much [[http://ergoemacs.org/emacs/emacs_modernization.html][more detail]]. But basically, there are a lot of historical holdovers from the 1980s still in Emacs, and would take quite a lot of effort to change. This includes things like [[http://ergoemacs.org/emacs/emacs_kb_shortcuts_pain.html][keybindings]], [[http://ergoemacs.org/emacs/modernization.html][arcane terminology]], [[http://ergoemacs.org/emacs/modernization_menu.html][terrible UI design]], a [[http://ergoemacs.org/emacs/emacs_manual_problem.html][terrible manual]] (use [[http://ergoemacs.org/emacs/emacs_basics.html][Xah's]] instead) etc.
 ** There are no good alternatives
    This is the worst part. Slowness, for something as simple as editing text would be unacceptable, if it weren't for all the amazing features and integration offered by the Emacs ecosystem.
 
