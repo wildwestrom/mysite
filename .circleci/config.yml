@@ -49,6 +49,25 @@ jobs:
       - store_artifacts:
           path: ~/repo/public
 
+  stage:
+    docker:
+      - image: cimg/base:2021.04
+    working_directory: ~/
+    steps:
+      - attach_workspace:
+          at: ~/
+      - add_ssh_keys:
+          fingerprints:
+            - "f1:8b:23:49:dd:04:44:48:91:fe:d3:6f:66:b3:91:17"
+      - run:
+          name: Install rsync
+          command: sudo apt update && sudo apt install rsync
+      - run:
+          name: Deploy via rsync
+          command: |
+            ssh-keyscan -p 34334 westrom.xyz >> ~/.ssh/known_hosts
+            rsync -vzrl --delete-after -e 'ssh -p 34334' --progress repo/public/ deployer@westrom.xyz:/var/www/staging.westrom.xyz/html
+
   deploy:
     docker:
       - image: cimg/base:2021.04
@@ -73,6 +92,12 @@ workflows:
   build-and-deploy:
     jobs:
       - build
+      - stage:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: main
       - deploy:
           requires:
             - build
