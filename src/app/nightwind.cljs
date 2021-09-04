@@ -1,8 +1,8 @@
 (ns app.nightwind
-  (:require ["nightwind/helper" :refer [beforeTransition init toggle]]
+  (:require ["nightwind/helper" :refer [toggle]]
             [reagent.core :as reagent]))
-
-;; I basically re-implemented the init function from nightwind helper
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Re-implement the init function from nightwind helper
 (defn get-initial-color-mode
   []
   (let [persistedColorPreference (.getItem (.-localStorage js/window) "nightwind-mode")
@@ -17,6 +17,7 @@
   (if (= (get-initial-color-mode) "light")
     (.remove (.. js/document -documentElement -classList) "dark")
     (.add (.. js/document -documentElement -classList) "dark")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn inject-dark-mode
   []
@@ -31,7 +32,7 @@
 
 (defn change-icon!
   []
-  (let [mut (new js/MutationObserver (fn [mutations mut]
+  (let [mut (new js/MutationObserver (fn [_ _]
                                        (if (js/document.documentElement.classList.contains "dark")
                                          (reset! icon "🌚")
                                          (reset! icon "🌞"))))]
