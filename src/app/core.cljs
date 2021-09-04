@@ -1,13 +1,13 @@
 (ns app.core
-  (:require [clojure.string]
+  (:require [app.components :as components]
+            [app.data :as data]
+            clojure.string
+            [nightwind :refer [inject-dark-mode]]
             [reagent.core :as reagent]
             [reagent.dom :as r.dom]
-            [reitit.frontend :as rf]
-            [reitit.frontend.easy :as rfe]
             [reitit.coercion.spec :as rss]
-            [app.data :as data]
-            [app.components :as component]))
-
+            [reitit.frontend :as rf]
+            [reitit.frontend.easy :as rfe]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Render
@@ -17,7 +17,7 @@
 (defn router-init!
   []
   (rfe/start!
-    component/router
+    components/router
     (fn [m] (reset! data/match m))
     ;; set to false to enable HistoryAPI
     ;; Never-mind this makes a huge fucking bug
@@ -30,8 +30,8 @@
 (defn ^:dev/after-load start
   []
   (.log js/console "start")
-  (mount-root [component/app])
-  (component/inject-dark-mode))
+  (mount-root [components/app])
+  (inject-dark-mode))
 
 (defn ^:export init
   []

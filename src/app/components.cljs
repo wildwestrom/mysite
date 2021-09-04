@@ -5,7 +5,7 @@
             [reitit.frontend.easy :as rfe]
             [app.data :as data]
             ["highlight.js" :as hljs]
-            ["nightwind/helper" :refer (init toggle beforeTransition)]))
+            [app.nightwind :refer [dark-light-button]]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialization
@@ -14,28 +14,6 @@
 (defonce blog-posts (reagent/atom nil))
 
 (data/store-posts-data blog-posts)
-
-;; I basically re-implemented the init function from nightwind helper
-(defn get-initial-color-mode
-  []
-  (let [persistedColorPreference (.getItem (.-localStorage js/window) "nightwind-mode")
-        hasPersistedPreference   (string? persistedColorPreference)]
-    (if hasPersistedPreference
-      persistedColorPreference
-      (let [mql                     (.matchMedia js/window "(prefers-color-scheme: dark)")
-            hasMediaQueryPreference (boolean? (.-matches mql))]
-        (when hasMediaQueryPreference (if (.-matches mql) "dark" "light"))))))
-
-(defn init-nightwind []
-  (if (= (get-initial-color-mode) "light")
-    (.remove (.. js/document -documentElement -classList) "dark")
-    (.add (.. js/document -documentElement -classList) "dark")))
-
-(defn inject-dark-mode
-  []
-  (.appendChild (.appendChild (.querySelector js/document "head")
-                              (.createElement js/document "script"))
-                (.createTextNode js/document (init-nightwind))))
 
 (defn- highlight-code-block [node]
   (if (-> node
@@ -46,27 +24,10 @@
     (doseq [block (.querySelectorAll (r.dom/dom-node node) "pre code")]
       (.highlightElement hljs block))))
 
-(defonce icon
-  (reagent/atom (case (get-initial-color-mode)
-                  "dark"  "🌚"
-                  "light" "🌞")))
-
-(defn change-icon!
-  []
-  (let [mut (new js/MutationObserver (fn [mutations mut]
-                                       (if (js/document.documentElement.classList.contains "dark")
-                                         (reset! icon "🌚")
-                                         (reset! icon "🌞"))))]
-    (.observe mut js/document.documentElement #js {:attributes true})))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Components
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn dark-light-button
-  []
-  [:button {:onClick (comp toggle change-icon!)} @icon])
 
 (defn navbar
   []

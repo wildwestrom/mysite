@@ -1,6 +1,10 @@
 module.exports = {
-    purge: false,
+    mode: 'jit',
     darkMode: 'class', // or 'media' or 'class'
+    purge: [
+        './public/**/*.html',
+        './src/**/*.{cljs,clj}',
+    ],
     theme: {
         extend: {
             typography: {
@@ -40,14 +44,9 @@ module.exports = {
             },
         }
     },
-    variants: {
-        extend: {
-            textColor: ['visited'],
-        }
-    },
     plugins: [
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/typography'),
-        require('nightwind')
+        require('nightwind'),
     ]
 }
