@@ -1,5 +1,6 @@
 (ns app.core
   (:require [app.components :as components]
+            [app.router :refer [router-init!]]
             [app.data :as data]
             [app.nightwind :refer [inject-dark-mode]]
             [reagent.dom :as r.dom]
@@ -8,16 +9,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Render
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(defn router-init!
-  []
-  (rfe/start!
-    components/router
-    (fn [m] (reset! data/match m))
-    ;; set to false to enable HistoryAPI
-    ;; Never-mind this makes a huge fucking bug
-    {:use-fragment true}))
 
 (defn mount-root
   [component]

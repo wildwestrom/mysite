@@ -1,7 +1,6 @@
 (ns app.components
   (:require [reagent.core :as reagent]
             [reagent.dom :as r.dom]
-            [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]
             [app.data :as data]
             ["highlight.js" :as hljs]
@@ -172,28 +171,3 @@
      (.log js/console
            (str "Match not found.\n `(:data @data/match)`:"
                 (:data @data/match))))])
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Router
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(def routes
-  [["/"
-    {:name ::home
-     :view home-page}]
-
-   ["/blog"
-    {:name ::blog
-     :view blog-preview-page}]
-
-   ["/blog/:id"
-    {:name       ::post
-     :view       blog-post-page
-     :parameters {:path {:id string?}}}]
-
-   ["/contact"
-    {:name ::contact
-     :view contact-page}]])
-
-(def router
-  (rf/router routes))

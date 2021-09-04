@@ -1,6 +1,7 @@
 (ns app.nightwind
   (:require ["nightwind/helper" :refer [toggle]]
             [reagent.core :as reagent]))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Re-implement the init function from nightwind helper
 (defn get-initial-color-mode
