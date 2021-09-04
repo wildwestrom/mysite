@@ -37,5 +37,5 @@
    router
    (fn [m] (reset! data/match m))
     ;; set to false to enable HistoryAPI
-    ;; Never-mind this makes a huge fucking bug
+    ;; Never-mind it doesn't work for some reason
    {:use-fragment true}))

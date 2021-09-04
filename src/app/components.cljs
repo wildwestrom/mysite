@@ -1,10 +1,10 @@
 (ns app.components
-  (:require [reagent.core :as reagent]
-            [reagent.dom :as r.dom]
-            [reitit.frontend.easy :as rfe]
+  (:require ["highlight.js" :as hljs]
             [app.data :as data]
-            ["highlight.js" :as hljs]
-            [app.nightwind :refer [dark-light-button]]))
+            [app.nightwind :refer [dark-light-button]]
+            [reagent.core :as reagent]
+            [reagent.dom :as r.dom]
+            [reitit.frontend.easy :as rfe]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialization
@@ -36,12 +36,12 @@
                  "grid-flow-col" "grid-cols-2"
                  "underline" "italic"]}
    [:div {:class ["p-2"]}
-    [:a {:href (rfe/href ::home) :title "Home"} "Home"]]
+    [:a {:href (rfe/href :app.router/home) :title "Home"} "Home"]]
    [:div {:class ["p-2" "justify-end" "inline-flex"]}
     [:div {:class ["px-2"]}
-     [:a {:href (rfe/href ::blog) :title "Blog"} "Blog"]]
+     [:a {:href (rfe/href :app.router/blog) :title "Blog"} "Blog"]]
     [:div {:class ["px-2"]}
-     [:a {:href (rfe/href ::contact) :title "Contact"} "Contact"]]
+     [:a {:href (rfe/href :app.router/contact) :title "Contact"} "Contact"]]
     [:div {:class ["px-2"]}
      [dark-light-button]]]])
 
@@ -60,7 +60,7 @@
   [:div {:class ["border-2" "rounded" "border-gray-500"
                  "m-2" "pt-2" "pb-4" "px-4"
                  "bg-gray-200"]}
-   [:a {:href (rfe/href ::post {:id (-> blog-post :meta :id)})}
+   [:a {:href (rfe/href :app.router/post {:id (-> blog-post :meta :id)})}
     [:h2 {:class ["text-2xl"]} (-> blog-post :meta :title)]
     [:p {:class ["text-xs py-0.5 text-gray-500"]}
      (display-date (-> blog-post :meta :date))]
@@ -71,19 +71,19 @@
 (defn blog-post-main-view
   [blog-post]
   (reagent/create-class
-    {:component-did-mount highlight-code-block
-     :reagent-render
-     (fn [blog-post]
-       [:article {:class ["m-2" "mt-6" "pt-2"
-                          "pb-4" "px-2" "sm:px-8"]}
-        [:div
-         [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
-         [:p {:class ["pb-4" "text-gray-500"]}
-          (display-date (-> blog-post :meta :date))]
-         [:article {:class ["prose" "prose-sm" "sm:prose"
-                            "lg:prose-lg" "mx-auto"]
-                    :dangerouslySetInnerHTML
-                    {:__html (:content blog-post)}}]]])}))
+   {:component-did-mount highlight-code-block
+    :reagent-render
+    (fn [blog-post]
+      [:article {:class ["m-2" "mt-6" "pt-2"
+                         "pb-4" "px-2" "sm:px-8"]}
+       [:div
+        [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
+        [:p {:class ["pb-4" "text-gray-500"]}
+         (display-date (-> blog-post :meta :date))]
+        [:article {:class ["prose" "prose-sm" "sm:prose"
+                           "lg:prose-lg" "mx-auto"]
+                   :dangerouslySetInnerHTML
+                   {:__html (:content blog-post)}}]]])}))
 
 (defn generic-link
   [link message & mail?]
@@ -98,12 +98,12 @@
   [:footer {:class ["p-2" "text-xs" "text-center" "self-center"]}
    [:p "West's "
     (generic-link
-      "https://github.com/wildwestrom/mysite" "static site generator")
+     "https://github.com/wildwestrom/mysite" "static site generator")
     " is licensed"
     [:br {:class ["xs:hidden" "block"]}]
     " under the "
     (generic-link
-      "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
+     "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
     "." [:br]
     "The rest is my own original work"
     [:br {:class ["xs:hidden" "block"]}]
