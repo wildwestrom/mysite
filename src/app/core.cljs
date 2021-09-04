@@ -1,12 +1,8 @@
 (ns app.core
   (:require [app.components :as components]
             [app.data :as data]
-            clojure.string
-            [nightwind :refer [inject-dark-mode]]
-            [reagent.core :as reagent]
+            [app.nightwind :refer [inject-dark-mode]]
             [reagent.dom :as r.dom]
-            [reitit.coercion.spec :as rss]
-            [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -30,12 +26,12 @@
 (defn ^:dev/after-load start
   []
   (.log js/console "start")
-  (mount-root [components/app])
-  (inject-dark-mode))
+  (mount-root [components/app]))
 
 (defn ^:export init
   []
   (.log js/console "init")
+  (inject-dark-mode)
   (router-init!)
   (start))
 

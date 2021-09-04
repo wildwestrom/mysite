@@ -1,6 +1,5 @@
 (ns app.nightwind
   (:require ["nightwind/helper" :refer [beforeTransition init toggle]]
-            [app.components :as component]
             [reagent.core :as reagent]))
 
 ;; I basically re-implemented the init function from nightwind helper
