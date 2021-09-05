@@ -1,3 +1,4 @@
+/* tailwind.config.js */
 module.exports = {
     mode: 'jit',
     darkMode: 'class', // or 'media' or 'class'
@@ -20,7 +21,6 @@ module.exports = {
         },
         nightwind: {
             transitionDuration: "500ms",
-            importantNode: true,
             typography: true,
         },
         screens: {
@@ -45,6 +45,8 @@ module.exports = {
         }
     },
     plugins: [
+        require('postcss-import'),
+        require('tailwindcss/nesting'),
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/typography'),
         require('nightwind'),

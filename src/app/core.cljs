@@ -16,16 +16,16 @@
 
 (defn ^:dev/after-load start
   []
-  (.log js/console "start")
+  (js/console.debug "start")
   (mount-root [components/app]))
 
 (defn ^:export init
   []
-  (.log js/console "init")
+  (js/console.debug "init")
   (inject-dark-mode)
   (router-init!)
   (start))
 
 (defn ^:dev/before-load stop
   []
-  (.log js/console "stop"))
+  (js/console.debug "stop"))

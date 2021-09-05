@@ -33,4 +33,4 @@
             files      (extract-body filenames)
             files-resp (p/all (map #(fetch/get (uri %)) files))]
       (reset! a (map extract-body files-resp))
-      (js/console.log "Received blog-posts"))))
+      (js/console.debug "Received blog-posts"))))

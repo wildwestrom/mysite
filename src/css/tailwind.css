@@ -1,11 +1,7 @@
-/* Tailwind */
+/* tailwind.css */
 
-/* purgecss start ignore */
-
-@tailwind base;
-
-@tailwind components;
-
-/* purgecss end ignore */
-
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "./hljs-dark.css";
+@import "./hljs-light.css";
