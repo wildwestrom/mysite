@@ -1,7 +1,5 @@
 (ns app.router
-  (:require [app.components
-             :refer
-             [blog-post-page blog-preview-page contact-page home-page]]
+  (:require [app.components :as components]
             [app.data :as data]
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]))
@@ -13,20 +11,17 @@
 (def routes
   [["/"
     {:name ::home
-     :view home-page}]
-
+     :view components/home-page}]
    ["/blog"
     {:name ::blog
-     :view blog-preview-page}]
-
+     :view components/blog-preview-page}]
    ["/blog/:id"
     {:name       ::post
-     :view       blog-post-page
+     :view       components/blog-post-page
      :parameters {:path {:id string?}}}]
-
-   ["/contact"
-    {:name ::contact
-     :view contact-page}]])
+   ["/about"
+    {:name ::about
+     :view components/about-page}]])
 
 (def router
   (rf/router routes))
@@ -38,4 +33,4 @@
    (fn [m] (reset! data/match m))
     ;; set to false to enable HistoryAPI
     ;; set to true for development
-   {:use-fragment false}))
+   {:use-fragment true}))

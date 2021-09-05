@@ -1,7 +1,13 @@
 (ns app.components
-  (:require ["highlight.js" :as hljs]
+  (:require ["@fortawesome/fontawesome-svg-core" :as fontawesome]
+            ["@fortawesome/free-brands-svg-icons" :as fab]
+            ["@fortawesome/free-solid-svg-icons" :as fas]
+            ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
+            ["@headlessui/react" :refer [Transition]]
+            ["highlight.js" :as hljs]
             [app.data :as data]
             [app.nightwind :refer [dark-light-button]]
+            [clojure.string :as string]
             [reagent.core :as reagent]
             [reagent.dom :as r.dom]
             [reitit.frontend.easy :as rfe]))
@@ -14,26 +20,15 @@
 
 (data/store-posts-data blog-posts)
 
-(defn- highlight-code-block [node]
-  (if (-> node
-          r.dom/dom-node
-          (.querySelector "pre code")
-          nil?)
-    nil
-    (doseq [block (.querySelectorAll (r.dom/dom-node node) "pre code")]
-      (.highlightElement hljs block))))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Components
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn navbar
   []
-  [:nav {:class ["bg-black" "bg-opacity-50"
+  [:nav {:class ["bg-gray-300" #_"text-gray-700"
                  "py-2" "sm:px-8" "text-lg" "font-serif"
-                 "text-gray-50" "grid"
-                 "grid-flow-col" "grid-cols-2"
+                 "grid" "grid-flow-col" "grid-cols-2"
                  "underline" "italic"]}
    [:div {:class ["p-2"]}
     [:a {:href (rfe/href :app.router/home) :title "Home"} "Home"]]
@@ -41,7 +36,7 @@
     [:div {:class ["px-2"]}
      [:a {:href (rfe/href :app.router/blog) :title "Blog"} "Blog"]]
     [:div {:class ["px-2"]}
-     [:a {:href (rfe/href :app.router/contact) :title "Contact"} "Contact"]]
+     [:a {:href (rfe/href :app.router/about) :title "About"} "About"]]
     [:div {:class ["px-2"]}
      [dark-light-button]]]])
 
@@ -68,10 +63,21 @@
                  "text-gray-600"]}
      (-> blog-post :meta :subtitle)]]])
 
+(defn- highlight-code [node]
+  (when (.querySelector (r.dom/dom-node node) "pre code")
+    (-> (r.dom/dom-node node)
+        (.querySelectorAll "pre code")
+        array-seq
+        first
+        hljs/highlightElement)
+    #_(doseq [code-block (array-seq (.querySelectorAll (r.dom/dom-node node) "pre code"))]
+        (hljs/highlightElement code-block))))
+
 (defn blog-post-main-view
   [blog-post]
   (reagent/create-class
-   {:component-did-mount highlight-code-block
+   {:component-did-mount
+    highlight-code
     :reagent-render
     (fn [blog-post]
       [:article {:class ["m-2" "mt-6" "pt-2"
@@ -86,35 +92,30 @@
                    {:__html (:content blog-post)}}]]])}))
 
 (defn generic-link
-  [link message & mail?]
-  (let [link (cond (not (nil? mail?)) (str "mailto: " link)
-                   :else              link)]
-    [:a {:href   link
-         :target "_blank"
-         :class  ["text-blue-500" "hover:text-blue-600"]} message]))
+  [link text & {:keys [mail]}]
+  [:a {:href   (if mail
+                 (str "mailto: " link)
+                 link)
+       :target "_blank"
+       :class  ["text-blue-500" "hover:text-blue-600"]} text])
 
 (defn license
   []
   [:footer {:class ["p-2" "text-xs" "text-center" "self-center"]}
-   [:p "West's "
-    (generic-link
-     "https://github.com/wildwestrom/mysite" "static site generator")
+   [:p (generic-link
+        "https://github.com/wildwestrom/mysite" "This webpage")
     " is licensed"
     [:br {:class ["xs:hidden" "block"]}]
     " under the "
     (generic-link
      "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
     "." [:br]
-    "The rest is my own original work"
-    [:br {:class ["xs:hidden" "block"]}]
-    " unless otherwise specified."
-    [:br]
     "Copyright © "
     (this-year) " "
     (:author data/global-config) " "
     [:br {:class ["xs:hidden" "block"]}]
     (generic-link (:email data/global-config)
-                  (:email data/global-config) true)]])
+                  (:email data/global-config) :mail true)]])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Pages
@@ -143,20 +144,86 @@
      [blog-post-main-view post]
      [license]]))
 
-(defn contact-page
+(fontawesome/library.add fas/fas)
+
+(defn icon-link [link text icon & {:keys [mail]}]
+  [:li {:class ["p-2"]}
+   [:a {:href   (if mail
+                  (str "mailto: " link)
+                  link)
+        :target "_blank"}
+    [:span {:class ["text-blue-600" "hover:text-blue-700"
+                    "gap-x-2" "flex" "items-center"]}
+     [:> FontAwesomeIcon {:icon icon
+                          :class "fa-fw"}]
+     [:p text]]]])
+
+(defn copy-text [text icon tooltip]
+  (let [showing? (reagent/atom false)]
+    (fn []
+      [:li {:class ["p-2"]}
+       [:> Transition
+        {:id "text-copy-indicator"
+         :show @showing?
+         :enter "transition-opacity duration-75"
+         :enter-from "opacity-0"
+         :enter-to "opacity-100"
+         :leave "transition-opacity duration-300"
+         :leave-from "opacity-100"
+         :leave-to "opacity-0"
+         :class ["border-2" "rounded-lg" "p-1" "absolute"
+                 "text-black" "bg-blue-50"
+                 "transform" "-translate-y-10"]}
+        "Copied to Clipboard!"]
+       [:div {:on-click
+              (fn []
+                (letfn [(toggle [] (swap! showing? not))]
+                  (js/navigator.clipboard.writeText text)
+                  (toggle)
+                  (js/setTimeout toggle 500)))
+              :title (string/join " " [tooltip "Click to copy."])
+              :class "cursor-pointer"}
+        [:span {:class ["text-blue-600" "hover:text-blue-700"
+                        "gap-x-2" "flex" "items-center"]}
+         [:> FontAwesomeIcon {:icon icon
+                              :class "fa-fw"}]
+         [:p {:class ["max-w-[20ch]" "overflow-hidden" "overflow-ellipsis"]}
+          text]]]])))
+
+(defn about-page
   []
-  [:div {:class ["flex-grow" "flex" "flex-col" "items-stretch"]}
-   [:div {:class ["flex-grow" "self-center" "flex" "flex-col"]}
-    [:div {:class ["p-4" "flex" "flex-col" "flex-grow" "justify-center"]}
-     [:h2 {:class ["pb-4" "text-2xl"]} "You seem pretty sweet." [:br]
-      "We should get lunch sometime."]
-     [:ul
-      [:li {:class ["p-2"]}
-       (generic-link (:email data/global-config)
-                     (:email data/global-config) true)]
-      [:li {:class ["p-2"]}
-       (generic-link (:github data/global-config)
-                     (:github data/global-config))]]]]
+  [:div {:class ["max-w-prose" "self-center" "p-2"
+                 "flex" "flex-col" "flex-grow"
+                 "items-center" "justify-between"]}
+   [:div {:class ["flex" "flex-col" ""]}
+    [:h1 {:class ["py-4" "text-3xl"
+                  "font-bold"]}
+     "Contact"]
+    [:h2 {:class ["italic" "pb-2"]}
+     "You seem pretty sweet." [:br]
+     "We should get lunch sometime."]
+    [:ul
+     [icon-link (:email data/global-config)
+      (:email data/global-config)
+      fas/faEnvelope
+      :mail true]
+     [icon-link (:github data/global-config)
+      "wildwestrom"
+      fab/faGithub]
+     [icon-link (:linkedin data/global-config)
+      "c-westrom"
+      fab/faLinkedin]
+     [copy-text (:discord data/global-config)
+      fab/faDiscord "Discord username;"]]
+    [:h1 {:class ["py-4" "text-3xl"
+                  "font-bold"]}
+     "Funding"]
+    [:h2 {:class ["italic" "pb-2"]}
+     "Because every site needs" [:br]
+     "a \"give me money\" button."]
+    [:ul
+     [copy-text (:monero data/global-config)
+      fab/faMonero "Monero wallet;"]]]
    [license]])
 
 (defn app

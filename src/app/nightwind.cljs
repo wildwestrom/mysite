@@ -42,4 +42,5 @@
 
 (defn dark-light-button
   []
-  [:button {:onClick (comp toggle change-icon!)} @icon])
+  [:button {:onClick (comp toggle change-icon!)
+            :title "Click to toggle theme."} @icon])
