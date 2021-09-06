@@ -1,5 +1,7 @@
 (ns app.nightwind
   (:require ["nightwind/helper" :refer [toggle]]
+            ["@fortawesome/free-solid-svg-icons" :as fas]
+            ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
             [reagent.core :as reagent]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,21 +28,25 @@
                               (.createElement js/document "script"))
                 (.createTextNode js/document (init-nightwind))))
 
+(def light-icon [:> FontAwesomeIcon {:icon fas/faSun}])
+(def dark-icon [:> FontAwesomeIcon {:icon fas/faMoon}])
+
 (defonce icon
   (reagent/atom (case (get-initial-color-mode)
-                  "dark"  "🌚"
-                  "light" "🌞")))
+                  "dark"  dark-icon
+                  "light" light-icon)))
 
 (defn change-icon!
   []
-  (let [mut (new js/MutationObserver (fn [_ _]
-                                       (if (js/document.documentElement.classList.contains "dark")
-                                         (reset! icon "🌚")
-                                         (reset! icon "🌞"))))]
+  (let [mut (new js/MutationObserver
+                 (fn [_ _]
+                   (if (js/document.documentElement.classList.contains "dark")
+                     (reset! icon dark-icon)
+                     (reset! icon light-icon))))]
     (.observe mut js/document.documentElement #js {:attributes true})))
 
-
 (defn dark-light-button
-  []
-  [:button {:onClick (comp toggle change-icon!)
+  [[& classes]]
+  [:button {:class (into [] classes)
+            :on-click (comp toggle change-icon!)
             :title "Click to toggle theme."} @icon])

@@ -1,6 +1,5 @@
 (ns app.data
   (:require [clojure.edn :as edn]
-            [clojure.pprint :as pp]
             [reagent.core :as reagent]
             [shadow.resource]
             [lambdaisland.fetch :as fetch]

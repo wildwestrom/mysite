@@ -1,10 +1,8 @@
 (ns app.core
   (:require [app.components :as components]
-            [app.data :as data]
             [app.nightwind :refer [inject-dark-mode]]
             [app.router :refer [router-init!]]
-            [reagent.dom :as r.dom]
-            [reitit.frontend.easy :as rfe]))
+            [reagent.dom :as r.dom]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Render

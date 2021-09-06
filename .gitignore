@@ -4,7 +4,7 @@
 /.idea/
 /.lsp/
 /.log/
-/.clj-kondo/
+/.clj-kondo/.cache/*
 /node_modules/
 .dir-locals.el
 .nrepl-port

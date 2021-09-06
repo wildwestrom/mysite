@@ -24,8 +24,14 @@ module.exports = {
             typography: true,
         },
         screens: {
+            'xxs': {
+                'min': '320px'
+            },
             'xs': {
                 'min': '410px'
+            },
+            '-sm': {
+                'max': '639px'
             },
             'sm': {
                 'min': '640px'

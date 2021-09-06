@@ -1,14 +1,12 @@
 (ns app.components
-  (:require ["@fortawesome/fontawesome-svg-core" :as fontawesome]
-            ["@fortawesome/free-brands-svg-icons" :as fab]
+  (:require ["@fortawesome/free-brands-svg-icons" :as fab]
             ["@fortawesome/free-solid-svg-icons" :as fas]
             ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
-            ["@headlessui/react" :refer [Transition]]
+            ["@headlessui/react" :as headlessui]
             ["fitvids" :as fitvids]
             ["highlight.js" :as hljs]
             [app.data :as data]
             [app.nightwind :refer [dark-light-button]]
-            [clojure.string :as string]
             [reagent.core :as reagent]
             [reagent.dom :as r.dom]
             [reitit.frontend.easy :as rfe]))
@@ -25,21 +23,44 @@
 ;; Components
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn nav-link
+  [title route & pos]
+  (reagent/with-let [rt (rfe/href route)]
+    [:a {:class ["px-2" "py-1" "border-1"
+                 "bg-gray-200" "rounded"]
+         :href rt
+         :title title} title]))
+
+(def navs
+  [["Home" :app.router/home]
+   ["Blog" :app.router/blog]
+   ["About" :app.router/about]])
+
 (defn navbar
   []
-  [:nav {:class ["bg-gray-300" "text-lg" "font-serif"
-                 "underline" "italic"
-                 "py-2" "sm:px-8"
-                 "grid" "grid-flow-col" "grid-cols-2"]}
-   [:div {:class ["p-2"]}
-    [:a {:href (rfe/href :app.router/home) :title "Home"} "Home"]]
-   [:div {:class ["p-2" "justify-end" "inline-flex"]}
-    [:div {:class ["px-2"]}
-     [:a {:href (rfe/href :app.router/blog) :title "Blog"} "Blog"]]
-    [:div {:class ["px-2"]}
-     [:a {:href (rfe/href :app.router/about) :title "About"} "About"]]
-    [:div {:class ["px-2"]}
-     [dark-light-button]]]])
+  (reagent/with-let [nav-classes ["font-serif" "italic" "bg-gray-300" "text-lg" "p-2"]
+                     toggle-button-classes ["px-2" "py-1" "border-1" "bg-gray-200" "rounded"]]
+    ;; Desktop Nav
+    [:<>
+     [:nav {:class (conj nav-classes "-sm:hidden" "grid" "grid-flow-col" "grid-cols-2")}
+      [:div {:class ["gap-2" "justify-start" "inline-flex"]}
+       [nav-link "Home" :app.router/home]]
+      [:div {:class ["gap-2" "justify-end" "inline-flex"]}
+       [nav-link "Blog" :app.router/blog]
+       [nav-link "About" :app.router/about]
+       [dark-light-button toggle-button-classes]]]
+     ;; Mobile Nav
+     [:nav {:class (conj nav-classes "m-4" "sm:hidden" "fixed" "bottom-0" "rounded-lg" "right-0")}
+      [:> headlessui/Popover
+       [:> headlessui/Popover.Button
+        {:class-name ["border-1" "bg-gray-200" "rounded"]}
+        [:> FontAwesomeIcon {:icon fas/faEllipsisH}]]
+       [:> headlessui/Popover.Panel
+        [:div.grid.gap-2
+         [nav-link "Home" :app.router/home]
+         [nav-link "Blog" :app.router/blog]
+         [nav-link "About" :app.router/about]
+         [dark-light-button toggle-button-classes]]]]]]))
 
 (defn display-date
   [date-string]
@@ -108,7 +129,7 @@
    [:p (generic-link
         "https://github.com/wildwestrom/mysite" "This webpage")
     " is licensed"
-    [:br {:class ["xs:hidden" "block"]}]
+    [:br.xs:hidden.block]
     " under the "
     (generic-link
      "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
@@ -116,9 +137,42 @@
     "Copyright © "
     (this-year) " "
     (:author data/global-config) " "
-    [:br {:class ["xs:hidden" "block"]}]
+    [:br.xs:hidden.block]
     (generic-link (:email data/global-config)
                   (:email data/global-config) :mail true)]])
+
+(defn icon-link [text icon label & {:keys [copyable href]}]
+  (reagent/with-let [showing? (reagent/atom false)]
+    [:li {:class ["py-2" "text-blue-600" "hover:text-blue-700"]}
+     (when copyable
+       [:> headlessui/Transition
+        {:id "text-copy-indicator"
+         :show @showing?
+         :enter "transition-opacity duration-75"
+         :enter-from "opacity-0"
+         :enter-to "opacity-100"
+         :leave "transition-opacity duration-300"
+         :leave-from "opacity-100"
+         :leave-to "opacity-0"
+         :class ["border-2" "rounded-lg" "p-1" "absolute"
+                 "text-black" "bg-blue-50"
+                 "transform" "-translate-y-10"]}
+        "Copied to Clipboard!"])
+     [:a.cursor-pointer
+      (merge
+       (when href {:href href})
+       (when label
+         {:title (str label (when copyable " (click to copy)"))
+          :aria-label label})
+       (when copyable
+         {:on-click  (fn []
+                       (letfn [(toggle [] (swap! showing? not))]
+                         (js/navigator.clipboard.writeText text)
+                         (toggle)
+                         (js/setTimeout toggle 500)))}))
+      [:> FontAwesomeIcon {:icon icon
+                           :class "fa-fw mr-2"}]
+      text]]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Pages
@@ -147,92 +201,43 @@
      [blog-post-main-view post]
      [license]]))
 
-(fontawesome/library.add fas/fas)
-
-#_(defn icon-link [link text icon]
-    [:li {:class ["p-2"]}
-     [:a {:href link
-          :target "_blank"}
-      [:span {:class ["text-blue-600" "hover:text-blue-700"
-                      "gap-x-2" "flex" "items-center"]}
-       [:> FontAwesomeIcon {:icon icon
-                            :class "fa-fw"}]
-       [:p text]]]])
-
-(defn icon-link [text icon tooltip & {:keys [copyable href]}]
-  (let [showing? (reagent/atom false)]
-    (fn []
-      [:li.py-2
-       (when copyable
-         [:> Transition
-          {:id "text-copy-indicator"
-           :show @showing?
-           :enter "transition-opacity duration-75"
-           :enter-from "opacity-0"
-           :enter-to "opacity-100"
-           :leave "transition-opacity duration-300"
-           :leave-from "opacity-100"
-           :leave-to "opacity-0"
-           :class ["border-2" "rounded-lg" "p-1" "absolute"
-                   "text-black" "bg-blue-50"
-                   "transform" "-translate-y-10"]}
-          "Copied to Clipboard!"])
-       [:a.cursor-pointer
-        {:on-click
-         (fn []
-           (letfn [(toggle [] (swap! showing? not))]
-             (js/navigator.clipboard.writeText text)
-             (toggle)
-             (js/setTimeout toggle 500)))
-         :href href
-         :title (str tooltip (when copyable "; Click to copy") ".")}
-        [:span {:class ["text-blue-600" "hover:text-blue-700"
-                        "gap-x-2" "flex" "items-center"]}
-         [:> FontAwesomeIcon {:icon icon
-                              :class "fa-fw"}]
-         [:p {:class ["max-w-[20ch]" "overflow-hidden" "overflow-ellipsis"]}
-          text]]]])))
-
 (defn about-page
   []
   (let [about-header
-        (fn [title [subtitle-l1 subtitle-l2]]
+        (fn [title subtitle]
           [:<>
            [:h1 {:class ["py-4" "text-3xl" "font-bold"]}
             title]
            [:h2 {:class ["italic" "pb-2"]}
-            subtitle-l1
-            [:br]
-            subtitle-l2]])]
-    [:div {:class ["max-w-prose" "self-center" "p-2"
+            subtitle]])]
+    [:div {:class ["max-w-prose" "self-center" "py-2" "px-8"
                    "flex" "flex-col" "flex-grow"
                    "items-center" "justify-between"]}
-     [:div
+     [:div {:class ["min-h-screen"]}
       [about-header "Contact"
-       ["You seem pretty sweet."
-        "We should get lunch sometime."]]
+       "You seem pretty sweet. We should get lunch sometime."]
       [:ul
        [icon-link (:email data/global-config)
         fas/faEnvelope
-        "E-mail address"
-        :href (str "mailto:" (:email data/global-config))]
+        "Email address"
+        :href (:email data/global-config)
+        :mail true]
        [icon-link "wildwestrom"
         fab/faGithub
-        "Github profile"
+        "Github"
         :href (:github data/global-config)]
        [icon-link "c-westrom"
         fab/faLinkedin
-        "Linkedin profile"
+        "Linkedin"
         :href (:linkedin data/global-config)]
        [icon-link (:discord data/global-config)
         fab/faDiscord
-        "Discord username"
+        "Discord"
         :copyable true]]
       [about-header "Funding"
-       ["Because every site needs"
-        "a \"give me money\" button."]]
+       "Because every site needs a \"give me money\" button."]
       [:ul
-       [icon-link (:monero data/global-config)
+       [icon-link "Monero Wallet"
         fab/faMonero
         "Monero wallet"
         :href (str "monero:" (:monero data/global-config))]]]
