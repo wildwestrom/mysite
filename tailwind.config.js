@@ -1,6 +1,11 @@
+/* tailwind.config.js */
 module.exports = {
-    purge: false,
+    mode: 'jit',
     darkMode: 'class', // or 'media' or 'class'
+    purge: [
+        './public/**/*.html',
+        './src/**/*.{cljs,clj}',
+    ],
     theme: {
         extend: {
             typography: {
@@ -16,12 +21,17 @@ module.exports = {
         },
         nightwind: {
             transitionDuration: "500ms",
-            importantNode: true,
             typography: true,
         },
         screens: {
+            'xxs': {
+                'min': '320px'
+            },
             'xs': {
                 'min': '410px'
+            },
+            '-sm': {
+                'max': '639px'
             },
             'sm': {
                 'min': '640px'
@@ -40,14 +50,11 @@ module.exports = {
             },
         }
     },
-    variants: {
-        extend: {
-            textColor: ['visited'],
-        }
-    },
     plugins: [
+        require('postcss-import'),
+        require('tailwindcss/nesting'),
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/typography'),
-        require('nightwind')
+        require('nightwind'),
     ]
 }

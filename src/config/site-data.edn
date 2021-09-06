@@ -3,6 +3,8 @@
  :gitlab      "https://gitlab.com/wildwestrom"
  :github      "https://github.com/wildwestrom"
  :discord     "West#7965"
+ :linkedin    "https://www.linkedin.com/in/c-westrom/"
+ :monero      "899Lx4ix6NbFnCYj9y8LNm3QEw5CmuVv6SVEcHicRCgmRFBHKsRvL6G1xEsZhoBxN5abqfg2ioPtzfbaaHc1Yh9kFWbFBMf"
  :author      "Christian Westrom"
  :description "My site"
  :keywords    ["programming" "clojure" "clojurescript" "web development" "javascript"]}

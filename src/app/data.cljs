@@ -1,6 +1,5 @@
 (ns app.data
   (:require [clojure.edn :as edn]
-            [clojure.pprint :as pp]
             [reagent.core :as reagent]
             [shadow.resource]
             [lambdaisland.fetch :as fetch]
@@ -33,4 +32,4 @@
             files      (extract-body filenames)
             files-resp (p/all (map #(fetch/get (uri %)) files))]
       (reset! a (map extract-body files-resp))
-      (js/console.log "Received blog-posts"))))
+      (js/console.debug "Received blog-posts"))))

@@ -1,11 +1,15 @@
 (ns app.components
-  (:require [reagent.core :as reagent]
-            [reagent.dom :as r.dom]
-            [reitit.frontend :as rf]
-            [reitit.frontend.easy :as rfe]
-            [app.data :as data]
+  (:require ["@fortawesome/free-brands-svg-icons" :as fab]
+            ["@fortawesome/free-solid-svg-icons" :as fas]
+            ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
+            ["@headlessui/react" :as headlessui]
+            ["fitvids" :as fitvids]
             ["highlight.js" :as hljs]
-            ["nightwind/helper" :refer (init toggle beforeTransition)]))
+            [app.data :as data]
+            [app.nightwind :refer [dark-light-button]]
+            [reagent.core :as reagent]
+            [reagent.dom :as r.dom]
+            [reitit.frontend.easy :as rfe]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialization
@@ -15,75 +19,43 @@
 
 (data/store-posts-data blog-posts)
 
-;; I basically re-implemented the init function from nightwind helper
-(defn get-initial-color-mode
-  []
-  (let [persistedColorPreference (.getItem (.-localStorage js/window) "nightwind-mode")
-        hasPersistedPreference   (string? persistedColorPreference)]
-    (if hasPersistedPreference
-      persistedColorPreference
-      (let [mql                     (.matchMedia js/window "(prefers-color-scheme: dark)")
-            hasMediaQueryPreference (boolean? (.-matches mql))]
-        (when hasMediaQueryPreference (if (.-matches mql) "dark" "light"))))))
-
-(defn init-nightwind []
-  (if (= (get-initial-color-mode) "light")
-    (.remove (.. js/document -documentElement -classList) "dark")
-    (.add (.. js/document -documentElement -classList) "dark")))
-
-(defn inject-dark-mode
-  []
-  (.appendChild (.appendChild (.querySelector js/document "head")
-                              (.createElement js/document "script"))
-                (.createTextNode js/document (init-nightwind))))
-
-(defn- highlight-code-block [node]
-  (if (-> node
-          r.dom/dom-node
-          (.querySelector "pre code")
-          nil?)
-    nil
-    (doseq [block (.querySelectorAll (r.dom/dom-node node) "pre code")]
-      (.highlightElement hljs block))))
-
-(defonce icon
-  (reagent/atom (case (get-initial-color-mode)
-                  "dark"  "🌚"
-                  "light" "🌞")))
-
-(defn change-icon!
-  []
-  (let [mut (new js/MutationObserver (fn [mutations mut]
-                                       (if (js/document.documentElement.classList.contains "dark")
-                                         (reset! icon "🌚")
-                                         (reset! icon "🌞"))))]
-    (.observe mut js/document.documentElement #js {:attributes true})))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Components
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn dark-light-button
-  []
-  [:button {:onClick (comp toggle change-icon!)} @icon])
+(defn nav-link
+  [title route & pos]
+  (reagent/with-let [rt (rfe/href route)]
+    [:a {:class ["px-2" "py-1" "border-1"
+                 "bg-gray-200" "rounded"]
+         :href rt
+         :title title} title]))
 
 (defn navbar
   []
-  [:nav {:class ["bg-black" "bg-opacity-50"
-                 "py-2" "sm:px-8" "text-lg" "font-serif"
-                 "text-gray-50" "grid"
-                 "grid-flow-col" "grid-cols-2"
-                 "underline" "italic"]}
-   [:div {:class ["p-2"]}
-    [:a {:href (rfe/href ::home) :title "Home"} "Home"]]
-   [:div {:class ["p-2" "justify-end" "inline-flex"]}
-    [:div {:class ["px-2"]}
-     [:a {:href (rfe/href ::blog) :title "Blog"} "Blog"]]
-    [:div {:class ["px-2"]}
-     [:a {:href (rfe/href ::contact) :title "Contact"} "Contact"]]
-    [:div {:class ["px-2"]}
-     [dark-light-button]]]])
+  (reagent/with-let [nav-classes ["font-serif" "italic" "bg-gray-300" "text-lg" "p-2"]
+                     toggle-button-classes ["px-2" "py-1" "border-1" "bg-gray-200" "rounded"]]
+    ;; Desktop Nav
+    [:<>
+     [:nav {:class (conj nav-classes "-sm:hidden" "grid" "grid-flow-col" "grid-cols-2")}
+      [:div {:class ["gap-2" "justify-start" "inline-flex"]}
+       [nav-link "Home" :app.router/home]]
+      [:div {:class ["gap-2" "justify-end" "inline-flex"]}
+       [nav-link "Blog" :app.router/blog]
+       [nav-link "About" :app.router/about]
+       [dark-light-button toggle-button-classes]]]
+     ;; Mobile Nav
+     [:nav {:class (conj nav-classes "m-4" "sm:hidden" "fixed" "bottom-0" "rounded-lg" "right-0")}
+      [:> headlessui/Popover
+       [:> headlessui/Popover.Button
+        {:class-name ["border-1" "bg-gray-200" "rounded"]}
+        [:> FontAwesomeIcon {:icon fas/faEllipsisH}]]
+       [:> headlessui/Popover.Panel
+        [:div.grid.gap-2
+         [nav-link "Home" :app.router/home]
+         [nav-link "Blog" :app.router/blog]
+         [nav-link "About" :app.router/about]
+         [dark-light-button toggle-button-classes]]]]]]))
 
 (defn display-date
   [date-string]
@@ -100,7 +72,7 @@
   [:div {:class ["border-2" "rounded" "border-gray-500"
                  "m-2" "pt-2" "pb-4" "px-4"
                  "bg-gray-200"]}
-   [:a {:href (rfe/href ::post {:id (-> blog-post :meta :id)})}
+   [:a {:href (rfe/href :app.router/post {:id (-> blog-post :meta :id)})}
     [:h2 {:class ["text-2xl"]} (-> blog-post :meta :title)]
     [:p {:class ["text-xs py-0.5 text-gray-500"]}
      (display-date (-> blog-post :meta :date))]
@@ -108,53 +80,94 @@
                  "text-gray-600"]}
      (-> blog-post :meta :subtitle)]]])
 
+(defn- highlight-code [node]
+  (when (.querySelector (r.dom/dom-node node) "pre code")
+    (-> (r.dom/dom-node node)
+        (.querySelectorAll "pre code")
+        array-seq
+        first
+        hljs/highlightElement)
+    (doseq [code-block (array-seq (.querySelectorAll (r.dom/dom-node node) "pre code"))]
+      (hljs/highlightElement code-block))))
+
 (defn blog-post-main-view
   [blog-post]
   (reagent/create-class
-    {:component-did-mount highlight-code-block
-     :reagent-render
-     (fn [blog-post]
-       [:article {:class ["m-2" "mt-6" "pt-2"
-                          "pb-4" "px-2" "sm:px-8"]}
-        [:div
-         [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
-         [:p {:class ["pb-4" "text-gray-500"]}
-          (display-date (-> blog-post :meta :date))]
-         [:article {:class ["prose" "prose-sm" "sm:prose"
-                            "lg:prose-lg" "mx-auto"]
-                    :dangerouslySetInnerHTML
-                    {:__html (:content blog-post)}}]]])}))
+   {:component-did-mount
+    (fn [node]
+      (highlight-code node)
+      (fitvids))
+    :reagent-render
+    (fn [blog-post]
+      [:article {:class ["m-2" "mt-6" "pt-2"
+                         "pb-4" "px-2" "sm:px-8"]}
+       [:div
+        [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
+        [:p {:class ["pb-4" "text-gray-500"]}
+         (display-date (-> blog-post :meta :date))]
+        [:article {:class ["prose" "prose-sm" "sm:prose"
+                           "lg:prose-lg" "mx-auto"]
+                   :dangerouslySetInnerHTML
+                   {:__html (:content blog-post)}}]]])}))
 
 (defn generic-link
-  [link message & mail?]
-  (let [link (cond (not (nil? mail?)) (str "mailto: " link)
-                   :else              link)]
-    [:a {:href   link
-         :target "_blank"
-         :class  ["text-blue-500" "hover:text-blue-600"]} message]))
+  [link text & {:keys [mail]}]
+  [:a {:href   (if mail
+                 (str "mailto: " link)
+                 link)
+       :target "_blank"
+       :class  ["text-blue-500" "hover:text-blue-600"]} text])
 
 (defn license
   []
   [:footer {:class ["p-2" "text-xs" "text-center" "self-center"]}
-   [:p "West's "
-    (generic-link
-      "https://github.com/wildwestrom/mysite" "static site generator")
+   [:p (generic-link
+        "https://github.com/wildwestrom/mysite" "This webpage")
     " is licensed"
-    [:br {:class ["xs:hidden" "block"]}]
+    [:br.xs:hidden.block]
     " under the "
     (generic-link
-      "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
+     "https://www.gnu.org/licenses/agpl-3.0.html" "GNU AGPL License")
     "." [:br]
-    "The rest is my own original work"
-    [:br {:class ["xs:hidden" "block"]}]
-    " unless otherwise specified."
-    [:br]
     "Copyright © "
     (this-year) " "
     (:author data/global-config) " "
-    [:br {:class ["xs:hidden" "block"]}]
+    [:br.xs:hidden.block]
     (generic-link (:email data/global-config)
-                  (:email data/global-config) true)]])
+                  (:email data/global-config) :mail true)]])
+
+(defn icon-link [text icon label & {:keys [copyable href]}]
+  (reagent/with-let [showing? (reagent/atom false)]
+    [:li {:class ["py-2" "text-blue-600" "hover:text-blue-700"]}
+     (when copyable
+       [:> headlessui/Transition
+        {:id "text-copy-indicator"
+         :show @showing?
+         :enter "transition-opacity duration-75"
+         :enter-from "opacity-0"
+         :enter-to "opacity-100"
+         :leave "transition-opacity duration-300"
+         :leave-from "opacity-100"
+         :leave-to "opacity-0"
+         :class ["border-2" "rounded-lg" "p-1" "absolute"
+                 "text-black" "bg-blue-50"
+                 "transform" "-translate-y-10"]}
+        "Copied to Clipboard!"])
+     [:a.cursor-pointer
+      (merge
+       (when href {:href href})
+       (when label
+         {:title (str label (when copyable " (click to copy)"))
+          :aria-label label})
+       (when copyable
+         {:on-click  (fn []
+                       (letfn [(toggle [] (swap! showing? not))]
+                         (js/navigator.clipboard.writeText text)
+                         (toggle)
+                         (js/setTimeout toggle 500)))}))
+      [:> FontAwesomeIcon {:icon icon
+                           :class "fa-fw mr-2"}]
+      text]]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Pages
@@ -183,56 +196,63 @@
      [blog-post-main-view post]
      [license]]))
 
-(defn contact-page
+(defn about-page
   []
-  [:div {:class ["flex-grow" "flex" "flex-col" "items-stretch"]}
-   [:div {:class ["flex-grow" "self-center" "flex" "flex-col"]}
-    [:div {:class ["p-4" "flex" "flex-col" "flex-grow" "justify-center"]}
-     [:h2 {:class ["pb-4" "text-2xl"]} "You seem pretty sweet." [:br]
-      "We should get lunch sometime."]
-     [:ul
-      [:li {:class ["p-2"]}
-       (generic-link (:email data/global-config)
-                     (:email data/global-config) true)]
-      [:li {:class ["p-2"]}
-       (generic-link (:github data/global-config)
-                     (:github data/global-config))]]]]
+  (let [about-header
+        (fn [title subtitle]
+          [:<>
+           [:h1 {:class ["py-4" "text-3xl" "font-bold"]}
+            title]
+           [:h2 {:class ["italic" "pb-2"]}
+            subtitle]])]
+    [:div {:class ["max-w-prose" "self-center" "py-2" "px-8"
+                   "flex" "flex-col" "flex-grow"
+                   "items-center" "justify-between"]}
+     [:div {:class ["min-h-screen"]}
+      [about-header "Contact"
+       "You seem pretty sweet. We should get lunch sometime."]
+      [:ul
+       [icon-link (:email data/global-config)
+        fas/faEnvelope
+        "Email address"
+        :href (:email data/global-config)
+        :mail true]
+       [icon-link "wildwestrom"
+        fab/faGithub
+        "Github"
+        :href (:github data/global-config)]
+       [icon-link "c-westrom"
+        fab/faLinkedin
+        "Linkedin"
+        :href (:linkedin data/global-config)]
+       [icon-link (:discord data/global-config)
+        fab/faDiscord
+        "Discord"
+        :copyable true]]
+      [about-header "Funding"
+       "Because every site needs a \"give me money\" button."]
+      [:ul
+       [icon-link "Monero Wallet"
+        fab/faMonero
+        "Monero wallet"
+        :href (str "monero:" (:monero data/global-config))]]]
+     [license]]))
+
+(defn not-found-page
+  []
+  [:div {:class ["flex" "flex-col" "flex-grow"]}
+   [:div {:class ["flex-grow" "flex" "justify-center" "items-center"]}
+    [:h2 {:class ["text-5xl" "p-4" "font-mono"]}
+     "Error:" [:br] "Page not found."]]
    [license]])
 
 (defn app
   []
-  [:div {:class ["text-gray-800" "bg-gray-50"
+  [:div {:class ["text-gray-700" "bg-gray-50"
                  "subpixel-antialiased" "min-h-screen"
                  "flex" "flex-col"]}
    [navbar]
    (if @data/match
      (let [view (:view (:data @data/match))]
        [view @data/match])
-     (.log js/console
-           (str "Match not found.\n `(:data @data/match)`:"
-                (:data @data/match))))])
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Router
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(def routes
-  [["/"
-    {:name ::home
-     :view home-page}]
-
-   ["/blog"
-    {:name ::blog
-     :view blog-preview-page}]
-
-   ["/blog/:id"
-    {:name       ::post
-     :view       blog-post-page
-     :parameters {:path {:id string?}}}]
-
-   ["/contact"
-    {:name ::contact
-     :view contact-page}]])
-
-(def router
-  (rf/router routes))
+     [not-found-page])])
