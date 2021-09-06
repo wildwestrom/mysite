@@ -16,8 +16,8 @@
     {:name ::blog
      :view components/blog-preview-page}]
    ["/blog/:id"
-    {:name       ::post
-     :view       components/blog-post-page
+    {:name ::post
+     :view components/blog-post-page
      :parameters {:path {:id string?}}}]
    ["/about"
     {:name ::about
@@ -28,9 +28,8 @@
 
 (defn router-init!
   []
-  (rfe/start!
-   router
-   (fn [m] (reset! data/match m))
+  (rfe/start! router
+              (fn [m] (reset! data/match m))
     ;; set to false to enable HistoryAPI
     ;; set to true for development
-   {:use-fragment true}))
+              {:use-fragment false}))

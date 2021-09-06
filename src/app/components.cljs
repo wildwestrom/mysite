@@ -31,11 +31,6 @@
          :href rt
          :title title} title]))
 
-(def navs
-  [["Home" :app.router/home]
-   ["Blog" :app.router/blog]
-   ["About" :app.router/about]])
-
 (defn navbar
   []
   (reagent/with-let [nav-classes ["font-serif" "italic" "bg-gray-300" "text-lg" "p-2"]
@@ -243,6 +238,14 @@
         :href (str "monero:" (:monero data/global-config))]]]
      [license]]))
 
+(defn not-found-page
+  []
+  [:div {:class ["flex" "flex-col" "flex-grow"]}
+   [:div {:class ["flex-grow" "flex" "justify-center" "items-center"]}
+    [:h2 {:class ["text-5xl" "p-4" "font-mono"]}
+     "Error:" [:br] "Page not found."]]
+   [license]])
+
 (defn app
   []
   [:div {:class ["text-gray-700" "bg-gray-50"
@@ -252,6 +255,4 @@
    (if @data/match
      (let [view (:view (:data @data/match))]
        [view @data/match])
-     (.log js/console
-           (str "Match not found.\n `(:data @data/match)`:"
-                (:data @data/match))))])
+     [not-found-page])])
