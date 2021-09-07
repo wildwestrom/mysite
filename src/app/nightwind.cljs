@@ -1,6 +1,6 @@
 (ns app.nightwind
   (:require ["nightwind/helper" :refer [toggle]]
-            ["@fortawesome/free-solid-svg-icons" :as fas]
+            ["@fortawesome/free-solid-svg-icons" :refer [faSun faMoon]]
             ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
             [reagent.core :as reagent]))
 
@@ -28,8 +28,8 @@
                               (.createElement js/document "script"))
                 (.createTextNode js/document (init-nightwind))))
 
-(def light-icon [:> FontAwesomeIcon {:icon fas/faSun}])
-(def dark-icon [:> FontAwesomeIcon {:icon fas/faMoon}])
+(def light-icon [:> FontAwesomeIcon {:icon faSun}])
+(def dark-icon [:> FontAwesomeIcon {:icon faMoon}])
 
 (defonce icon
   (reagent/atom (case (get-initial-color-mode)

@@ -1,8 +1,8 @@
 (ns app.components
-  (:require ["@fortawesome/free-brands-svg-icons" :as fab]
-            ["@fortawesome/free-solid-svg-icons" :as fas]
+  (:require ["@fortawesome/free-brands-svg-icons" :refer [faGithub faLinkedin faDiscord faMonero]]
+            ["@fortawesome/free-solid-svg-icons" :refer [faEnvelope faEllipsisH]]
             ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
-            ["@headlessui/react" :as headlessui]
+            ["@headlessui/react" :refer [Popover Popover.Button Popover.Panel Transition]]
             ["fitvids" :as fitvids]
             ["highlight.js" :as hljs]
             [app.data :as data]
@@ -24,7 +24,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn nav-link
-  [title route & pos]
+  [title route]
   (reagent/with-let [rt (rfe/href route)]
     [:a {:class ["px-2" "py-1" "border-1"
                  "bg-gray-200" "rounded"]
@@ -46,16 +46,14 @@
        [dark-light-button toggle-button-classes]]]
      ;; Mobile Nav
      [:nav {:class (conj nav-classes "m-4" "sm:hidden" "fixed" "bottom-0" "rounded-lg" "right-0")}
-      [:> headlessui/Popover
-       [:> headlessui/Popover.Button
-        {:class-name ["border-1" "bg-gray-200" "rounded"]}
-        [:> FontAwesomeIcon {:icon fas/faEllipsisH}]]
-       [:> headlessui/Popover.Panel
-        [:div.grid.gap-2
-         [nav-link "Home" :app.router/home]
+      [:> Popover
+       [:> Popover.Button {:class-name ["border-1" "bg-gray-200" "rounded"]}
+        [:> FontAwesomeIcon {:icon faEllipsisH}]]
+       [:> Popover.Panel {:class-name "grid gap-2"}
+        [nav-link "Home" :app.router/home]
          [nav-link "Blog" :app.router/blog]
          [nav-link "About" :app.router/about]
-         [dark-light-button toggle-button-classes]]]]]]))
+         [dark-light-button toggle-button-classes]]]]]))
 
 (defn display-date
   [date-string]
@@ -140,7 +138,7 @@
   (reagent/with-let [showing? (reagent/atom false)]
     [:li {:class ["py-2" "text-blue-600" "hover:text-blue-700"]}
      (when copyable
-       [:> headlessui/Transition
+       [:> Transition
         {:id "text-copy-indicator"
          :show @showing?
          :enter "transition-opacity duration-75"
@@ -213,27 +211,27 @@
        "You seem pretty sweet. We should get lunch sometime."]
       [:ul
        [icon-link (:email data/global-config)
-        fas/faEnvelope
+        faEnvelope
         "Email address"
         :href (:email data/global-config)
         :mail true]
        [icon-link "wildwestrom"
-        fab/faGithub
+        faGithub
         "Github"
         :href (:github data/global-config)]
        [icon-link "c-westrom"
-        fab/faLinkedin
+        faLinkedin
         "Linkedin"
         :href (:linkedin data/global-config)]
        [icon-link (:discord data/global-config)
-        fab/faDiscord
+        faDiscord
         "Discord"
         :copyable true]]
       [about-header "Funding"
        "Because every site needs a \"give me money\" button."]
       [:ul
        [icon-link "Monero Wallet"
-        fab/faMonero
+        faMonero
         "Monero wallet"
         :href (str "monero:" (:monero data/global-config))]]]
      [license]]))
