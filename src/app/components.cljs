@@ -1,39 +1,27 @@
 (ns app.components
-  (:require ["@fortawesome/free-brands-svg-icons" :refer [faGithub faLinkedin faDiscord faMonero]]
-            ["@fortawesome/free-solid-svg-icons" :refer [faEnvelope faEllipsisH]]
+  (:require ["@fortawesome/free-solid-svg-icons" :refer [faEllipsisH]]
             ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
-            ["@headlessui/react" :refer [Popover Popover.Button Popover.Panel Transition]]
-            ["fitvids" :as fitvids]
             ["highlight.js" :as hljs]
+            [reagent.dom :as r.dom]
+            ["fitvids" :as fitvids]
+            [reagent.core :as reagent]
             [app.data :as data]
             [app.nightwind :refer [dark-light-button]]
-            [reagent.core :as reagent]
-            [reagent.dom :as r.dom]
+            ["@headlessui/react" :refer [Popover Popover.Button Popover.Panel Transition]]
             [reitit.frontend.easy :as rfe]))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Initialization
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defonce blog-posts (reagent/atom nil))
-
-(data/store-posts-data blog-posts)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Components
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn nav-link
   [title route]
   (reagent/with-let [rt (rfe/href route)]
     [:a {:class ["px-2" "py-1" "border-1"
                  "bg-gray-200" "rounded"]
+         :on-click (js/console.debug "lolol")
          :href rt
          :title title} title]))
 
 (defn navbar
   []
-  (reagent/with-let [nav-classes ["font-serif" "italic" "bg-gray-300" "text-lg" "p-2"]
+  (reagent/with-let [nav-classes ["font-serif" "italic" "bg-gray-300" "text-lg" "p-2" "z-50"]
                      toggle-button-classes ["px-2" "py-1" "border-1" "bg-gray-200" "rounded"]]
     ;; Desktop Nav
     [:<>
@@ -41,6 +29,7 @@
       [:div {:class ["gap-2" "justify-start" "inline-flex"]}
        [nav-link "Home" :app.router/home]]
       [:div {:class ["gap-2" "justify-end" "inline-flex"]}
+       [nav-link "Projects" :app.router/projects]
        [nav-link "Blog" :app.router/blog]
        [nav-link "About" :app.router/about]
        [dark-light-button toggle-button-classes]]]
@@ -51,9 +40,10 @@
         [:> FontAwesomeIcon {:icon faEllipsisH}]]
        [:> Popover.Panel {:class-name "grid gap-2"}
         [nav-link "Home" :app.router/home]
-         [nav-link "Blog" :app.router/blog]
-         [nav-link "About" :app.router/about]
-         [dark-light-button toggle-button-classes]]]]]))
+        [nav-link "Projects" :app.router/projects]
+        [nav-link "Blog" :app.router/blog]
+        [nav-link "About" :app.router/about]
+        [dark-light-button toggle-button-classes]]]]]))
 
 (defn display-date
   [date-string]
@@ -97,16 +87,15 @@
       (fitvids))
     :reagent-render
     (fn [blog-post]
-      [:article {:class ["m-2" "mt-6" "pt-2"
-                         "pb-4" "px-2" "sm:px-8"]}
-       [:div
-        [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
-        [:p {:class ["pb-4" "text-gray-500"]}
-         (display-date (-> blog-post :meta :date))]
-        [:article {:class ["prose" "prose-sm" "sm:prose"
-                           "lg:prose-lg" "mx-auto"]
-                   :dangerouslySetInnerHTML
-                   {:__html (:content blog-post)}}]]])}))
+      [:div {:class ["m-2" "mt-6" "pt-2" "z-10"
+                     "pb-4" "px-2" "sm:px-8" "overflow-auto"]}
+       [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
+       [:p {:class ["pb-4" "text-gray-500"]}
+        (display-date (-> blog-post :meta :date))]
+       [:article {:class ["prose" "prose-sm" "sm:prose"
+                          "lg:prose-lg"]
+                  :dangerouslySetInnerHTML
+                  {:__html (:content blog-post)}}]])}))
 
 (defn generic-link
   [link text & {:keys [mail]}]
@@ -166,91 +155,3 @@
       [:> FontAwesomeIcon {:icon icon
                            :class "fa-fw mr-2"}]
       text]]))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Pages
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn home-page
-  []
-  [:div {:class ["flex" "flex-col" "flex-grow"]}
-   [:div {:class ["flex-grow" "flex" "justify-center" "items-center"]}
-    [:h2 {:class ["text-5xl" "p-4" "italic"]}
-     "Welcome," [:br {:class ["block" "sm:hidden"]}] " to my site!"]]])
-
-(defn blog-preview-page
-  []
-  [:div {:class ["max-w-prose" "self-center" "pt-2"
-                 "flex" "flex-col" "flex-initial" "items-stretch"]}
-   (for [blog-post @blog-posts]
-     ^{:key (-> blog-post :meta :id)}
-     [blog-post-preview blog-post])])
-
-(defn blog-post-page
-  []
-  (let [id   (->> @data/match :parameters :path :id)
-        post (first (filter #(= id (-> % :meta :id)) @blog-posts))]
-    [:div
-     [blog-post-main-view post]
-     [license]]))
-
-(defn about-page
-  []
-  (let [about-header
-        (fn [title subtitle]
-          [:<>
-           [:h1 {:class ["py-4" "text-3xl" "font-bold"]}
-            title]
-           [:h2 {:class ["italic" "pb-2"]}
-            subtitle]])]
-    [:div {:class ["max-w-prose" "self-center" "py-2" "px-8"
-                   "flex" "flex-col" "flex-grow"
-                   "items-center" "justify-between"]}
-     [:div {:class ["min-h-screen"]}
-      [about-header "Contact"
-       "You seem pretty sweet. We should get lunch sometime."]
-      [:ul
-       [icon-link (:email data/global-config)
-        faEnvelope
-        "Email address"
-        :href (:email data/global-config)
-        :mail true]
-       [icon-link "wildwestrom"
-        faGithub
-        "Github"
-        :href (:github data/global-config)]
-       [icon-link "c-westrom"
-        faLinkedin
-        "Linkedin"
-        :href (:linkedin data/global-config)]
-       [icon-link (:discord data/global-config)
-        faDiscord
-        "Discord"
-        :copyable true]]
-      [about-header "Funding"
-       "Because every site needs a \"give me money\" button."]
-      [:ul
-       [icon-link "Monero Wallet"
-        faMonero
-        "Monero wallet"
-        :href (str "monero:" (:monero data/global-config))]]]
-     [license]]))
-
-(defn not-found-page
-  []
-  [:div {:class ["flex" "flex-col" "flex-grow"]}
-   [:div {:class ["flex-grow" "flex" "justify-center" "items-center"]}
-    [:h2 {:class ["text-5xl" "p-4" "font-mono"]}
-     "Error:" [:br] "Page not found."]]
-   [license]])
-
-(defn app
-  []
-  [:div {:class ["text-gray-700" "bg-gray-50"
-                 "subpixel-antialiased" "min-h-screen"
-                 "flex" "flex-col"]}
-   [navbar]
-   (if @data/match
-     (let [view (:view (:data @data/match))]
-       [view @data/match])
-     [not-found-page])])
