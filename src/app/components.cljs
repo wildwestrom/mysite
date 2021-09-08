@@ -88,12 +88,12 @@
     :reagent-render
     (fn [blog-post]
       [:div {:class ["m-2" "mt-6" "pt-2" "z-10"
-                     "pb-4" "px-2" "sm:px-8" "overflow-auto"]}
+                     "pb-4" "px-2" "sm:px-8" "overflow-auto grid"]}
        [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
        [:p {:class ["pb-4" "text-gray-500"]}
         (display-date (-> blog-post :meta :date))]
        [:article {:class ["prose" "prose-sm" "sm:prose"
-                          "lg:prose-lg"]
+                          "lg:prose-lg" "justify-self-center"]
                   :dangerouslySetInnerHTML
                   {:__html (:content blog-post)}}]])}))
 

@@ -81,7 +81,7 @@
 (defn projects-page
   []
   [:div {:class ["justify-self-center" "self-start" "sm:mt-2"]}
-   "testtestetset"])
+   ])
 
 (defn not-found-page
   []
