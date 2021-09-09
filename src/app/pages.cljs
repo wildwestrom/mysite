@@ -3,7 +3,8 @@
             ["@fortawesome/free-solid-svg-icons" :refer [faEnvelope faKey]]
             [reagent.core :as reagent]
             [app.data :as data]
-            [app.components :as components]))
+            [app.components :as components]
+            [reitit.frontend.easy :as rfe]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialization
@@ -82,12 +83,11 @@
   []
   [:div {:class ["justify-self-center" "self-start" "sm:mt-2" "p-4"]}
    [:div#project-1.max-w-prose
-   [:h1 {:class ["text-3xl" "font-bold"]} "Projects:"]
-   [:h2 {:class []} "This Website"]
-   [:ul
-    [:li "Source"]]
-   [:p "This project started as an experiment in repl-driven-development, and is now the epicenter of my online presence. It's been really fun working with Reagent and learning more about how to use components from React."]]
-   ])
+    [:h1 {:class ["text-3xl" "font-bold"]} "Projects:"]
+    [:h2 {:class []} "This Website"]
+    [:ul
+     [:li "Source"]]
+    [:p "This project started as an experiment in repl-driven-development, and is now the epicenter of my online presence. It's been really fun working with Reagent and learning more about how to use components from React."]]])
 
 (defn not-found-page
   []
@@ -99,7 +99,11 @@
   [:div {:class ["text-gray-700" "bg-gray-50"
                  "subpixel-antialiased" "min-h-screen"]}
    [:div.min-h-screen.flex.flex-col
-    [components/navbar]
+    [components/navbar (mapv (fn [eachmap] (assoc eachmap :href (rfe/href (:href eachmap))))
+                             [{:title "Home" :href :app.router/home}
+                              {:title "Projects" :href :app.router/projects}
+                              {:title "Blog" :href :app.router/blog}
+                              {:title "About" :href :app.router/about}])]
     [:div.grid.flex-grow
      (if @data/match
        (let [view (:view (:data @data/match))]
