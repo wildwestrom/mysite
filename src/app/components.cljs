@@ -1,23 +1,29 @@
 (ns app.components
-  (:require ["@fortawesome/free-solid-svg-icons" :refer [faEllipsisH]]
-            ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
-            ["highlight.js" :as hljs]
-            [reagent.dom :as r.dom]
-            ["fitvids" :as fitvids]
-            [reagent.core :as reagent]
-            [app.data :as data]
-            [app.nightwind :refer [dark-light-button]]
-            ["@headlessui/react" :refer [Popover Popover.Button Popover.Panel Transition]]
-            [reitit.frontend.easy :as rfe]))
+  (:require
+   ["@fortawesome/free-solid-svg-icons" :refer [faEllipsisH]]
+   ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
+   ["fitvids" :as fitvids]
+   ["highlight.js" :as hljs]
+   [app.data :as data]
+   [app.nightwind :refer [dark-light-button]]
+   [headlessui-reagent.core :as hui]
+   [reagent.core :as reagent]
+   [reagent.dom :as r.dom]
+   [reitit.frontend.easy :as rfe]))
 
 (defn nav-link
-  [title route]
+  [title route [& classes]]
   (reagent/with-let [rt (rfe/href route)]
-    [:a {:class ["px-2" "py-1" "border-1"
-                 "bg-gray-200" "rounded"]
-         :on-click (js/console.debug "lolol")
+    [:a {:class (into [] classes)
          :href rt
          :title title} title]))
+
+(defn mobile-nav-link
+  [title route [& classes]]
+  (reagent/with-let [rt (rfe/href  route)]
+    [hui/menu-item {:class (into [] classes)
+                    :as :a
+                    :href rt} title]))
 
 (defn navbar
   []
@@ -27,23 +33,23 @@
     [:<>
      [:nav {:class (conj nav-classes "-sm:hidden" "grid" "grid-flow-col" "grid-cols-2")}
       [:div {:class ["gap-2" "justify-start" "inline-flex"]}
-       [nav-link "Home" :app.router/home]]
+       [nav-link "Home" :app.router/home toggle-button-classes]]
       [:div {:class ["gap-2" "justify-end" "inline-flex"]}
-       [nav-link "Projects" :app.router/projects]
-       [nav-link "Blog" :app.router/blog]
-       [nav-link "About" :app.router/about]
+       [nav-link "Projects" :app.router/projects toggle-button-classes]
+       [nav-link "Blog" :app.router/blog toggle-button-classes]
+       [nav-link "About" :app.router/about toggle-button-classes]
        [dark-light-button toggle-button-classes]]]
      ;; Mobile Nav
-     [:nav {:class (conj nav-classes "m-4" "sm:hidden" "fixed" "bottom-0" "rounded-lg" "right-0")}
-      [:> Popover
-       [:> Popover.Button {:class-name ["border-1" "bg-gray-200" "rounded"]}
-        [:> FontAwesomeIcon {:icon faEllipsisH}]]
-       [:> Popover.Panel {:class-name "grid gap-2"}
-        [nav-link "Home" :app.router/home]
-        [nav-link "Projects" :app.router/projects]
-        [nav-link "Blog" :app.router/blog]
-        [nav-link "About" :app.router/about]
-        [dark-light-button toggle-button-classes]]]]]))
+     [hui/menu {:as :nav
+                :class-name (conj nav-classes "m-4" "sm:hidden" "fixed" "bottom-0" "rounded-lg" "right-0" "grid" "gap-2")}
+      [hui/menu-button {:class-name ["border-1" "bg-gray-200" "rounded"]}
+       [:> FontAwesomeIcon {:icon faEllipsisH}]]
+      [hui/menu-items {:class ["grid" "gap-2"]}
+       [mobile-nav-link "Home" :app.router/home toggle-button-classes]
+       [mobile-nav-link "Projects" :app.router/projects toggle-button-classes]
+       [mobile-nav-link "Blog" :app.router/blog toggle-button-classes]
+       [mobile-nav-link "About" :app.router/about toggle-button-classes]
+       [hui/menu-item {:as (fn [] [dark-light-button toggle-button-classes])}]]]]))
 
 (defn display-date
   [date-string]
@@ -57,15 +63,12 @@
 
 (defn blog-post-preview
   [blog-post]
-  [:div {:class ["border-2" "rounded" "border-gray-500"
-                 "m-2" "pt-2" "pb-4" "px-4"
-                 "bg-gray-200"]}
+  [:div {:class ["border-2" "rounded" "border-gray-500" "m-2" "pt-2" "pb-4" "px-4" "bg-gray-200"]}
    [:a {:href (rfe/href :app.router/post {:id (-> blog-post :meta :id)})}
     [:h2 {:class ["text-2xl"]} (-> blog-post :meta :title)]
     [:p {:class ["text-xs py-0.5 text-gray-500"]}
      (display-date (-> blog-post :meta :date))]
-    [:p {:class ["text-sm" "overflow-ellipsis" "line-clamp-5"
-                 "text-gray-600"]}
+    [:p {:class ["text-sm" "overflow-ellipsis" "line-clamp-5" "text-gray-600"]}
      (-> blog-post :meta :subtitle)]]])
 
 (defn- highlight-code [node]
@@ -87,13 +90,11 @@
       (fitvids))
     :reagent-render
     (fn [blog-post]
-      [:div {:class ["m-2" "mt-6" "pt-2" "z-10"
-                     "pb-4" "px-2" "sm:px-8" "overflow-auto grid"]}
+      [:div {:class ["m-2" "mt-6" "pt-2" "z-10" "pb-4" "px-2" "sm:px-8" "overflow-auto grid"]}
        [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
        [:p {:class ["pb-4" "text-gray-500"]}
         (display-date (-> blog-post :meta :date))]
-       [:article {:class ["prose" "prose-sm" "sm:prose"
-                          "lg:prose-lg" "justify-self-center"]
+       [:article {:class ["prose" "prose-sm" "sm:prose" "lg:prose-lg" "justify-self-center"]
                   :dangerouslySetInnerHTML
                   {:__html (:content blog-post)}}]])}))
 
@@ -127,7 +128,7 @@
   (reagent/with-let [showing? (reagent/atom false)]
     [:li {:class ["py-2" "text-blue-600" "hover:text-blue-700"]}
      (when copyable
-       [:> Transition
+       [hui/transition
         {:id "text-copy-indicator"
          :show @showing?
          :enter "transition-opacity duration-75"
@@ -136,9 +137,7 @@
          :leave "transition-opacity duration-300"
          :leave-from "opacity-100"
          :leave-to "opacity-0"
-         :class ["border-2" "rounded-lg" "p-1" "absolute"
-                 "text-black" "bg-blue-50"
-                 "transform" "-translate-y-10"]}
+         :class ["border-2" "rounded-lg" "p-1" "absolute" "text-black" "bg-blue-50" "transform" "-translate-y-10"]}
         "Copied to Clipboard!"])
      [:a.cursor-pointer
       (merge

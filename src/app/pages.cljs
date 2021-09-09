@@ -80,7 +80,13 @@
 
 (defn projects-page
   []
-  [:div {:class ["justify-self-center" "self-start" "sm:mt-2"]}
+  [:div {:class ["justify-self-center" "self-start" "sm:mt-2" "p-4"]}
+   [:div#project-1.max-w-prose
+   [:h1 {:class ["text-3xl" "font-bold"]} "Projects:"]
+   [:h2 {:class []} "This Website"]
+   [:ul
+    [:li "Source"]]
+   [:p "This project started as an experiment in repl-driven-development, and is now the epicenter of my online presence. It's been really fun working with Reagent and learning more about how to use components from React."]]
    ])
 
 (defn not-found-page
