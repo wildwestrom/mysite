@@ -53,7 +53,7 @@
       [components/icon-link (:email data/global-config)
        faEnvelope
        "Email address"
-       :href (:email data/global-config)
+       :href (str "mailto:"(:email data/global-config))
        :mail true]
       [components/icon-link "wildwestrom"
        faGithub
