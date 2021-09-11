@@ -84,6 +84,7 @@
   [:div {:class ["justify-self-center" "self-start" "sm:mt-2" "p-4"]}
    [:div#project-1.max-w-prose
     [:h1 {:class ["text-3xl" "font-bold"]} "Projects:"]
+    [:h1 {:class ["text-3xl" "font-bold"]} "WIP"]
     [:h2 {:class []} "This Website"]
     [:ul
      [:li "Source"]]
