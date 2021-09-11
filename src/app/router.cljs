@@ -1,5 +1,5 @@
 (ns app.router
-  (:require [app.components :as components]
+  (:require [app.pages :as pages]
             [app.data :as data]
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]))
@@ -11,17 +11,20 @@
 (def routes
   [["/"
     {:name ::home
-     :view components/home-page}]
+     :view pages/home-page}]
+   ["/projects"
+    {:name ::projects
+     :view pages/projects-page}]
    ["/blog"
     {:name ::blog
-     :view components/blog-preview-page}]
+     :view pages/blog-preview-page}]
    ["/blog/:id"
     {:name ::post
-     :view components/blog-post-page
+     :view pages/blog-post-page
      :parameters {:path {:id string?}}}]
    ["/about"
     {:name ::about
-     :view components/about-page}]])
+     :view pages/about-page}]])
 
 (def router
   (rf/router routes))

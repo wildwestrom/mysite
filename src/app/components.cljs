@@ -1,59 +1,58 @@
 (ns app.components
-  (:require ["@fortawesome/free-brands-svg-icons" :refer [faGithub faLinkedin faDiscord faMonero]]
-            ["@fortawesome/free-solid-svg-icons" :refer [faEnvelope faEllipsisH]]
-            ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
-            ["@headlessui/react" :refer [Popover Popover.Button Popover.Panel Transition]]
-            ["fitvids" :as fitvids]
-            ["highlight.js" :as hljs]
-            [app.data :as data]
-            [app.nightwind :refer [dark-light-button]]
-            [reagent.core :as reagent]
-            [reagent.dom :as r.dom]
-            [reitit.frontend.easy :as rfe]))
+  (:require
+   ["@fortawesome/free-solid-svg-icons" :refer [faEllipsisH]]
+   ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
+   ["fitvids" :as fitvids]
+   ["highlight.js" :as hljs]
+   [app.data :as data]
+   [app.nightwind :refer [dark-light-button]]
+   [headlessui-reagent.core :as hui]
+   [reagent.core :as reagent]
+   [reagent.dom :as r.dom]
+   [reitit.frontend.easy :as rfe]))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Initialization
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn desktop-nav-link
+  [{:keys [title href]} [& classes]]
+  ^{:key title}
+  [:a {:class (into [] classes)
+       :href href
+       :title title} title])
 
-(defonce blog-posts (reagent/atom nil))
-
-(data/store-posts-data blog-posts)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Components
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn nav-link
-  [title route]
-  (reagent/with-let [rt (rfe/href route)]
-    [:a {:class ["px-2" "py-1" "border-1"
-                 "bg-gray-200" "rounded"]
-         :href rt
-         :title title} title]))
+(defn mobile-nav-link
+  [{:keys [title href]} [& classes]]
+  ^{:key title}
+  [hui/menu-item {:class (into [] classes)
+                  :as :a
+                  :href href} title])
 
 (defn navbar
-  []
-  (reagent/with-let [nav-classes ["font-serif" "italic" "bg-gray-300" "text-lg" "p-2"]
-                     toggle-button-classes ["px-2" "py-1" "border-1" "bg-gray-200" "rounded"]]
-    ;; Desktop Nav
+  [nav-data]
+  (reagent/with-let
+    [navbar-styles ["font-serif" "italic" "bg-gray-300" "text-lg" "p-2" "z-50"]
+     link-styles ["px-2" "py-1" "border-1" "bg-gray-200" "rounded"]
+     nav-links (fn [link-fn nav-data]
+                 [:<>
+                  (for [nav nav-data]
+                    ^{:key (-> nav :title)}
+                    (link-fn nav link-styles))])
+     desktop-nav (fn [nav-data]
+                   [:nav {:class (conj navbar-styles "-sm:hidden" "grid" "grid-flow-col" "grid-cols-2")}
+                    [:div {:class ["gap-2" "justify-start" "inline-flex"]}
+                     (desktop-nav-link (first nav-data) link-styles)]
+                    [:div {:class ["gap-2" "justify-end" "inline-flex"]}
+                     (nav-links desktop-nav-link (rest nav-data))
+                     [dark-light-button link-styles]]])
+     mobile-nav (fn [nav-data]
+                  [hui/menu {:as :nav
+                             :class-name (conj navbar-styles "m-4" "sm:hidden" "fixed" "bottom-0" "rounded-lg" "right-0" "text-center")}
+                   [hui/menu-button {:class-name ["border-1" "bg-gray-200" "rounded"]}
+                    [:> FontAwesomeIcon {:icon faEllipsisH}]]
+                   [hui/menu-items {:class ["grid" "gap-2"]}
+                    (nav-links mobile-nav-link nav-data)
+                    [hui/menu-item {:as (fn [] [dark-light-button link-styles])}]]])]
     [:<>
-     [:nav {:class (conj nav-classes "-sm:hidden" "grid" "grid-flow-col" "grid-cols-2")}
-      [:div {:class ["gap-2" "justify-start" "inline-flex"]}
-       [nav-link "Home" :app.router/home]]
-      [:div {:class ["gap-2" "justify-end" "inline-flex"]}
-       [nav-link "Blog" :app.router/blog]
-       [nav-link "About" :app.router/about]
-       [dark-light-button toggle-button-classes]]]
-     ;; Mobile Nav
-     [:nav {:class (conj nav-classes "m-4" "sm:hidden" "fixed" "bottom-0" "rounded-lg" "right-0")}
-      [:> Popover
-       [:> Popover.Button {:class-name ["border-1" "bg-gray-200" "rounded"]}
-        [:> FontAwesomeIcon {:icon faEllipsisH}]]
-       [:> Popover.Panel {:class-name "grid gap-2"}
-        [nav-link "Home" :app.router/home]
-         [nav-link "Blog" :app.router/blog]
-         [nav-link "About" :app.router/about]
-         [dark-light-button toggle-button-classes]]]]]))
+     (desktop-nav nav-data)
+     (mobile-nav nav-data)]))
 
 (defn display-date
   [date-string]
@@ -67,15 +66,12 @@
 
 (defn blog-post-preview
   [blog-post]
-  [:div {:class ["border-2" "rounded" "border-gray-500"
-                 "m-2" "pt-2" "pb-4" "px-4"
-                 "bg-gray-200"]}
+  [:div {:class ["border-2" "rounded" "border-gray-500" "m-2" "pt-2" "pb-4" "px-4" "bg-gray-200"]}
    [:a {:href (rfe/href :app.router/post {:id (-> blog-post :meta :id)})}
     [:h2 {:class ["text-2xl"]} (-> blog-post :meta :title)]
     [:p {:class ["text-xs py-0.5 text-gray-500"]}
      (display-date (-> blog-post :meta :date))]
-    [:p {:class ["text-sm" "overflow-ellipsis" "line-clamp-5"
-                 "text-gray-600"]}
+    [:p {:class ["text-sm" "overflow-ellipsis" "line-clamp-5" "text-gray-600"]}
      (-> blog-post :meta :subtitle)]]])
 
 (defn- highlight-code [node]
@@ -97,16 +93,13 @@
       (fitvids))
     :reagent-render
     (fn [blog-post]
-      [:article {:class ["m-2" "mt-6" "pt-2"
-                         "pb-4" "px-2" "sm:px-8"]}
-       [:div
-        [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
-        [:p {:class ["pb-4" "text-gray-500"]}
-         (display-date (-> blog-post :meta :date))]
-        [:article {:class ["prose" "prose-sm" "sm:prose"
-                           "lg:prose-lg" "mx-auto"]
-                   :dangerouslySetInnerHTML
-                   {:__html (:content blog-post)}}]]])}))
+      [:div {:class ["m-2" "mt-6" "pt-2" "z-10" "pb-4" "px-2" "sm:px-8" "overflow-auto grid"]}
+       [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
+       [:p {:class ["pb-4" "text-gray-500"]}
+        (display-date (-> blog-post :meta :date))]
+       [:article {:class ["prose" "prose-sm" "sm:prose" "lg:prose-lg" "justify-self-center"]
+                  :dangerouslySetInnerHTML
+                  {:__html (:content blog-post)}}]])}))
 
 (defn generic-link
   [link text & {:keys [mail]}]
@@ -138,7 +131,7 @@
   (reagent/with-let [showing? (reagent/atom false)]
     [:li {:class ["py-2" "text-blue-600" "hover:text-blue-700"]}
      (when copyable
-       [:> Transition
+       [hui/transition
         {:id "text-copy-indicator"
          :show @showing?
          :enter "transition-opacity duration-75"
@@ -147,9 +140,7 @@
          :leave "transition-opacity duration-300"
          :leave-from "opacity-100"
          :leave-to "opacity-0"
-         :class ["border-2" "rounded-lg" "p-1" "absolute"
-                 "text-black" "bg-blue-50"
-                 "transform" "-translate-y-10"]}
+         :class ["border-2" "rounded-lg" "p-1" "absolute" "text-black" "bg-blue-50" "transform" "-translate-y-10"]}
         "Copied to Clipboard!"])
      [:a.cursor-pointer
       (merge
@@ -166,91 +157,3 @@
       [:> FontAwesomeIcon {:icon icon
                            :class "fa-fw mr-2"}]
       text]]))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Pages
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn home-page
-  []
-  [:div {:class ["flex" "flex-col" "flex-grow"]}
-   [:div {:class ["flex-grow" "flex" "justify-center" "items-center"]}
-    [:h2 {:class ["text-5xl" "p-4" "italic"]}
-     "Welcome," [:br {:class ["block" "sm:hidden"]}] " to my site!"]]])
-
-(defn blog-preview-page
-  []
-  [:div {:class ["max-w-prose" "self-center" "pt-2"
-                 "flex" "flex-col" "flex-initial" "items-stretch"]}
-   (for [blog-post @blog-posts]
-     ^{:key (-> blog-post :meta :id)}
-     [blog-post-preview blog-post])])
-
-(defn blog-post-page
-  []
-  (let [id   (->> @data/match :parameters :path :id)
-        post (first (filter #(= id (-> % :meta :id)) @blog-posts))]
-    [:div
-     [blog-post-main-view post]
-     [license]]))
-
-(defn about-page
-  []
-  (let [about-header
-        (fn [title subtitle]
-          [:<>
-           [:h1 {:class ["py-4" "text-3xl" "font-bold"]}
-            title]
-           [:h2 {:class ["italic" "pb-2"]}
-            subtitle]])]
-    [:div {:class ["max-w-prose" "self-center" "py-2" "px-8"
-                   "flex" "flex-col" "flex-grow"
-                   "items-center" "justify-between"]}
-     [:div {:class ["min-h-screen"]}
-      [about-header "Contact"
-       "You seem pretty sweet. We should get lunch sometime."]
-      [:ul
-       [icon-link (:email data/global-config)
-        faEnvelope
-        "Email address"
-        :href (:email data/global-config)
-        :mail true]
-       [icon-link "wildwestrom"
-        faGithub
-        "Github"
-        :href (:github data/global-config)]
-       [icon-link "c-westrom"
-        faLinkedin
-        "Linkedin"
-        :href (:linkedin data/global-config)]
-       [icon-link (:discord data/global-config)
-        faDiscord
-        "Discord"
-        :copyable true]]
-      [about-header "Funding"
-       "Because every site needs a \"give me money\" button."]
-      [:ul
-       [icon-link "Monero Wallet"
-        faMonero
-        "Monero wallet"
-        :href (str "monero:" (:monero data/global-config))]]]
-     [license]]))
-
-(defn not-found-page
-  []
-  [:div {:class ["flex" "flex-col" "flex-grow"]}
-   [:div {:class ["flex-grow" "flex" "justify-center" "items-center"]}
-    [:h2 {:class ["text-5xl" "p-4" "font-mono"]}
-     "Error:" [:br] "Page not found."]]
-   [license]])
-
-(defn app
-  []
-  [:div {:class ["text-gray-700" "bg-gray-50"
-                 "subpixel-antialiased" "min-h-screen"
-                 "flex" "flex-col"]}
-   [navbar]
-   (if @data/match
-     (let [view (:view (:data @data/match))]
-       [view @data/match])
-     [not-found-page])])
