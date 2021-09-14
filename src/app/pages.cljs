@@ -81,31 +81,10 @@
 
 (defn projects-page
   []
-  [:div {:class ["justify-self-center" "self-start" "sm:mt-2" "p-4"]}
-   [:div.max-w-prose
-    [:h1 {:class ["text-3xl" "font-bold"]} "Complete and Ongoing Projects:"]
-    [:div#project-1.mt-4
-     [:h2 {:class ["text-2xl"]} "This Website"]
-     [:ul
-      [:li
-       [components/generic-link "https://github.com/wildwestrom/mysite" "Source"]]]
-     [:p "This project started as an experiment in repl-driven-development, and is now the epicenter of my online presence. It's been really fun working with Reagent and learning more about how to use components from React."]]
-    [:div#project-2.mt-4
-     [:h2 {:class ["text-2xl"]} "Uniorg-Util"]
-     [:ul
-      [:li
-       [components/generic-link "https://github.com/wildwestrom/uniorg-util" "Source"]]
-      [:li
-       [components/generic-link "https://www.npmjs.com/package/uniorg-util" "NPM Link"]]]
-     [:p "This program converts Org Mode documents into HTML and metadata as either JSON or EDN. It relies heavily on rasendubi’s very accurate Org Mode parser, uniorg. This tool is just one part of what makes my blog work."]]
-    [:div#project-3.mt-4
-     [:h2 {:class ["text-2xl"]} "Hexagram SVG Generator"]
-     [:ul
-      [:li
-       [components/generic-link "https://github.com/wildwestrom/hexagram-svg-generator" "Source"]]
-      [:li
-       [components/generic-link "https://hexagram-svg.netlify.app/" "Demo"]]]
-     [:p "The I-Ching is an ancient Chinese system of divination. It involves creating a figure of 6 lines, broken or unbroken, usually by casting coins or picking yarrow stalks. This demo generates an SVG graphic based on the hexagram number."]]]])
+  [:div {:class ["justify-self-center" "self-start" "sm:mt-2" "p-4" "max-w-prose"]}
+   (for [project-group data/portfolio]
+      ^{:key (:group-name project-group)}
+      [components/group-of-projects project-group])])
 
 (defn not-found-page
   []

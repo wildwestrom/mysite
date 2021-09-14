@@ -12,11 +12,8 @@
 (defonce match (reagent/atom nil))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Other stuff
+;; Blog Post Fetcher
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(def global-config
-  (edn/read-string (shadow.resource/inline "config/site-data.edn")))
 
 (def posts-route "posts/")
 
@@ -33,3 +30,13 @@
             files-resp (p/all (map #(fetch/get (uri %)) files))]
       (reset! a (reverse (map extract-body files-resp)))
       (js/console.debug "Received blog-posts"))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Other stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def global-config
+  (edn/read-string (shadow.resource/inline "config/site-data.edn")))
+
+(def portfolio
+  (edn/read-string (shadow.resource/inline "config/portfolio.edn")))
