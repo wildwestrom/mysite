@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "deps": "yarn install",
+        "deps": "yarn install && ./bin/submodules",
         "build:css": "export NODE_ENV=production && tailwindcss -o public/css/main.css --minify",
         "build:app": "shadow-cljs release app",
         "build:org-to-data": "uniorg-util --edn -i posts -o public/posts -m _ALL_POSTS",
