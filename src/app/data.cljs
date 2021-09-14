@@ -31,5 +31,5 @@
     (p/let [filenames  (fetch/get all-posts-uri)
             files      (extract-body filenames)
             files-resp (p/all (map #(fetch/get (uri %)) files))]
-      (reset! a (map extract-body files-resp))
+      (reset! a (reverse (map extract-body files-resp)))
       (js/console.debug "Received blog-posts"))))
