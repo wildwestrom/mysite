@@ -1,6 +1,6 @@
 (ns app.components.projects
   (:require [app.components.common :as common]
-            [app.data :as data]))
+            [app.portfolio :refer [portfolio]]))
 
 (defn- project-entry [{:keys [name desc links]}]
   [:div.mt-4
@@ -10,7 +10,7 @@
       ^{:key title}
       [:li
        [common/generic-link href title]])]
-   [:p desc]])
+   desc])
 
 (defn- group-of-projects
   [{:keys [group-name projects]}]
@@ -23,6 +23,6 @@
 (defn projects-page
   []
   [:div {:class ["justify-self-center" "self-start" "sm:mt-2" "p-4" "max-w-prose"]}
-   (for [project-group data/portfolio]
+   (for [project-group portfolio]
      ^{:key (:group-name project-group)}
      [group-of-projects project-group])])

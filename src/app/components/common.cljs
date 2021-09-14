@@ -2,9 +2,7 @@
   (:require ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
             [app.data :as data]
             [headlessui-reagent.core :as hui]
-            [reagent.dom :as r.dom]
-            [reagent.core :as reagent]
-            [reitit.frontend.easy :as rfe]))
+            [reagent.core :as reagent]))
 
 (defn display-date
   [date-string]
@@ -17,10 +15,8 @@
     (.getFullYear now)))
 
 (defn generic-link
-  [link text & {:keys [mail]}]
-  [:a {:href   (if mail
-                 (str "mailto: " link)
-                 link)
+  [link text]
+  [:a {:href   link
        :target "_blank"
        :class  ["text-blue-500" "hover:text-blue-600"]} text])
 
@@ -39,8 +35,8 @@
     (this-year) " "
     (:author data/global-config) " "
     [:br.xs:hidden.block]
-    (generic-link (:email data/global-config)
-                  (:email data/global-config) :mail true)]])
+    (generic-link (str "mailto:" (:email data/global-config))
+                  (:email data/global-config))]])
 
 (defn icon-link [text icon label & {:keys [copyable href]}]
   (reagent/with-let [showing? (reagent/atom false)]

@@ -1,18 +1,43 @@
 (ns app.components.blog
   (:require ["fitvids" :as fitvids]
             ["highlight.js" :as hljs]
-            [reagent.dom :as r.dom]
-            [reagent.core :as reagent]
             [app.components.common :as common]
             [app.data :as data]
+            [clojure.edn :as edn]
+            [kitchen-async.promise :as p]
+            [lambdaisland.fetch :as fetch]
+            [reagent.core :as reagent]
+            [reagent.dom :as r.dom]
             [reitit.frontend.easy :as rfe]))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; State
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defonce blog-posts (reagent/atom nil))
 
-(data/store-posts-data blog-posts)
+(def posts-route "posts/")
 
+(defn uri [filestr]
+  (str posts-route filestr))
+
+(def all-posts-uri (uri "_ALL_POSTS.edn"))
+
+(defn store-posts-data
+  [a]
+  (let [extract-body (fn [res] (edn/read-string (:body res)))]
+    (p/let [filenames  (fetch/get all-posts-uri)
+            files      (extract-body filenames)
+            files-resp (p/all (map #(fetch/get (uri %)) files))]
+      (reset! a (reverse (map extract-body files-resp)))
+      (js/console.debug "Received blog-posts"))))
+
+(store-posts-data blog-posts)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Components
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn- blog-post-preview
   [blog-post]
   [:div {:class ["border-2" "rounded" "border-gray-500" "m-2" "pt-2" "pb-4" "px-4" "bg-gray-200"]}
