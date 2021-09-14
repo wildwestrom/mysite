@@ -16,7 +16,7 @@
         :modules {:main {:init-fn app.core/init}}
 
         :devtools {:before-load app.core/stop
-                   :after-load  app.core/start
+                   :after-load  app.core/init
                    :http-root   "public"
                    :http-port   3000
                    :preloads    [devtools.preload]}}}}

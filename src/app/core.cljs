@@ -12,17 +12,12 @@
   [component]
   (r.dom/render component (.getElementById js/document "app")))
 
-(defn ^:dev/after-load start
-  []
-  (js/console.debug "start")
-  (mount-root [pages/app]))
-
 (defn ^:export init
   []
   (js/console.debug "init")
   (inject-dark-mode)
   (router-init!)
-  (start))
+  (mount-root [pages/app]))
 
 (defn ^:dev/before-load stop
   []
