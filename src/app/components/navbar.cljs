@@ -3,7 +3,7 @@
             ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
             [headlessui-reagent.core :as hui]
             [reagent.core :as reagent]
-            [app.nightwind :refer [dark-light-button]]))
+            [app.components.nightwind :refer [dark-light-button]]))
 
 (defn desktop-nav-link
   [{:keys [title href]} [& classes]]

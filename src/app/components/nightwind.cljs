@@ -1,4 +1,4 @@
-(ns app.nightwind
+(ns app.components.nightwind
   (:require ["nightwind/helper" :refer [toggle]]
             ["@fortawesome/free-solid-svg-icons" :refer [faSun faMoon]]
             ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]

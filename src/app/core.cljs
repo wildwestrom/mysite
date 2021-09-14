@@ -1,6 +1,6 @@
 (ns app.core
   (:require [app.pages :as pages]
-            [app.nightwind :refer [inject-dark-mode]]
+            [app.components.nightwind :refer [inject-dark-mode]]
             [app.router :refer [router-init!]]
             [reagent.dom :as r.dom]))
 
