@@ -16,4 +16,7 @@
                       {:title "Demo"
                        :href "https://hexagram-svg.netlify.app/"}]}]}
  {:group-name "Unfinished Projects"
-  :projects nil}]
+  :projects [{:name "TSDL"
+              :desc "There's this artist who makes some cool desktop wallpapers, so I decided to make a web-scraping tool to help me download all the images on her site. It's still a work in progress. The earliest iteration of it was written in POSIX-compliant shell-script. I'd really like to create a GUI for this tool."
+              :links [{:title "Source"
+                       :link "https://github.com/wildwestrom/tsdl"}]}]}]
