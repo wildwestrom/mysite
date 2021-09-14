@@ -11,7 +11,6 @@ jobs:
       JVM_OPTS: -Xmx3200m
     steps:
       - checkout
-      - run: ./bin/submodules
 
       - restore_cache:
           name: Restore cljs dependency cache
