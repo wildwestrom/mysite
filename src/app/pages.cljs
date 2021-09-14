@@ -53,7 +53,7 @@
       [components/icon-link (:email data/global-config)
        faEnvelope
        "Email address"
-       :href (str "mailto:"(:email data/global-config))
+       :href (str "mailto:" (:email data/global-config))
        :mail true]
       [components/icon-link "wildwestrom"
        faGithub
@@ -82,13 +82,23 @@
 (defn projects-page
   []
   [:div {:class ["justify-self-center" "self-start" "sm:mt-2" "p-4"]}
-   [:div#project-1.max-w-prose
-    [:h1 {:class ["text-3xl" "font-bold"]} "Projects:"]
-    [:h1 {:class ["text-3xl" "font-bold"]} "WIP"]
-    [:h2 {:class []} "This Website"]
-    [:ul
-     [:li "Source"]]
-    [:p "This project started as an experiment in repl-driven-development, and is now the epicenter of my online presence. It's been really fun working with Reagent and learning more about how to use components from React."]]])
+   [:div.max-w-prose
+    [:h1 {:class ["text-3xl" "font-bold"]} "Complete and Ongoing Projects:"]
+    [:div#project-1.mt-4
+     [:h2 {:class ["text-2xl"]} "This Website"]
+     [:ul
+      [:li
+       [components/generic-link "https://github.com/wildwestrom/mysite" "source"]]]
+     [:p "This project started as an experiment in repl-driven-development, and is now the epicenter of my online presence. It's been really fun working with Reagent and learning more about how to use components from React."]]
+    [:div#project-2.mt-4
+     [:h2 {:class ["text-2xl"]} "Uniorg-Util"]
+     [:ul
+      [:li
+       [components/generic-link "https://github.com/wildwestrom/uniorg-util" "source"]]
+      [:li
+       [components/generic-link "https://www.npmjs.com/package/uniorg-util" "npm link"]]]
+     [:p "This program converts Org Mode documents into HTML and metadata as either JSON or EDN. It relies heavily on rasendubi’s very accurate Org Mode parser, uniorg."]
+     [:p "This tool is just one part of what makes my blog work."]]]])
 
 (defn not-found-page
   []
