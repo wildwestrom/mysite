@@ -4,7 +4,7 @@
               :links [{:title "Source"
                        :href "https://github.com/wildwestrom/mysite"}]}
              {:name "Uniorg Util"
-              :desc "This project started as an experiment in repl-driven-development, and is now the epicenter of my online presence. It's been really fun working with Reagent and learning more about how to use components from React."
+              :desc "This is a supplemental project meant to help out with the blog portion of my site. It converts org documents to HTML and metadata for sorting and such. It's available as an NPM package. This is probably the best example of continuous integration and unit testing out of all my projects."
               :links [{:title "Source"
                        :href "https://github.com/wildwestrom/uniorg-util"}
                       {:title "NPM Link"
