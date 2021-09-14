@@ -19,4 +19,8 @@
   :projects [{:name "TSDL"
               :desc "There's this artist who makes some cool desktop wallpapers, so I decided to make a web-scraping tool to help me download all the images on her site. It's still a work in progress. The earliest iteration of it was written in POSIX-compliant shell-script. I'd really like to create a GUI for this tool."
               :links [{:title "Source"
+                       :link "https://github.com/wildwestrom/tsdl"}]}
+             {:name "Death Calendar"
+              :desc "I was inspired by a Kurzgesagt video (which was also inspired by a blog-post on waitbutwhy.com) to make a calendar that shows how long you have left to live visually. I figured I could make it into a desktop background so I can use it as a constant reminder of my ultimate demise, and hopefully spend more time on the things that really matter."
+              :links [{:title "Source"
                        :link "https://github.com/wildwestrom/tsdl"}]}]}]
