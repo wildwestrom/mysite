@@ -9,8 +9,8 @@
         kitchen-async/kitchen-async {:mvn/version "0.1.0-SNAPSHOT"}
 
         thheller/shadow-cljs          {:mvn/version "2.15.9"}
-        refactor-nrepl/refactor-nrepl {:mvn/version "3.0.0-pr301"}
         cider/cider-nrepl             {:mvn/version "0.26.0"}
+        refactor-nrepl/refactor-nrepl {:mvn/version "2.5.1"}
         com.github.mainej/headlessui-reagent {:mvn/version "1.4.1.40"}}
  ;; clojure -M:outdated --upgrade
  :aliases {:upgrade {:extra-deps {com.github.liquidz/antq {:mvn/version "1.0.0"}}
