@@ -1,6 +1,8 @@
 (ns app.components.blog
   (:require ["fitvids" :as fitvids]
-            ["highlight.js" :as hljs]
+            ["highlight.js/lib/core" :as hljs]
+            ["highlight.js/lib/languages/clojure" :as clojure]
+            ["highlight.js/lib/languages/yaml" :as yaml]
             [app.components.common :as common]
             [app.data :as data]
             [clojure.edn :as edn]
@@ -16,21 +18,28 @@
 
 (defonce blog-posts (reagent/atom nil))
 
-(def posts-route "posts/")
+(def posts-route "/posts/")
 
-(defn uri [filestr]
-  (str posts-route filestr))
-
-(def all-posts-uri (uri "_ALL_POSTS.edn"))
+(def all-posts-uri (str posts-route "_ALL_POSTS.edn"))
 
 (defn store-posts-data
   [a]
   (let [extract-body (fn [res] (edn/read-string (:body res)))]
     (p/let [filenames  (fetch/get all-posts-uri)
             files      (extract-body filenames)
-            files-resp (p/all (map #(fetch/get (uri %)) files))]
+            files-resp (p/all (map #(fetch/get (str posts-route %)) files))]
       (reset! a (reverse (map extract-body files-resp)))
       (js/console.debug "Received blog-posts"))))
+
+#_(js/console.log
+   (let [extract-body (fn [res] (edn/read-string (:body res)))]
+     (p/let [filenames  (fetch/get all-posts-uri)
+             files      (extract-body filenames)
+             files-resp (p/all (map #(fetch/get (str posts-route %)) files))]
+       (reset! blog-posts (reverse (map extract-body files-resp)))
+       (js/console.debug "Received blog-posts"))))
+
+#_@blog-posts
 
 (store-posts-data blog-posts)
 
@@ -55,6 +64,8 @@
         array-seq
         first
         hljs/highlightElement)
+    (hljs/registerLanguage "clojure" clojure)
+    (hljs/registerLanguage "yaml" yaml)
     (doseq [code-block (array-seq (.querySelectorAll (r.dom/dom-node node) "pre code"))]
       (hljs/highlightElement code-block))))
 
