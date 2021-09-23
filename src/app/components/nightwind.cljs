@@ -1,6 +1,7 @@
 (ns app.components.nightwind
   (:require ["nightwind/helper" :refer [toggle]]
-            ["@fortawesome/free-solid-svg-icons" :refer [faSun faMoon]]
+            ["@fortawesome/free-solid-svg-icons" :refer [faMoon]]
+            ["@fortawesome/free-regular-svg-icons" :refer [faSun]]
             ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
             [reagent.core :as reagent]))
 
