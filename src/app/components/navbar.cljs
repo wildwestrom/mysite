@@ -1,5 +1,5 @@
 (ns app.components.navbar
-  (:require ["@fortawesome/free-solid-svg-icons" :refer [faEllipsisH]]
+  (:require ["@fortawesome/free-solid-svg-icons/faEllipsisH" :refer [faEllipsisH]]
             ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
             [headlessui-reagent.core :as hui]
             [reagent.core :as reagent]
