@@ -1,8 +1,12 @@
 (ns app.components.about
   (:require [app.components.common :as common]
             [app.data :as data]
-            ["@fortawesome/free-brands-svg-icons" :refer [faGithub faLinkedin faDiscord faMonero]]
-            ["@fortawesome/free-solid-svg-icons" :refer [faEnvelope faKey]]))
+            ["@fortawesome/free-brands-svg-icons/faGithub" :refer [faGithub]]
+            ["@fortawesome/free-brands-svg-icons/faLinkedin" :refer [faLinkedin]]
+            ["@fortawesome/free-brands-svg-icons/faDiscord" :refer [faDiscord]]
+            ["@fortawesome/free-brands-svg-icons/faMonero" :refer [faMonero]]
+            ["@fortawesome/free-solid-svg-icons/faEnvelope" :refer [faEnvelope]]
+            ["@fortawesome/free-solid-svg-icons/faKey" :refer [faKey]]))
 
 (defn about-header
   [title subtitle]
