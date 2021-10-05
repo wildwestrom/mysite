@@ -1,11 +1,9 @@
 (ns app.components.blog
   (:require ["fitvids" :as fitvids]
-            ["highlight.js/lib/core" :as hljs]
-            ["highlight.js/lib/languages/clojure" :as clojure]
-            ["highlight.js/lib/languages/yaml" :as yaml]
             [app.components.common :as common]
             [app.data :as data]
             [clojure.edn :as edn]
+            [clojure.string :as string]
             [kitchen-async.promise :as p]
             [lambdaisland.fetch :as fetch]
             [reagent.core :as reagent]
@@ -31,16 +29,6 @@
       (reset! a (reverse (map extract-body files-resp)))
       (js/console.debug "Received blog-posts"))))
 
-#_(js/console.log
-   (let [extract-body (fn [res] (edn/read-string (:body res)))]
-     (p/let [filenames  (fetch/get all-posts-uri)
-             files      (extract-body filenames)
-             files-resp (p/all (map #(fetch/get (str posts-route %)) files))]
-       (reset! blog-posts (reverse (map extract-body files-resp)))
-       (js/console.debug "Received blog-posts"))))
-
-#_@blog-posts
-
 (store-posts-data blog-posts)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -57,24 +45,22 @@
     [:p {:class ["text-sm" "overflow-ellipsis" "line-clamp-5" "text-gray-600"]}
      (-> blog-post :meta :subtitle)]]])
 
-(defn- highlight-code [node]
-  (when (.querySelector (r.dom/dom-node node) "pre code")
-    (-> (r.dom/dom-node node)
-        (.querySelectorAll "pre code")
-        array-seq
-        first
-        hljs/highlightElement)
-    (hljs/registerLanguage "clojure" clojure)
-    (hljs/registerLanguage "yaml" yaml)
-    (doseq [code-block (array-seq (.querySelectorAll (r.dom/dom-node node) "pre code"))]
-      (hljs/highlightElement code-block))))
+#_(defn- highlight-code [node]
+  (when-let [blocks (array-seq (.querySelectorAll (r.dom/dom-node node) "pre code"))]
+    ;;TODO Try making a system that allows me to detect what code blocks there are, as well as download only the languages I need on-the-fly
+    (let [languages (set (map #(string/replace (str (.-classList %)) "language-" "") blocks))]
+      (run! (fn [lang]
+              (js/console.log lang)
+              (hljs/registerLanguage lang (js/require (str "highlight.js/lib/languages/" lang)))
+              ) languages))
+    (run! hljs/highlightElement blocks)))
 
 (defn- blog-post-main-view
   [blog-post]
   (reagent/create-class
    {:component-did-mount
     (fn [node]
-      (highlight-code node)
+      #_(highlight-code node)
       (fitvids))
     :reagent-render
     (fn [blog-post]
