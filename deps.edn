@@ -12,6 +12,6 @@
         cider/cider-nrepl             {:mvn/version "0.26.0"}
         refactor-nrepl/refactor-nrepl {:mvn/version "2.5.1"}
         com.github.mainej/headlessui-reagent {:mvn/version "1.4.1.40"}}
- ;; clojure -M:outdated --upgrade
+ ;; clojure -M:outdated
  :aliases {:upgrade {:extra-deps {com.github.liquidz/antq {:mvn/version "1.1.0"}}
                       :main-opts  ["-m" "antq.core" "--upgrade"]}}}
