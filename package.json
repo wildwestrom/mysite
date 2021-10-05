@@ -29,6 +29,7 @@
         "@fortawesome/free-solid-svg-icons": "^5.15.4",
         "@fortawesome/react-fontawesome": "^0.1.15",
         "@headlessui/react": "^1.4.1",
+        "@highlightjs/cdn-assets": "^11.2.0",
         "fitvids": "^2.1.1",
         "highlight.js": "^11.2.0",
         "obfuscate": "^0.0.11",
