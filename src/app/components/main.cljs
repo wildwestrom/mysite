@@ -2,7 +2,6 @@
   (:require [app.components.common :as common]
             [app.components.navbar :refer [navbar]]
             [app.pages.not-found :refer [not-found-page]]
-            [app.data.router :as router]
             [app.data.global :as global]
             [reitit.frontend.easy :as rfe]))
 
