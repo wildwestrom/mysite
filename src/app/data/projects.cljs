@@ -6,7 +6,7 @@
             ["@fortawesome/free-solid-svg-icons/faRocket" :refer [faRocket]]))
 
 (def portfolio
-  [{:group-name "Finished"
+  [{:group-name "Finished projects"
     :projects   [{:name  "This Website"
                   :desc  ["This project started as an experiment in repl-driven-development, and is now the epicenter of my online presence. It's been really fun working with Reagent and learning more about how to use components from React."]
                   :links [{:title "Source"

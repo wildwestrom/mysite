@@ -7,16 +7,22 @@
 
 @layer base {
     h1 {
-        @apply my-2 text-3xl font-bold;
+        @apply text-3xl font-bold;
+    }
+    h2 {
+        @apply text-2xl font-bold mt-2;
+    }
+    h3 {
+        @apply text-xl
     }
 }
 
 @layer components {
     .nav-bar {
-        @apply font-serif italic bg-gray-300 text-lg z-50;
+        @apply font-serif bg-gray-300 text-lg z-50;
     }
 
     .nav-link {
-        @apply px-4 py-2 bg-gray-200 rounded;
+        @apply italic px-4 py-2 bg-gray-200 rounded;
     }
 }

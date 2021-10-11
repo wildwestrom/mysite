@@ -13,15 +13,19 @@
 (def routes
   [["/"
     {:name ::home
+     :display "Who am I?"
      :view home-page}]
    ["/projects"
     {:name ::projects
+     :display "My portfolio"
      :view projects-page}]
    ["/blog"
     {:name ::blog
+     :display "My thoughts"
      :view blog-preview-page}]
    ["/blog/:id"
     {:name ::post
+     :display nil
      :view blog-post-page
      :parameters {:path {:id string?}}}]])
 
@@ -31,5 +35,5 @@
 (defn router-init!
   []
   (rfe/start! router
-              (fn [m] (reset! data/match m))
+              (fn [m] (reset! data/current-page m))
               {:use-fragment false}))

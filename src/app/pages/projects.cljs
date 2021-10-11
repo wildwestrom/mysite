@@ -4,7 +4,7 @@
 
 (defn- project-entry [{:keys [name desc links]}]
   [:div.mt-4
-   [:h3 {:class ["text-2xl"]} name]
+   [:h3 name]
    [:ul
     (for [{:keys [title href icon]} links]
       ^{:key title}
@@ -13,8 +13,8 @@
 
 (defn- group-of-projects
   [{:keys [group-name projects]}]
-  [:<>
-   [:h1 group-name]
+  [:div.mb-4
+   [:h2 group-name]
    (for [project projects]
      ^{:key (:name project)}
      [project-entry project])])

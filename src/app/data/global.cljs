@@ -1,7 +1,7 @@
 (ns app.data.global
   (:require [reagent.core :as reagent]))
 
-(defonce match (reagent/atom nil))
+(defonce current-page (reagent/atom nil))
 
 (def global-config
   {:title       "Westrom.xyz - My Personal Page"

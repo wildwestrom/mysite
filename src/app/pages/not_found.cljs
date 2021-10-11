@@ -4,5 +4,5 @@
 (defn not-found-page
   []
   [common/page-container
-   [:h2 {:class ["text-5xl" "p-4" "font-mono"]}
+   [:h2.font-mono
     "Error:" [:br] "Page not found."]])

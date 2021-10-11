@@ -37,7 +37,7 @@
   [blog-post]
   [:div {:class ["border-2" "rounded" "border-gray-500" "my-4" "pt-2" "pb-4" "px-4" "bg-gray-200"]}
    [:a {:href (rfe/href :app.data.router/post {:id (-> blog-post :meta :id)})}
-    [:h2 {:class ["text-2xl"]} (-> blog-post :meta :title)]
+    [:h3 (-> blog-post :meta :title)]
     [:p {:class ["text-xs py-0.5 text-gray-500"]}
      (common/display-date (-> blog-post :meta :date))]
     [:p {:class ["text-sm" "overflow-ellipsis" "line-clamp-5" "text-gray-600"]}
@@ -53,23 +53,23 @@
     :reagent-render
     (fn [blog-post]
       [:<>
-       [:h1 (-> blog-post :meta :title)]
-       [:p {:class ["pb-4" "text-gray-500"]}
+       [:h1.mb-2 (-> blog-post :meta :title)]
+       [:time.text-gray-500
         (common/display-date (-> blog-post :meta :date))]
-       [:article {:class ["prose" "sm:prose-sm"]
+       [:article {:class ["prose" "sm:prose-sm" "mt-4"]
                   :dangerouslySetInnerHTML
                   {:__html (:content blog-post)}}]])}))
 
 (defn blog-preview-page
   []
   [:<>
-   [:h1 "My thoughts"]
+   [:h2 "My thoughts"]
    (for [blog-post @blog-posts]
      ^{:key (-> blog-post :meta :id)}
      [blog-post-preview blog-post])])
 
 (defn blog-post-page
   []
-  (let [id   (->> @data/match :parameters :path :id)
+  (let [id   (-> @data/current-page :parameters :path :id)
         post (first (filter #(= id (-> % :meta :id)) @blog-posts))]
     [blog-post-main-view post]))

@@ -38,7 +38,7 @@
                   "light" light-icon)))
 
 (defn change-icon!
- []
+  []
   (let [mut (new js/MutationObserver
                  (fn [_ _]
                    (if (js/document.documentElement.classList.contains "dark")

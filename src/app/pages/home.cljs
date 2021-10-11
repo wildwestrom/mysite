@@ -12,9 +12,8 @@
 (defn- section-header
   [title subtitle]
   [:<>
-   [:h1 title]
-   [:h3 {:class ["italic" "my-2"]}
-    subtitle]])
+   [:h2 title]
+   [:h3.italic.my-2 subtitle]])
 
 (defn home-page
   []
