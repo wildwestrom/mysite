@@ -24,7 +24,7 @@
     [about-header "About"
      "My name is Christian Westrom, but everyone calls me West."]
     [:p "Over this past year I taught myself Clojure and ClojureScript, and I'd like to start working as a developer full-time."]
-    [:p "You can check out my portfolio " [common/generic-link (rfe/href :app.router/projects) "here" :alt-target "_self"] ", and if you like what you see, please don't hesitate to send me a message."]
+    [:p "You can check out my portfolio " [common/generic-link (rfe/href :app.data.router/projects) "here" :alt-target "_self"] ", and if you like what you see, please don't hesitate to send me a message."]
     [about-header "Contact"
      "You seem pretty sweet. We should get lunch sometime."]
     [:ul

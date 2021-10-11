@@ -1,6 +1,5 @@
 (ns app.data.global
-  (:require [reagent.core :as reagent]
-            shadow.resource))
+  (:require [reagent.core :as reagent]))
 
 (defonce match (reagent/atom nil))
 

@@ -2,21 +2,24 @@
   (:require [app.components.common :as common]
             [app.components.navbar :refer [navbar]]
             [app.pages.not-found :refer [not-found-page]]
-            [app.data.global :as data]
+            [app.data.router :as router]
+            [app.data.global :as global]
             [reitit.frontend.easy :as rfe]))
+
+;; This is the main entry point into the site.
 
 (defn app
   []
   [:div {:class ["text-gray-700" "bg-gray-50"
-                 "subpixel-antialiased" "min-h-screen"]}
+                 "subpixel-antialiased"]}
    [:div.min-h-screen.flex.flex-col
     [navbar (mapv (fn [eachmap] (assoc eachmap :href (rfe/href (:href eachmap))))
-                  [{:title "About" :href :app.router/about}
-                   {:title "Blog" :href :app.router/blog}
-                   {:title "Projects" :href :app.router/projects}])]
+                  [{:title "About" :href :app.data.router/about}
+                   {:title "Blog" :href :app.data.router/blog}
+                   {:title "Projects" :href :app.data.router/projects}])]
     [:div.grid.flex-grow
-     (if @data/match
-       (let [view (:view (:data @data/match))]
-         [view @data/match])
+     (if @global/match
+       (let [view (:view (:data @global/match))]
+         [view @global/match])
        [not-found-page])]]
    [common/license]])

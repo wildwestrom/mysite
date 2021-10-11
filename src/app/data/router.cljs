@@ -1,10 +1,10 @@
 (ns app.data.router
   (:require [app.data.global :as data]
-            [reitit.frontend :as rf]
-            [reitit.frontend.easy :as rfe]
             [app.pages.about :refer [about-page]]
-            [app.pages.blog :refer [blog-preview-page blog-post-page]]
-            [app.pages.projects :refer [projects-page]]))
+            [app.pages.blog :refer [blog-post-page blog-preview-page]]
+            [app.pages.projects :refer [projects-page]]
+            [reitit.frontend :as rf]
+            [reitit.frontend.easy :as rfe]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Router
