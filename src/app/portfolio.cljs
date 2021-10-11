@@ -29,4 +29,4 @@
     :projects   [{:name  "Death Calendar"
                   :desc  [:p "I was inspired by a " [common/generic-link "https://youtu.be/JXeJANDKwDc" "Kurzgesagt video"] " (which was also inspired by a blog-post on " [common/generic-link "https://waitbutwhy.com/2014/05/life-weeks.html" "waitbutwhy.com"] ") to make a calendar that shows how long you have left to live visually. I figured I could make it into a desktop background so I can use it as a constant reminder of my ultimate demise, and hopefully spend more time on the things that really matter."]
                   :links [{:title "Source"
-                           :link  "https://github.com/wildwestrom/death-calendar"}]}]}])
+                           :href  "https://github.com/wildwestrom/death-calendar"}]}]}])
