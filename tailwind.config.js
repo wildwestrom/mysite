@@ -1,4 +1,4 @@
-/* tailwind.config.js */
+// tailwind.config.js
 module.exports = {
     mode: 'jit',
     darkMode: 'class', // or 'media' or 'class'
@@ -51,10 +51,8 @@ module.exports = {
         }
     },
     plugins: [
-        require('postcss-import'),
-        require('tailwindcss/nesting'),
-        require('@tailwindcss/line-clamp'),
-        require('@tailwindcss/typography'),
-        require('nightwind'),
+        require("@tailwindcss/line-clamp"),
+        require("@tailwindcss/typography"),
+        require("nightwind"),
     ]
 }

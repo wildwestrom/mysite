@@ -1,12 +1,13 @@
 {
     "private": true,
+    "license": "AGPL-3.0-or-later",
     "scripts": {
         "deps": "yarn install && ./bin/submodules",
-        "build:css": "export NODE_ENV=production && tailwindcss -o public/css/main.css --minify",
+        "build:css": "export NODE_ENV=production && tailwindcss -i src/css/tailwind.css -o public/css/main.css --minify",
         "build:app": "shadow-cljs release app",
         "build:org-to-data": "uniorg-util --edn -i posts -o public/posts -m _ALL_POSTS",
         "release": "yarn deps && run-s build:org-to-data build:css build:app",
-        "watch:css": "TAILWIND_MODE=watch tailwindcss -o public/css/main.css --watch",
+        "watch:css": "TAILWIND_MODE=watch tailwindcss -i src/css/tailwind.css -o public/css/main.css --watch",
         "watch:app": "shadow-cljs watch app",
         "start": "run-p watch:css watch:app",
         "report": "shadow-cljs run shadow.cljs.build-report app report.html"

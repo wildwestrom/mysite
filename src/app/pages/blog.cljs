@@ -53,18 +53,17 @@
     :reagent-render
     (fn [blog-post]
       [:<>
-       [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
+       [:h1 (-> blog-post :meta :title)]
        [:p {:class ["pb-4" "text-gray-500"]}
         (common/display-date (-> blog-post :meta :date))]
-       [:article {:class ["prose" "prose-sm" "sm:prose" "lg:prose-lg"]
+       [:article {:class ["prose" "sm:prose-sm"]
                   :dangerouslySetInnerHTML
                   {:__html (:content blog-post)}}]])}))
 
 (defn blog-preview-page
   []
   [:<>
-   [:h1 {:class ["my-2" "sm:my-4" "text-3xl" "font-bold"]}
-    "My thoughts"]
+   [:h1 "My thoughts"]
    (for [blog-post @blog-posts]
      ^{:key (-> blog-post :meta :id)}
      [blog-post-preview blog-post])])

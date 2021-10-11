@@ -13,7 +13,7 @@
                            :href  "https://github.com/wildwestrom/mysite"
                            :icon  faGithub}]}
                  {:name  "Uniorg Util"
-                  :desc  ["This is a supplemental project meant to help out with the blog portion of my site. It converts org documents to HTML and metadata for sorting and such. It's available as an NPM package. This is probably the best example of continuous integration and unit testing out of all my projects."]
+                  :desc  ["This is a supplemental project meant to help out with the blog portion of my site. It converts " (common/generic-link "https://orgmode.org/" "Org documents") " to HTML and metadata for sorting and such. It's available as an NPM package. This is probably the best example of continuous integration and unit testing out of all my projects."]
                   :links [{:title "Source"
                            :href  "https://github.com/wildwestrom/uniorg-util"
                            :icon faGithub}

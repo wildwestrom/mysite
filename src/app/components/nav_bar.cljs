@@ -1,4 +1,4 @@
-(ns app.components.navbar
+(ns app.components.nav-bar
   (:require ["@fortawesome/free-solid-svg-icons/faEllipsisH" :refer [faEllipsisH]]
             ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
             [headlessui-reagent.core :as hui]
@@ -6,41 +6,46 @@
             [app.components.nightwind :refer [dark-light-button]]))
 
 (defn desktop-nav-link
-  [{:keys [title href]} [& classes]]
+  [{:keys [title href]}]
   ^{:key title}
-  [:a {:class (into [] classes)
+  [:a {:class "nav-link"
        :href href
        :title title} title])
 
 (defn mobile-nav-link
-  [{:keys [title href]} [& classes]]
+  [{:keys [title href]}]
   ^{:key title}
-  [hui/menu-item {:class (into [] classes)
+  [hui/menu-item {:class "nav-link"
                   :as :a
                   :href href} title])
 
-(defn navbar
+(defn nav-bar
   [nav-data]
   (reagent/with-let
-    [navbar-styles ["font-serif" "italic" "bg-gray-300" "text-lg" "p-2" "z-50"]
-     link-styles ["px-2" "py-1" "border-1" "bg-gray-200" "rounded"]
-     nav-links (fn [link-fn nav-data]
+    [nav-links (fn [link-fn nav-data]
                  [:<>
                   (for [nav nav-data]
                     ^{:key (-> nav :title)}
-                    (link-fn nav link-styles))])
+                    (link-fn nav))])
      desktop-nav (fn [nav-data]
-                   [:nav {:class (conj navbar-styles "-sm:hidden" "gap-2" "flex" "flex-row" "text-center")}
+                   [:nav {:class ["nav-bar"
+                                  "flex" "flex-row"
+                                  "text-center" "justify-end"
+                                  "-sm:hidden" "min-w-full"
+                                  "gap-4" "px-8" "py-2"]}
                     (nav-links desktop-nav-link nav-data)
-                    [dark-light-button link-styles]])
+                    [dark-light-button]])
      mobile-nav (fn [nav-data]
                   [hui/menu {:as :nav
-                             :class-name (conj navbar-styles "m-4" "sm:hidden" "fixed" "bottom-0" "rounded-lg" "right-0" "text-center")}
+                             :class-name ["nav-bar"
+                                          "m-4" "p-2" "sm:hidden" "fixed"
+                                          "bottom-0" "rounded-lg"
+                                          "right-0" "text-center"]}
                    [hui/menu-button {:class-name ["border-1" "bg-gray-200" "rounded"]}
                     [:> FontAwesomeIcon {:icon faEllipsisH}]]
                    [hui/menu-items {:class ["grid" "gap-2"]}
                     (nav-links mobile-nav-link nav-data)
-                    [hui/menu-item {:as (fn [] [dark-light-button link-styles])}]]])]
+                    [hui/menu-item {:as (fn [] [dark-light-button])}]]])]
     [:<>
      (desktop-nav nav-data)
      (mobile-nav nav-data)]))

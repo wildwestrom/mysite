@@ -7,7 +7,7 @@
 (defn display-date
   [date-string]
   (let [date (js/Date. date-string)]
-    (. date (toLocaleDateString))))
+    (.toLocaleDateString date)))
 
 (defn this-year
   []

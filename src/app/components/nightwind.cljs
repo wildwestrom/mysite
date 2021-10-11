@@ -38,7 +38,7 @@
                   "light" light-icon)))
 
 (defn change-icon!
-  []
+ []
   (let [mut (new js/MutationObserver
                  (fn [_ _]
                    (if (js/document.documentElement.classList.contains "dark")
@@ -47,7 +47,7 @@
     (.observe mut js/document.documentElement #js {:attributes true})))
 
 (defn dark-light-button
-  [[& classes]]
-  [:button {:class (into [] classes)
+  []
+  [:button {:class "nav-link"
             :on-click (comp toggle change-icon!)
             :title "Click to toggle theme."} @icon])

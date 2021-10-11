@@ -12,8 +12,7 @@
 (defn- section-header
   [title subtitle]
   [:<>
-   [:h1 {:class ["my-2" "sm:my-4" "text-3xl" "font-bold"]}
-    title]
+   [:h1 title]
    [:h3 {:class ["italic" "my-2"]}
     subtitle]])
 

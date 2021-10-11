@@ -1,5 +1,22 @@
 /* tailwind.css */
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind screens;
+
+@layer base {
+    h1 {
+        @apply my-2 text-3xl font-bold;
+    }
+}
+
+@layer components {
+    .nav-bar {
+        @apply font-serif italic bg-gray-300 text-lg z-50;
+    }
+
+    .nav-link {
+        @apply px-4 py-2 bg-gray-200 rounded;
+    }
+}

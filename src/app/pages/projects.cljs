@@ -14,7 +14,7 @@
 (defn- group-of-projects
   [{:keys [group-name projects]}]
   [:<>
-   [:h2 {:class ["mt-4" "text-3xl" "font-bold"]} group-name]
+   [:h1 group-name]
    (for [project projects]
      ^{:key (:name project)}
      [project-entry project])])
