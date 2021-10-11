@@ -15,9 +15,9 @@
     (.getFullYear now)))
 
 (defn generic-link
-  [link text]
+  [link text & {:keys [alt-target]}]
   [:a {:href   link
-       :target "_blank"
+       :target (if alt-target alt-target "_blank")
        :class  ["text-blue-500" "hover:text-blue-600"]} text])
 
 (defn license
@@ -38,9 +38,13 @@
     (generic-link (str "mailto:" (:email data/global-config))
                   (:email data/global-config))]])
 
-(defn icon-link [text icon label & {:keys [copyable href]}]
+(defn icon-link [text icon label & {:keys [copyable href styles] :or {styles "my-4"}}]
   (reagent/with-let [showing? (reagent/atom false)]
-    [:li {:class ["py-2" "text-blue-600" "hover:text-blue-700"]}
+    [:li {:class (let [base-styles ["text-blue-600" "hover:text-blue-700"]]
+                   (cond
+                     (string? styles) (conj base-styles styles)
+                     (coll? styles) (concat base-styles styles)
+                     :default base-styles))}
      (when copyable
        [hui/transition
         {:id "text-copy-indicator"
@@ -55,10 +59,9 @@
         "Copied to Clipboard!"])
      [:a.cursor-pointer
       (merge
+       {:title (str label (when copyable " (click to copy)"))
+        :aria-label label}
        (when href {:href href})
-       (when label
-         {:title (str label (when copyable " (click to copy)"))
-          :aria-label label})
        (when copyable
          {:on-click  (fn []
                        (letfn [(toggle [] (swap! showing? not))]
@@ -68,3 +71,7 @@
       [:> FontAwesomeIcon {:icon icon
                            :class "fa-fw mr-2"}]
       text]]))
+
+(defn page-container [content]
+  [:div {:class ["max-w-prose" "justify-self-center" "self-start" "m-2"]}
+   content])
