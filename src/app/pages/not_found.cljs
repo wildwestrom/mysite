@@ -1,8 +1,7 @@
-(ns app.pages.not-found
-  (:require [app.components.common :as common]))
+(ns app.pages.not-found)
 
 (defn not-found-page
   []
-  [common/page-container
+  [:div.page-container
    [:h2.font-mono
     "Error:" [:br] "Page not found."]])

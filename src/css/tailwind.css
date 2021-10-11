@@ -6,18 +6,31 @@
 @tailwind screens;
 
 @layer base {
+    * {
+        @apply text-gray-700
+    }
+
+    html {
+        @apply bg-gray-50 subpixel-antialiased
+    }
+
     h1 {
         @apply text-3xl font-bold;
     }
+
     h2 {
         @apply text-2xl font-bold mt-2;
     }
+
     h3 {
         @apply text-xl
     }
 }
 
 @layer components {
+    .page-container {
+        @apply max-w-[75ch] self-center px-8 py-2 bg-gray-100 rounded-lg m-2
+    }
     .nav-bar {
         @apply font-serif bg-gray-300 text-lg z-50;
     }

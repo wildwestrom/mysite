@@ -71,8 +71,3 @@
       [:> FontAwesomeIcon {:icon icon
                            :class "fa-fw mr-2"}]
       text]]))
-
-(defn page-container [content]
-  [:div {:class ["max-w-[75ch]" "self-center" "px-8" "py-2"
-                 "bg-gray-100" "rounded-lg" "m-2"]}
-   content])
