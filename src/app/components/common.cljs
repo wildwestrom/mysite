@@ -67,11 +67,11 @@
                        (letfn [(toggle [] (swap! showing? not))]
                          (js/navigator.clipboard.writeText text)
                          (toggle)
-                         (js/setTimeout toggle 500)))}))
+                         (js/setTimeout toggle 1500)))}))
       [:> FontAwesomeIcon {:icon icon
                            :class "fa-fw mr-2"}]
       text]]))
 
 (defn page-container [content]
-  [:div {:class ["max-w-prose" "justify-self-center" "self-start" "m-2"]}
+  [:div {:class ["max-w-prose" "self-center" "m-4"]}
    content])

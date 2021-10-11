@@ -14,10 +14,10 @@
                  "subpixel-antialiased"]}
    [:div.min-h-screen.flex.flex-col
     [navbar (mapv (fn [eachmap] (assoc eachmap :href (rfe/href (:href eachmap))))
-                  [{:title "About" :href :app.data.router/about}
+                  [{:title "Home" :href :app.data.router/home}
                    {:title "Blog" :href :app.data.router/blog}
                    {:title "Projects" :href :app.data.router/projects}])]
-    [:div.grid.flex-grow
+    [common/page-container
      (if @global/match
        (let [view (:view (:data @global/match))]
          [view @global/match])

@@ -1,6 +1,6 @@
 (ns app.data.router
   (:require [app.data.global :as data]
-            [app.pages.about :refer [about-page]]
+            [app.pages.home :refer [home-page]]
             [app.pages.blog :refer [blog-post-page blog-preview-page]]
             [app.pages.projects :refer [projects-page]]
             [reitit.frontend :as rf]
@@ -12,8 +12,8 @@
 
 (def routes
   [["/"
-    {:name ::about
-     :view about-page}]
+    {:name ::home
+     :view home-page}]
    ["/projects"
     {:name ::projects
      :view projects-page}]

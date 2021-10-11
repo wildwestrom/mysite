@@ -30,7 +30,7 @@
                     ^{:key (-> nav :title)}
                     (link-fn nav link-styles))])
      desktop-nav (fn [nav-data]
-                   [:nav {:class (conj navbar-styles "-sm:hidden" "gap-2" "justify-end" "inline-flex")}
+                   [:nav {:class (conj navbar-styles "-sm:hidden" "gap-2" "flex" "flex-row" "text-center")}
                     (nav-links desktop-nav-link nav-data)
                     [dark-light-button link-styles]])
      mobile-nav (fn [nav-data]

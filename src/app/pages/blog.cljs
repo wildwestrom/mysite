@@ -36,7 +36,7 @@
 (defn- blog-post-preview
   [blog-post]
   [:div {:class ["border-2" "rounded" "border-gray-500" "my-4" "pt-2" "pb-4" "px-4" "bg-gray-200"]}
-   [:a {:href (rfe/href :app.router/post {:id (-> blog-post :meta :id)})}
+   [:a {:href (rfe/href :app.data.router/post {:id (-> blog-post :meta :id)})}
     [:h2 {:class ["text-2xl"]} (-> blog-post :meta :title)]
     [:p {:class ["text-xs py-0.5 text-gray-500"]}
      (common/display-date (-> blog-post :meta :date))]
@@ -47,25 +47,25 @@
   [blog-post]
   (reagent/create-class
    {:component-did-mount
-    (fn [node]
+    (fn [#_node]
       #_(highlight-code node)
       (fitvids))
     :reagent-render
     (fn [blog-post]
-      [:div {:class ["m-2" "mt-6" "pt-2" "z-10" "pb-4" "px-2" "sm:px-8" "overflow-auto grid"]}
+      [:<>
        [:h1 {:class ["font-bold text-4xl"]} (-> blog-post :meta :title)]
        [:p {:class ["pb-4" "text-gray-500"]}
         (common/display-date (-> blog-post :meta :date))]
-       [:article {:class ["prose" "prose-sm" "sm:prose" "lg:prose-lg" "justify-self-center"]
+       [:article {:class ["prose" "prose-sm" "sm:prose" "lg:prose-lg"]
                   :dangerouslySetInnerHTML
                   {:__html (:content blog-post)}}]])}))
 
-(defn- blog-preview-page
+(defn blog-preview-page
   []
-  [common/page-container
+  [:<>
    (for [blog-post @blog-posts]
-      ^{:key (-> blog-post :meta :id)}
-      [blog-post-preview blog-post])])
+     ^{:key (-> blog-post :meta :id)}
+     [blog-post-preview blog-post])])
 
 (defn blog-post-page
   []
