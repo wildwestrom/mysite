@@ -7,11 +7,11 @@
 
 @layer base {
     * {
-        @apply text-gray-700
+        @apply text-gray-700;
     }
 
     html {
-        @apply bg-gray-50 subpixel-antialiased
+        @apply bg-gray-50 subpixel-antialiased;
     }
 
     h1 {
@@ -23,19 +23,35 @@
     }
 
     h3 {
-        @apply text-xl
+        @apply text-xl;
+    }
+    time {
+        @apply text-gray-500
     }
 }
 
 @layer components {
     .page-container {
-        @apply max-w-[75ch] self-center px-8 py-2 bg-gray-100 rounded-lg m-2
+        @apply max-w-[80ch] self-center px-8 py-2 bg-gray-100 rounded-lg m-2 flex flex-col;
     }
+
     .nav-bar {
         @apply font-serif bg-gray-300 text-lg z-50;
     }
 
     .nav-link {
         @apply italic px-4 py-2 bg-gray-200 rounded;
+    }
+
+    .blog-post-preview {
+        @apply border-2 rounded border-gray-500 my-4 pt-2 pb-4 px-4 bg-gray-200;
+    }
+
+    .blog-post-preview time {
+        @apply text-xs my-0.5;
+    }
+
+    .blog-post-preview p {
+        @apply text-sm overflow-ellipsis line-clamp-5 text-gray-600;
     }
 }

@@ -13,7 +13,7 @@
 (def routes
   [["/"
     {:name ::home
-     :display "Who am I?"
+     :display "My homepage"
      :view home-page}]
    ["/projects"
     {:name ::projects

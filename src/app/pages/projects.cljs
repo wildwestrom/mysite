@@ -16,8 +16,8 @@
   [:div.mb-4
    [:h2 group-name]
    (for [project projects]
-     ^{:key (:name project)}
-     [project-entry project])])
+      ^{:key (:name project)}
+      [project-entry project])])
 
 (defn projects-page
   []

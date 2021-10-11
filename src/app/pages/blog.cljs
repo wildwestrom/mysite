@@ -35,28 +35,26 @@
 
 (defn- blog-post-preview
   [blog-post]
-  [:div {:class ["border-2" "rounded" "border-gray-500" "my-4" "pt-2" "pb-4" "px-4" "bg-gray-200"]}
+  [:div.blog-post-preview
    [:a {:href (rfe/href :app.data.router/post {:id (-> blog-post :meta :id)})}
     [:h3 (-> blog-post :meta :title)]
-    [:p {:class ["text-xs py-0.5 text-gray-500"]}
-     (common/display-date (-> blog-post :meta :date))]
-    [:p {:class ["text-sm" "overflow-ellipsis" "line-clamp-5" "text-gray-600"]}
-     (-> blog-post :meta :subtitle)]]])
+    [:time (common/display-date (-> blog-post :meta :date))]
+    [:p (-> blog-post :meta :subtitle)]]])
 
 (defn- blog-post-main-view
   [blog-post]
   (reagent/create-class
    {:component-did-mount
-    (fn [#_node]
+    (fn [_]
       #_(highlight-code node)
       (fitvids))
     :reagent-render
     (fn [blog-post]
       [:<>
        [:h1.mb-2 (-> blog-post :meta :title)]
-       [:time.text-gray-500
+       [:time
         (common/display-date (-> blog-post :meta :date))]
-       [:article {:class ["prose" "sm:prose-sm" "mt-4"]
+       [:article {:class ["self-center" "prose" "prose-blue" "sm:prose-sm" "mt-4"]
                   :dangerouslySetInnerHTML
                   {:__html (:content blog-post)}}]])}))
 

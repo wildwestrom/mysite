@@ -37,7 +37,7 @@
                                   "px-8" "py-2"]}
                     [:div
                      ;;TODO Come up with something better.
-                     [:a.text-3xl {:href "/"}
+                     [:a.text-3xl.mx-4 {:href "/"}
                       "westrom.xyz"]
                      [:h1.sr-only
                       (str (-> @current-page :data :display))]]
