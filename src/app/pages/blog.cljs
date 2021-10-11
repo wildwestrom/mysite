@@ -63,6 +63,8 @@
 (defn blog-preview-page
   []
   [:<>
+   [:h1 {:class ["my-2" "sm:my-4" "text-3xl" "font-bold"]}
+    "My thoughts"]
    (for [blog-post @blog-posts]
      ^{:key (-> blog-post :meta :id)}
      [blog-post-preview blog-post])])
