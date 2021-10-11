@@ -1,4 +1,4 @@
-(ns app.components.main
+(ns app.components.app
   (:require [app.components.common :as common]
             [app.components.navbar :refer [navbar]]
             [app.pages.not-found :refer [not-found-page]]

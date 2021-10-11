@@ -1,5 +1,5 @@
 (ns app.render
-  (:require [app.components.main :as pages]
+  (:require [app.components.app :refer [app]]
             [app.components.nightwind :refer [inject-dark-mode]]
             [app.data.router :refer [router-init!]]
             [reagent.dom :as r.dom]))
@@ -17,7 +17,7 @@
   (js/console.log "init")
   (inject-dark-mode)
   (router-init!)
-  (mount-root [pages/app]))
+  (mount-root [app]))
 
 (defn ^:dev/before-load stop
   []
