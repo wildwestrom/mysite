@@ -25,7 +25,7 @@
      :view blog-preview-page}]
    ["/blog/:id"
     {:name ::post
-     :display nil
+     :display "Blog post"
      :view blog-post-page
      :parameters {:path {:id string?}}}]])
 
