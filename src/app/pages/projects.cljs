@@ -1,6 +1,6 @@
-(ns app.components.projects
+(ns app.pages.projects
   (:require [app.components.common :as common]
-            [app.portfolio :refer [portfolio]]))
+            [app.data.projects :refer [portfolio]]))
 
 (defn- project-entry [{:keys [name desc links]}]
   [:div.mt-4
@@ -8,9 +8,8 @@
    [:ul
     (for [{:keys [title href icon]} links]
       ^{:key title}
-      [:li
-       [common/icon-link title icon nil :href href :styles "my-2"]])]
-   desc])
+       [common/icon-link title icon nil :href href :styles "my-2"])]
+   (into [] (concat [:p ] desc))])
 
 (defn- group-of-projects
   [{:keys [group-name projects]}]

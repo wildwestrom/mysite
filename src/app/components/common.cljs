@@ -1,6 +1,6 @@
 (ns app.components.common
   (:require ["@fortawesome/react-fontawesome" :refer [FontAwesomeIcon]]
-            [app.data :as data]
+            [app.data.global :as data]
             [headlessui-reagent.core :as hui]
             [reagent.core :as reagent]))
 

@@ -13,10 +13,10 @@
 
         :compiler-options {:output-feature-set :es-next}
 
-        :modules {:main {:init-fn app.core/init}}
+        :modules {:main {:init-fn app.render/init}}
 
-        :devtools {:before-load app.core/stop
-                   :after-load  app.core/init
+        :devtools {:before-load app.render/stop
+                   :after-load  app.render/init
                    :http-root   "public"
                    :http-port   3000
                    :preloads    [devtools.preload]}}}}

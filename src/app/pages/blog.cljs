@@ -1,7 +1,7 @@
-(ns app.components.blog
+(ns app.pages.blog
   (:require ["fitvids" :as fitvids]
             [app.components.common :as common]
-            [app.data :as data]
+            [app.data.global :as data]
             [clojure.edn :as edn]
             [clojure.string :as string]
             [kitchen-async.promise :as p]
@@ -65,12 +65,9 @@
 (defn- blog-preview-page
   []
   [common/page-container
-   [:<>
-    [:h1 {:class ["text-3xl" "font-bold" "my-4"]}
-     "Blog Posts"]
-    (for [blog-post @blog-posts]
+   (for [blog-post @blog-posts]
       ^{:key (-> blog-post :meta :id)}
-      [blog-post-preview blog-post])]])
+      [blog-post-preview blog-post])])
 
 (defn blog-post-page
   []

@@ -1,10 +1,10 @@
-(ns app.router
-  (:require [app.data :as data]
+(ns app.data.router
+  (:require [app.data.global :as data]
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]
-            [app.components.about :refer [about-page]]
-            [app.components.blog :refer [blog-preview-page blog-post-page]]
-            [app.components.projects :refer [projects-page]]))
+            [app.pages.about :refer [about-page]]
+            [app.pages.blog :refer [blog-preview-page blog-post-page]]
+            [app.pages.projects :refer [projects-page]]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Router

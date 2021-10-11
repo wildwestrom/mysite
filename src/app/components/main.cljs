@@ -1,8 +1,8 @@
-(ns app.pages
+(ns app.components.main
   (:require [app.components.common :as common]
             [app.components.navbar :refer [navbar]]
-            [app.components.not-found :refer [not-found-page]]
-            [app.data :as data]
+            [app.pages.not-found :refer [not-found-page]]
+            [app.data.global :as data]
             [reitit.frontend.easy :as rfe]))
 
 (defn app

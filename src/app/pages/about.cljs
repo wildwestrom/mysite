@@ -1,4 +1,4 @@
-(ns app.components.about
+(ns app.pages.about
   (:require ["@fortawesome/free-brands-svg-icons/faDiscord" :refer [faDiscord]]
             ["@fortawesome/free-brands-svg-icons/faGithub" :refer [faGithub]]
             ["@fortawesome/free-brands-svg-icons/faLinkedin" :refer [faLinkedin]]
@@ -6,7 +6,7 @@
             ["@fortawesome/free-solid-svg-icons/faEnvelope" :refer [faEnvelope]]
             ["@fortawesome/free-solid-svg-icons/faKey" :refer [faKey]]
             [app.components.common :as common]
-            [app.data :as data]
+            [app.data.global :as data]
             [reitit.frontend.easy :as rfe]))
 
 (defn about-header
@@ -21,7 +21,7 @@
   []
   [common/page-container
    [:<>
-    [about-header "About me"
+    [about-header "About"
      "My name is Christian Westrom, but everyone calls me West."]
     [:p "Over this past year I taught myself Clojure and ClojureScript, and I'd like to start working as a developer full-time."]
     [:p "You can check out my portfolio " [common/generic-link (rfe/href :app.router/projects) "here" :alt-target "_self"] ", and if you like what you see, please don't hesitate to send me a message."]

@@ -1,7 +1,7 @@
-(ns app.core
-  (:require [app.pages :as pages]
+(ns app.render
+  (:require [app.components.main :as pages]
             [app.components.nightwind :refer [inject-dark-mode]]
-            [app.router :refer [router-init!]]
+            [app.data.router :refer [router-init!]]
             [reagent.dom :as r.dom]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -14,11 +14,11 @@
 
 (defn ^:export init
   []
-  (js/console.debug "init")
+  (js/console.log "init")
   (inject-dark-mode)
   (router-init!)
   (mount-root [pages/app]))
 
 (defn ^:dev/before-load stop
   []
-  (js/console.debug "stop"))
+  (js/console.log "stop"))
