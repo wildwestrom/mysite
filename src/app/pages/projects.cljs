@@ -5,10 +5,10 @@
 (defn- project-entry [{:keys [name desc links]}]
   [:div.mt-4
    [:h3 name]
-   [:ul
+   [:ul.my-2
     (for [{:keys [title href icon]} links]
       ^{:key title}
-      [common/icon-link title icon nil :href href :styles "my-2"])]
+      [common/icon-link title icon nil :href href :styles "my-1"])]
    (into [] (concat [:p] desc))])
 
 (defn- group-of-projects
@@ -16,8 +16,8 @@
   [:div.mb-4
    [:h2 group-name]
    (for [project projects]
-      ^{:key (:name project)}
-      [project-entry project])])
+     ^{:key (:name project)}
+     [project-entry project])])
 
 (defn projects-page
   []
