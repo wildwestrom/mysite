@@ -44,7 +44,7 @@
                    (cond
                      (string? styles) (conj base-styles styles)
                      (coll? styles) (concat base-styles styles)
-                     :default base-styles))}
+                     :else base-styles))}
      (when copyable
        [hui/transition
         {:id "text-copy-indicator"

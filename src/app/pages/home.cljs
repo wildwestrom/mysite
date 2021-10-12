@@ -12,17 +12,19 @@
 (defn- section-header
   [title subtitle]
   [:<>
-   [:h2 title]
-   [:h3.italic.my-2 subtitle]])
+   [:h2.mt-8 title]
+   [:h3.italic.mb-2 subtitle]])
 
 (defn home-page
   []
   [:<>
    [section-header "About"
     "My name is Christian Westrom, but everyone calls me West."]
-   [:p "Over this past year I taught myself Clojure and ClojureScript, and I'd like to start working as a developer full-time. You can check out my portfolio " [common/generic-link (rfe/href :app.data.router/projects) "here" :alt-target "_self"] ", and if you like what you see, please don't hesitate to send me a message."]
+   [:p "Over this past year I taught myself Clojure and ClojureScript, and I'd like to start working as a developer full-time. "]
    [section-header "Contact"
-    "You seem pretty sweet. We should get lunch sometime."]
+    [:<>
+     [:p "You can check out my " [common/generic-link (rfe/href :app.data.router/projects) "portfolio" :alt-target "_self"] "."]
+     [:p  "If you like what you see, please don't hesitate to send me a message."]]]
    [:ul
     [common/icon-link (:email global-config)
      faEnvelope
@@ -43,9 +45,10 @@
     [common/icon-link "Public PGP Key"
      faKey
      "Public PGP Key"
-     :href (:pgp global-config)]]
+     :href (:pgp global-config)
+     :styles "mt-4"]]
    [section-header "Fund"
-    "Because every site needs a \"give me money\" button."]
+    "Coding is hard work; This helps me keep going."]
    [:ul
     [common/icon-link "Monero Wallet"
      faMonero

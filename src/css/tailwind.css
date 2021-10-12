@@ -10,8 +10,12 @@
         @apply text-gray-700;
     }
 
+    /* #app { */
+    /*     @apply bg-gray-50 */
+    /* } */
+
     html {
-        @apply bg-gray-50 subpixel-antialiased;
+        @apply subpixel-antialiased;
     }
 
     h1 {

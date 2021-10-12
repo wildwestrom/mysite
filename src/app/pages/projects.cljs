@@ -9,11 +9,11 @@
     (for [{:keys [title href icon]} links]
       ^{:key title}
       [common/icon-link title icon nil :href href :styles "my-1"])]
-   (into [] (concat [:p] desc))])
+   (vec (cons :p desc))])
 
 (defn- group-of-projects
   [{:keys [group-name projects]}]
-  [:div.mb-4
+  [:div.mb-8
    [:h2 group-name]
    (for [project projects]
      ^{:key (:name project)}
