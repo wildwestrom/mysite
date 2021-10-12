@@ -40,7 +40,7 @@
 
 (defn icon-link [text icon label & {:keys [copyable href styles] :or {styles "my-4"}}]
   (reagent/with-let [showing? (reagent/atom false)]
-    [:li {:class (let [base-styles ["text-blue-600" "hover:text-blue-700"]]
+    [:li {:class (let [base-styles ["text-blue-500" "hover:text-blue-600"]]
                    (cond
                      (string? styles) (conj base-styles styles)
                      (coll? styles) (concat base-styles styles)
@@ -55,12 +55,13 @@
          :leave "transition-opacity duration-300"
          :leave-from "opacity-100"
          :leave-to "opacity-0"
-         :class ["border-2" "rounded-lg" "p-1" "absolute" "text-black" "bg-blue-50" "transform" "-translate-y-10"]}
+         :class ["border-2" "rounded-lg" "p-1" "absolute" "text-black" "bg-blue-50" "transform" "-translate-y-10" "z-50"]}
         "Copied to Clipboard!"])
      [:a.cursor-pointer
       (merge
        {:title (str label (when copyable " (click to copy)"))
-        :aria-label label}
+        :aria-label label
+        :class ["text-blue-500" "hover:text-blue-600"]}
        (when href {:href href})
        (when copyable
          {:on-click  (fn []
@@ -69,5 +70,5 @@
                          (toggle)
                          (js/setTimeout toggle 1500)))}))
       [:> FontAwesomeIcon {:icon icon
-                           :class "fa-fw mr-2"}]
+                           :class "fa-fw mr-2 fill-inherit"}]
       text]]))

@@ -12,7 +12,7 @@
 (defn- section-header
   [title subtitle]
   [:<>
-   [:h2.mt-8 title]
+   [:h2 title]
    [:h3.italic.mb-2 subtitle]])
 
 (defn home-page
