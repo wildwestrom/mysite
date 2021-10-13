@@ -1,4 +1,4 @@
-(ns app.pages.projects
+(ns app.pages.portfolio
   (:require [app.components.common :as common]
             [app.data.projects :refer [portfolio]]))
 
@@ -19,7 +19,7 @@
      ^{:key (:name project)}
      [project-entry project])])
 
-(defn projects-page
+(defn portfolio-page
   []
   [:<>
    (for [project-group portfolio]

@@ -12,9 +12,7 @@
   [:<>
    [:div.min-h-screen.flex.flex-col
     [nav-bar (mapv (fn [eachmap] (assoc eachmap :href (rfe/href (:href eachmap))))
-                   [{:title "Home" :href :app.data.router/home}
-                    {:title "Blog" :href :app.data.router/blog}
-                    {:title "Projects" :href :app.data.router/projects}])]
+                   global/nav-links)]
     [:div.page-container
      (if @global/current-page
        (let [view (:view (:data @global/current-page))]

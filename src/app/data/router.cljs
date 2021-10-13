@@ -2,7 +2,7 @@
   (:require [app.data.global :as data]
             [app.pages.home :refer [home-page]]
             [app.pages.blog :refer [blog-post-page blog-preview-page]]
-            [app.pages.projects :refer [projects-page]]
+            [app.pages.portfolio :refer [portfolio-page]]
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]))
 
@@ -15,10 +15,10 @@
     {:name ::home
      :display "My homepage"
      :view home-page}]
-   ["/projects"
-    {:name ::projects
+   ["/portfolio"
+    {:name ::portfolio
      :display "My portfolio"
-     :view projects-page}]
+     :view portfolio-page}]
    ["/blog"
     {:name ::blog
      :display "My thoughts"

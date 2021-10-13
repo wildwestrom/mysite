@@ -15,3 +15,8 @@
    :author      "Christian Westrom"
    :description "My site"
    :keywords    ["programming" "clojure" "clojurescript" "web development" "javascript"]})
+
+(def nav-links
+  [{:title "Home" :href :app.data.router/home}
+   {:title "Blog" :href :app.data.router/blog}
+   {:title "Portfolio" :href :app.data.router/portfolio}])
