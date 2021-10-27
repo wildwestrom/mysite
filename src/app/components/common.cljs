@@ -43,32 +43,33 @@
     [:li {:class (let [base-styles ["text-blue-500" "hover:text-blue-600"]]
                    (cond
                      (string? styles) (conj base-styles styles)
-                     (coll? styles) (concat base-styles styles)
-                     :else base-styles))}
+                     (coll? styles)   (concat base-styles styles)
+                     :else            base-styles))}
      (when copyable
        [hui/transition
-        {:id "text-copy-indicator"
-         :show @showing?
-         :enter "transition-opacity duration-75"
+        {:id         "text-copy-indicator"
+         :show       @showing?
+         :enter      "transition-opacity duration-75"
          :enter-from "opacity-0"
-         :enter-to "opacity-100"
-         :leave "transition-opacity duration-300"
+         :enter-to   "opacity-100"
+         :leave      "transition-opacity duration-300"
          :leave-from "opacity-100"
-         :leave-to "opacity-0"
-         :class ["border-2" "rounded-lg" "p-1" "absolute" "text-black" "bg-blue-50" "transform" "-translate-y-10" "z-50"]}
+         :leave-to   "opacity-0"
+         :class      ["border-2" "rounded-lg" "p-1" "absolute" "text-black" "bg-blue-50" "transform" "-translate-y-10" "z-50"]}
         "Copied to Clipboard!"])
      [:a.cursor-pointer
       (merge
-       {:title (str label (when copyable " (click to copy)"))
-        :aria-label label
-        :class ["text-blue-500" "hover:text-blue-600"]}
-       (when href {:href href})
-       (when copyable
-         {:on-click  (fn []
+        {:title      (str label (when copyable " (click to copy)"))
+         :aria-label label
+         :class      ["text-blue-500" "hover:text-blue-600"]}
+        (when href {:href   href
+                    :target "_blank"})
+        (when copyable
+          {:on-click (fn []
                        (letfn [(toggle [] (swap! showing? not))]
                          (js/navigator.clipboard.writeText text)
                          (toggle)
                          (js/setTimeout toggle 1500)))}))
-      [:> FontAwesomeIcon {:icon icon
+      [:> FontAwesomeIcon {:icon  icon
                            :class "fa-fw mr-2 fill-inherit"}]
       text]]))

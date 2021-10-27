@@ -23,7 +23,7 @@
    [:p "Over this past year I taught myself Clojure and ClojureScript, and I'd like to start working as a developer full-time. "]
    [section-header "Contact"
     [:<>
-     [:p "You can check out my " [common/generic-link (rfe/href :app.data.router/projects) "portfolio" :alt-target "_self"] "."]
+     [:p "You can check out my " [common/generic-link (rfe/href :app.data.router/portfolio) "portfolio" :alt-target "_self"] "."]
      [:p  "If you like what you see, please don't hesitate to send me a message."]]]
    [:ul
     [common/icon-link (:email global-config)

@@ -3,7 +3,7 @@
             [app.data.projects :refer [portfolio]]))
 
 (defn- project-entry [{:keys [name desc links]}]
-  [:div.mt-4
+  [:section.mt-4
    [:h3 name]
    [:ul.my-2
     (for [{:keys [title href icon]} links]
@@ -13,7 +13,7 @@
 
 (defn- group-of-projects
   [{:keys [group-name projects]}]
-  [:div.mb-8
+  [:section.mb-8
    [:h2 group-name]
    (for [project projects]
      ^{:key (:name project)}

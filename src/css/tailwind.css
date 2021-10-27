@@ -3,10 +3,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind screens;
+@tailwind variants;
 
 @layer base {
-    *    { @apply text-gray-700 }
+    *    { @apply text-gray-700 text-base overflow-x-hidden }
     #app { @apply bg-gray-50 }
     html { @apply subpixel-antialiased }
     h1   { @apply text-3xl font-bold }
@@ -16,7 +16,7 @@
 }
 
 @layer components {
-    .page-container { @apply max-w-[80ch] self-center px-12 pb-8 bg-gray-100 rounded-lg m-2 flex flex-col }
+    .page-container { @apply max-w-[80ch] self-center sm:px-12 pb-8 bg-gray-100 rounded-lg xs:m-2 flex flex-col }
     .nav-bar { @apply font-serif bg-gray-300 text-lg z-50 }
     .nav-link { @apply px-4 py-2 bg-gray-200 rounded }
     .blog-post-preview { @apply border-2 rounded border-gray-500 my-4 pt-2 pb-4 px-4 bg-gray-200 }

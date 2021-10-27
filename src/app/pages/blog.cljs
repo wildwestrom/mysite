@@ -35,11 +35,10 @@
 
 (defn- blog-post-preview
   [blog-post]
-  [:div.blog-post-preview
-   [:a {:href (rfe/href :app.data.router/post {:id (-> blog-post :meta :id)})}
+  [:a.blog-post-preview {:href (rfe/href :app.data.router/post {:id (-> blog-post :meta :id)})}
     [:h3 (-> blog-post :meta :title)]
     [:time (common/display-date (-> blog-post :meta :date))]
-    [:p (-> blog-post :meta :subtitle)]]])
+    [:p (-> blog-post :meta :subtitle)]])
 
 (defn- blog-post-main-view
   [blog-post]
@@ -54,7 +53,7 @@
        [:h1.mb-2 (-> blog-post :meta :title)]
        [:time
         (common/display-date (-> blog-post :meta :date))]
-       [:article {:class ["self-center" "prose" "prose-blue" "sm:prose-sm" "mt-4"]
+       [:article {:class ["self-center" "prose-sm" "prose-blue" "sm:prose" "mt-4"]
                   :dangerouslySetInnerHTML
                   {:__html (:content blog-post)}}]])}))
 
