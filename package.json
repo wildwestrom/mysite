@@ -9,7 +9,7 @@
         "release": "yarn deps && run-s build:org-to-data build:css build:app",
         "watch:css": "TAILWIND_MODE=watch tailwindcss -i src/css/tailwind.css -o public/css/main.css --watch",
         "watch:app": "shadow-cljs watch app",
-        "start": "run-p watch:css watch:app",
+        "start": "yarn deps && run-p watch:css watch:app",
         "report": "shadow-cljs run shadow.cljs.build-report app report.html"
     },
     "devDependencies": {
