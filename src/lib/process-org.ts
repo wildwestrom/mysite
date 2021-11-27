@@ -1,5 +1,4 @@
-// src/lib/process-org.js
-
+// src/lib/process-org.ts
 // filesystem access
 import fs from 'fs';
 
@@ -16,11 +15,11 @@ const processor = unified()
     .use(parse)
     .use(extractKeywords)
     .use(html)
-    // .use(raw)
-    // .use(highlight)
+    .use(raw)
+    .use(highlight)
     .use(stringify);
 
-export function processOrg(filePath: string) {
+export function processOrg(filePath: fs.PathOrFileDescriptor) {
     const processedFile = processor.processSync(fs.readFileSync(filePath, 'utf8'));
     return processedFile;
 }
