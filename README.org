@@ -9,13 +9,18 @@ I recently rewrote this site in Svelte from ClojureScript.
 #+end_src
 
 *** JankLog
-- Storybook cannot be built on packages using "type": "module"
+- Storybook cannot be built on packages using "type": "module".
   Currently there's no good workaround; https://github.com/storybookjs/storybook/issues/11587
   Wait until [[https://github.com/storybookjs/storybook/issues/11587][#345]] gets resolved.
+- For some reason CircleCI stopped working.
+  #+begin_example
+  Warning: No authentication provided, using CircleCI credentials for pulls from Docker Hub.
+    image cache not found on this host, downloading cimg/node:latest
 
-*** TODO Figure out the design of the site.
+  Error response from daemon: manifest for cimg/node:latest not found: manifest unknown: manifest unknown
+  #+end_example
 
-*** TODO Research what "endpoints" are.
+*** TODO Figure out a design for this site.
 
 ** Release
 #+begin_src shell
