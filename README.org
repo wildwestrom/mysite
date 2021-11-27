@@ -1,36 +1,26 @@
 * My Personal Website
 Find me at [[https://www.westrom.xyz/][https://www.westrom.xyz/]].
 
+I recently rewrote this site in Svelte from ClojureScript.
+
 ** Develop
-
-Before running for the first time run:
 #+begin_src shell
-yarn install
+  yarn watch
 #+end_src
 
-*** CLI
+*** JankLog
+- Storybook cannot be built on packages using "type": "module"
+  Currently there's no good workaround; https://github.com/storybookjs/storybook/issues/11587
+  Wait until [[https://github.com/storybookjs/storybook/issues/11587][#345]] gets resolved.
 
-#+begin_src shell
-yarn watch
-#+end_src
+*** TODO Figure out the design of the site.
 
-*** [[https://cider.mx/][CIDER]] (Emacs)
-    - =M-x=
-    - =sesman-start=
-    - Select command: =cider-connect-cljs=
-    - host: =localhost=
-    - port: =3333=
-    - repl-type: =shadow=
-    - build: =:app=
+*** TODO Research what "endpoints" are.
 
 ** Release
-This command will install dependencies as well as run the entire project. This means you can use it when running for the first time.
-
 #+begin_src shell
-yarn release
+  yarn release
 #+end_src
-
-See [[https://shadow-cljs.github.io/docs/UsersGuide.html#release][Generating Production Code]] for more information.
 
 ** License
 West's Personal Website\\

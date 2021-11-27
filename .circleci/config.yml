@@ -3,61 +3,50 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/clojure:tools-deps-node
+      - image: cimg/node
 
     working_directory: ~/repo
 
-    environment:
-      JVM_OPTS: -Xmx3200m
     steps:
       - checkout
 
       - restore_cache:
-          name: Restore cljs dependency cache
-          keys:
-            - 'cljs-{{ checksum "deps.edn" }}'
-            - 'cljs'
-      - restore_cache:
           name: Restore node dependency cache
           keys:
-            - 'node-{{ checksum "yarn.lock" }}'
+            - 'node-{{ checksum "pnpm-lock.yml" }}'
             - 'node'
+      - run:
+          name: Install dependencies
+          command: pnpm deps
 
       - run:
           name: Run the project
-          command: yarn release
+          command: pnpm build
 
       - persist_to_workspace:
-         root: ~/
-         paths:
-          - repo/public
-
-      - save_cache:
-          name: Save cljs dependency cache
+          root: ~/
           paths:
-            - ~/.m2
-          key: 'cljs-{{ checksum "deps.edn" }}'
+            - repo/build
 
       - save_cache:
           name: Save node dependency cache
           paths:
-            - ~/.cache/yarn
             - ~/repo/node_modules
-          key: 'node-{{ checksum "yarn.lock" }}'
+          key: 'node-{{ checksum "pnpm-lock.yml" }}'
 
       - store_artifacts:
-          path: ~/repo/public
+          path: ~/repo/build
 
   stage:
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base
     working_directory: ~/
     steps:
       - attach_workspace:
           at: ~/
       - add_ssh_keys:
           fingerprints:
-            - "f1:8b:23:49:dd:04:44:48:91:fe:d3:6f:66:b3:91:17"
+            - 'f1:8b:23:49:dd:04:44:48:91:fe:d3:6f:66:b3:91:17'
       - run:
           name: Install rsync
           command: sudo apt update && sudo apt install rsync
@@ -65,18 +54,18 @@ jobs:
           name: Deploy via rsync
           command: |
             ssh-keyscan -p 34334 westrom.xyz >> ~/.ssh/known_hosts
-            rsync -vzrl --delete-after -e 'ssh -p 34334' --progress repo/public/ deployer@westrom.xyz:/var/www/staging.westrom.xyz/html
+            rsync -vzrl --delete-after -e 'ssh -p 34334' --progress repo/build/ deployer@westrom.xyz:/var/www/staging.westrom.xyz/html
 
   deploy:
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base
     working_directory: ~/
     steps:
       - attach_workspace:
           at: ~/
       - add_ssh_keys:
           fingerprints:
-            - "f1:8b:23:49:dd:04:44:48:91:fe:d3:6f:66:b3:91:17"
+            - 'f1:8b:23:49:dd:04:44:48:91:fe:d3:6f:66:b3:91:17'
       - run:
           name: Install rsync
           command: sudo apt update && sudo apt install rsync
@@ -84,7 +73,7 @@ jobs:
           name: Deploy via rsync
           command: |
             ssh-keyscan -p 34334 westrom.xyz >> ~/.ssh/known_hosts
-            rsync -vzrl --delete-after -e 'ssh -p 34334' --progress repo/public/ deployer@westrom.xyz:/var/www/westrom.xyz/html
+            rsync -vzrl --delete-after -e 'ssh -p 34334' --progress repo/build/ deployer@westrom.xyz:/var/www/westrom.xyz/html
 
 workflows:
   version: 2
