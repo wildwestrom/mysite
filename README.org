@@ -8,7 +8,7 @@ I recently rewrote this site in Svelte from ClojureScript.
   yarn watch
 #+end_src
 
-*** TODO JankLog
+*** JankLog
 - Storybook cannot be built on packages using ~"type": "module"~.
   Currently there's no good workaround; https://github.com/storybookjs/storybook/issues/11587
   Wait until [[https://github.com/storybookjs/storybook/issues/11587][#345]] gets resolved.
