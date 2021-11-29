@@ -2,7 +2,7 @@ name: Build and Deploy
 on: [push, pull_request]
 
 jobs:
-  Build and Deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
 
