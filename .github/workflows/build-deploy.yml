@@ -13,6 +13,11 @@ jobs:
 
     - name: Cache
       uses: actions/cache@v2
+      with:
+        path: ${{ env.PNPM_CACHE_FOLDER }}
+        key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-
 
     - name: Install Dependencies
       run: pnpm deps
