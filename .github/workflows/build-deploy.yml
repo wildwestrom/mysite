@@ -1,8 +1,8 @@
 name: Build
 on: [push, pull_request]
 
-# env:
-#   PNPM_CACHE_FOLDER: .pnpm-store
+env:
+  PNPM_CACHE_FOLDER: .pnpm-store
 
 jobs:
   build:
