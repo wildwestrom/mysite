@@ -1,6 +1,9 @@
 name: Build and Deploy
 on: [push, pull_request]
 
+env:
+  PNPM_CACHE_FOLDER: .pnpm-store
+
 jobs:
   build:
     runs-on: ubuntu-latest
