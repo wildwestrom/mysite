@@ -1,0 +1,19 @@
+name: Build and Deploy
+on: [push, pull_request]
+
+jobs:
+  Build and Deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Cache
+      uses: actions/cache@v2
+
+    - name: Install Dependencies
+      run: pnpm deps
+
+    - name: Build
+      run: pnpm build
