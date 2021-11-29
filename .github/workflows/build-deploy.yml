@@ -33,7 +33,5 @@ jobs:
     - name: Install Dependencies
       run: pnpm deps
 
-    - run: node --version
-
     - name: Build
       run: pnpm build

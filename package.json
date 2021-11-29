@@ -17,8 +17,8 @@
         "@babel/core": "^7.16.0",
         "@sveltejs/adapter-static": "^1.0.0-next.0",
         "@sveltejs/kit": "^1.0.0-next.1",
-        "@typescript-eslint/eslint-plugin": "^5.4.0",
-        "@typescript-eslint/parser": "^5.4.0",
+        "@typescript-eslint/eslint-plugin": "^5.5.0",
+        "@typescript-eslint/parser": "^5.5.0",
         "autoprefixer": "^10.4.0",
         "babel-loader": "^8.2.3",
         "cssnano": "^5.0.12",
@@ -44,6 +44,6 @@
         "uniorg": "^0.4.0",
         "uniorg-extract-keywords": "^0.4.5",
         "uniorg-parse": "^0.4.5",
-        "uniorg-rehype": "^0.4.7"
+        "uniorg-rehype": "^0.4.8"
     }
 }
