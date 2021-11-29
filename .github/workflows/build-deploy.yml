@@ -12,12 +12,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Setup Node Environment
-    - uses: actions/setup-node@v2
-
-    - name: Install pnpm
-      uses: pnpm/action-setup@v2
-
     - name: Cache
       uses: actions/cache@v2
       with:
@@ -25,6 +19,12 @@ jobs:
         key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
           ${{ runner.os }}-pnpm-
+
+    - name: Setup Node Environment
+    - uses: actions/setup-node@v2
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
 
     - name: Install Dependencies
       run: pnpm deps
