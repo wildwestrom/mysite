@@ -15,7 +15,7 @@
 
 <script lang="ts">
   export let posts;
-// import BlogPreviewCard from '../../components/BlogPreviewCard.svelte';
+  // import BlogPreviewCard from '../../components/BlogPreviewCard.svelte';
 </script>
 
 <h1>Here are all my blog posts.</h1>
