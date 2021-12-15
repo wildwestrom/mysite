@@ -8,9 +8,12 @@ export function get() {
     .readdirSync(`src/routes/blog/_posts`)
     .filter((fileName) => path.extname(fileName) == '.org')
     .map((fileName) => {
-      const post = processOrg(`src/routes/blog/_posts/${fileName}`);
-      return { post };
-    });
+      let post = processOrg(`src/routes/blog/_posts/${fileName}`);
+      return {
+        post
+      };
+    })
+    .reverse();
 
   return {
     status: 200,

@@ -1,11 +1,12 @@
-<script context="module">
+<script lang="ts" context="module">
   export async function load(context) {
     const { id } = context.page.params;
-    const { post } = await fetch(`/blog/${id}.json`).then((res) => res.json());
+    const res = await fetch(`/blog/${id}.json`);
 
     return {
+      status: 200,
       props: {
-        post
+        post: await res.json()
       }
     };
   }
@@ -13,16 +14,17 @@
 
 <script>
   export let post;
+  console.log(post.post);
 </script>
 
-<svelte:head>
-  <title>{post.metadata.title}</title>
-  <meta name="description" content={post.metadata.description} />
-</svelte:head>
+<pre>{post.post.toString()}</pre>
 
-<article>
-  <h1 class="section-header">{post.metadata.title}</h1>
-  {@html post.content}
-</article>
+<!-- <svelte:head>
+     <title>{post.data.title} - Westrom.xyz Blog</title>
+     <meta name="description" content={post.data.description} />
+     </svelte:head> -->
 
-<style></style>
+<!-- <article>
+     <h1 class="section-header">{post.data.title}</h1>
+     {@html post.content}
+     </article> -->

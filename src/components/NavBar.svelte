@@ -1,4 +1,4 @@
-<nav class="m-2 border-current grid gap-2 grid-flow-col grid-cols-fr">
+<nav class="border-current">
   <a class="nav-link" href="/">Home</a>
   <a class="nav-link" href="/contact">Contact</a>
   <a class="nav-link" href="/portfolio">Portfolio</a>

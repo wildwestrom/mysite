@@ -7,25 +7,27 @@
     return {
       status: 200,
       props: {
-        posts: await res.json()
+        blog: await res.json()
       }
     };
   }
 </script>
 
 <script lang="ts">
-  export let posts;
-  // import BlogPreviewCard from '../../components/BlogPreviewCard.svelte';
+  export let blog;
+  import BlogPreviewCard from '../../components/BlogPreviewCard.svelte';
 </script>
 
 <h1>Here are all my blog posts.</h1>
-<pre>{posts}</pre>
-
-<!--
-     //{#each posts as post}
-     //<BlogPreviewCard {...post} />
-     //{/each}
--->
+<div class="grid gap-2">
+  <ol>
+    {#each blog.posts as post}
+      <li>
+        <BlogPreviewCard {...post} />
+      </li>
+    {/each}
+  </ol>
+</div>
 
 <svelte:head>
   <title>Westrom.xyz - Blog Posts</title>

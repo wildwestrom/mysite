@@ -18,33 +18,7 @@ const config = {
       pages: 'build',
       assets: 'build',
       fallback: null
-    }),
-    vite: {
-      ssr: {
-        noExternal: [
-          'uniorg',
-          'uniorg-extract-keywords',
-          'uniorg-parse',
-          'uniorg-rehype',
-          'rehype-highlight',
-          'rehype-raw',
-          'rehype-stringify',
-          'unified'
-        ],
-        optimizeDeps: {
-          exclude: [
-            'uniorg',
-            'uniorg-extract-keywords',
-            'uniorg-parse',
-            'uniorg-rehype',
-            'rehype-highlight',
-            'rehype-raw',
-            'rehype-stringify',
-            'unified'
-          ]
-        }
-      }
-    }
+    })
   }
 };
 

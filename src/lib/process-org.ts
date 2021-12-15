@@ -10,13 +10,18 @@ import html from 'uniorg-rehype';
 import raw from 'rehype-raw';
 import highlight from 'rehype-highlight';
 import stringify from 'rehype-stringify';
+import langClojure from 'highlight.js/lib/languages/clojure';
+
+const languages = {
+  clojure: langClojure
+};
 
 const processor = unified()
   .use(parse)
   .use(extractKeywords)
   .use(html)
   .use(raw)
-  .use(highlight)
+  .use(highlight, { languages: languages })
   .use(stringify);
 
 export function processOrg(filePath: fs.PathOrFileDescriptor) {
