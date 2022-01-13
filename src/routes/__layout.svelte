@@ -5,13 +5,12 @@
 </script>
 
 <NavBar />
-
 <main>
   <slot />
 </main>
 
 <style>
   main {
-    @apply m-4;
+    margin: 1rem;
   }
 </style>

@@ -2,4 +2,10 @@
   <title>Westrom.xyz - Portfolio</title>
 </svelte:head>
 
-<h1 class="text-red-800">TODO: add some portfolio pieces</h1>
+<h1>TODO: add some portfolio pieces</h1>
+
+<style>
+  h1 {
+    color: red;
+  }
+</style>

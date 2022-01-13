@@ -1,4 +1,4 @@
-// src/routes/blog/index.json.ts
+// src/routes/blog/index.json.js
 import fs from 'fs';
 import path from 'path';
 import { processOrg } from '$lib/process-org';

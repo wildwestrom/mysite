@@ -1,10 +1,10 @@
-// src/routes/blog/[id].json.ts
+// src/routes/blog/[id].json.js
 import fs from 'fs';
 import path from 'path';
 import { processOrg } from '$lib/process-org';
 
-export async function get(req) {
-  const id = req.params.id;
+export async function get({ params }) {
+  const id = params.id;
   const posts = fs
     .readdirSync(`src/routes/blog/_posts`)
     .filter((fileName) => path.extname(fileName) == '.org')
@@ -19,8 +19,8 @@ export async function get(req) {
 
   return {
     status: 200,
-    body: {
-      post
-    }
+      body: {
+          post: post
+      }
   };
 }

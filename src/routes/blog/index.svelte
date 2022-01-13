@@ -1,6 +1,5 @@
 <!-- src/routes/blog/index.svelte -->
-<script lang="ts" context="module">
-  /** @type {import('@sveltejs/kit').Load} */
+<script context="module">
   export async function load({ fetch }) {
     const res = await fetch(`/blog.json`);
 
@@ -13,7 +12,7 @@
   }
 </script>
 
-<script lang="ts">
+<script>
   export let blog;
   import BlogPreviewCard from '../../components/BlogPreviewCard.svelte';
 </script>

@@ -14,7 +14,7 @@
     </li>
     <!-- TODO Add Dark/Light Toggle -->
     <li>
-      <div>🌞🌚</div>
+      <button>🌞🌚</button>
     </li>
   </ul>
 </nav>
@@ -25,11 +25,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding: 0.5em;
   }
-ul {
-  margin: 0;
-  list-style-type: none;
-  display: flex;
-  gap: 1rem;
-}
+  ul {
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+  }
 </style>

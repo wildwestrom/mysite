@@ -1,7 +1,6 @@
 <!-- src/routes/blog/[id].svelte -->
-<script lang="ts" context="module">
+<script context="module">
   export async function load(context) {
-    console.log(context);
     const id = context.params.id;
     const url = `/blog/${id}.json`;
     const res = await fetch(url);
@@ -18,11 +17,19 @@
 </script>
 
 <svelte:head>
-  <title>{post.data.title} - Westrom.xyz - Blog</title>
+  <title>{post.data.title} - Westrom.xyz - Blog </title>
   <meta name="description" content={post.data.description} />
 </svelte:head>
 
-<article class="prose">
+<article>
   <h1 class="section-header">{post.data.title}</h1>
   {@html post.contents}
 </article>
+
+<style>
+  article {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
