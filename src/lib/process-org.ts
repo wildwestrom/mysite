@@ -6,10 +6,10 @@ import fs from 'fs';
 import unified from 'unified';
 import parse from 'uniorg-parse';
 import { extractKeywords } from 'uniorg-extract-keywords';
-import html from 'uniorg-rehype';
+import rehype from 'uniorg-rehype';
 import raw from 'rehype-raw';
 import highlight from 'rehype-highlight';
-import stringify from 'rehype-stringify';
+import html from 'rehype-stringify';
 import langClojure from 'highlight.js/lib/languages/clojure';
 
 const languages = {
@@ -19,10 +19,10 @@ const languages = {
 const processor = unified()
   .use(parse)
   .use(extractKeywords)
-  .use(html)
+  .use(rehype)
   .use(raw)
   .use(highlight, { languages: languages })
-  .use(stringify);
+  .use(html);
 
 export function processOrg(filePath: fs.PathOrFileDescriptor) {
   const processedFile = processor.processSync(fs.readFileSync(filePath, 'utf8'));
