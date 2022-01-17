@@ -5,3 +5,6 @@ node_modules
 /.svelte-kit
 /package
 .env
+pnpm-lock.yaml
+yarn.lock
+package-lock.json

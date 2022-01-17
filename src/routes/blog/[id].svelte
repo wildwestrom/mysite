@@ -17,7 +17,7 @@
 </script>
 
 <svelte:head>
-  <title>{post.data.title} - Westrom.xyz - Blog </title>
+  <title>{post.data.title} - Westrom.xyz - Blog</title>
   <meta name="description" content={post.data.description} />
 </svelte:head>
 

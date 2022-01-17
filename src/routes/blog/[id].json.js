@@ -19,8 +19,8 @@ export async function get({ params }) {
 
   return {
     status: 200,
-      body: {
-          post: post
-      }
+    body: {
+      post: post
+    }
   };
 }
