@@ -10,12 +10,11 @@
 (defn app
   []
   [:<>
-   [:div.min-h-screen.flex.flex-col
-    [nav-bar (mapv (fn [eachmap] (assoc eachmap :href (rfe/href (:href eachmap))))
-                   global/nav-links)]
-    [:div.page-container
-     (if @global/current-page
-       (let [view (:view (:data @global/current-page))]
-         [view @global/current-page])
-       [not-found-page])]]
+   [nav-bar (mapv (fn [eachmap] (assoc eachmap :href (rfe/href (:href eachmap))))
+                  global/nav-links)]
+   [:main.page-container
+    (if @global/current-page
+      (let [view (:view (:data @global/current-page))]
+        [view @global/current-page])
+      [not-found-page])]
    [common/license]])

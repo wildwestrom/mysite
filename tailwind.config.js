@@ -1,11 +1,7 @@
 // tailwind.config.js
 module.exports = {
-    mode: 'jit',
+    content: ['./src/**/*.{html,cljs}'],
     darkMode: 'class', // or 'media' or 'class'
-    purge: [
-        './public/**/*.html',
-        './src/**/*.{cljs,clj}',
-    ],
     theme: {
         extend: {
             typography: {

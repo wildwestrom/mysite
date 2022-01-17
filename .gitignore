@@ -12,6 +12,9 @@
 /public/*
 !/public/index.html
 yarn-error.log
+yarn.lock
 
 .DS_Store
 /report.html
+/.yarn/
+yarn.lock

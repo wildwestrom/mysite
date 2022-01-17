@@ -13,14 +13,13 @@
   [title subtitle]
   [:<>
    [:h2 title]
-   [:h3.italic.mb-2 subtitle]])
+   [:p.text-xl.italic.mb-2 subtitle]])
 
 (defn home-page
   []
   [:<>
-   [section-header "About"
-    "My name is Christian Westrom, but everyone calls me West."]
-   [:p "Over this past year I taught myself Clojure and ClojureScript, and I'd like to start working as a developer full-time. "]
+   [section-header "About"]
+   [:p "Over this past year I taught myself Clojure and ClojureScript, and soon I'll start working as a developer full-time. "]
    [section-header "Contact"
     [:<>
      [:p "You can check out my " [common/generic-link (rfe/href :app.data.router/portfolio) "portfolio" :alt-target "_self"] "."]

@@ -45,16 +45,18 @@
                      (nav-links desktop-nav-link nav-data)
                      [dark-light-button]]])
      mobile-nav (fn [nav-data]
-                  [hui/menu {:as :nav
-                             :class-name ["nav-bar"
-                                          "m-4" "p-2" "sm:hidden" "fixed"
-                                          "bottom-0" "rounded-lg"
-                                          "right-0" "text-center"]}
-                   [hui/menu-button {:class-name ["border-1" "bg-gray-200" "rounded"]}
-                    [:> FontAwesomeIcon {:icon faEllipsisH}]]
-                   [hui/menu-items {:class ["grid" "gap-2"]}
-                    (nav-links mobile-nav-link nav-data)
-                    [hui/menu-item {:as (fn [] [dark-light-button])}]]])]
+                  [:div.nav-bar.sm:hidden.py-2
+                   [:a.text-3xl.mx-4 {:href "/"}
+                    "westrom.xyz"]
+                   [hui/menu {:as         :nav
+                              :class-name ["m-4" "p-2" "bg-gray-300" "fixed"
+                                           "bottom-0" "rounded-lg"
+                                           "right-0" "text-center"]}
+                    [hui/menu-button {:class-name ["border-1" "bg-gray-200" "rounded"]}
+                     [:> FontAwesomeIcon {:icon faEllipsisH}]]
+                    [hui/menu-items {:class ["grid" "gap-2"]}
+                     (nav-links mobile-nav-link nav-data)
+                     [hui/menu-item {:as (fn [] [dark-light-button])}]]]])]
     [:<>
      (desktop-nav nav-data)
      (mobile-nav nav-data)]))

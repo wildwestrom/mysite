@@ -35,27 +35,28 @@
 
 (defn- blog-post-preview
   [blog-post]
-  [:a.blog-post-preview {:href (rfe/href :app.data.router/post {:id (-> blog-post :meta :id)})}
+  [:div.blog-post-preview
+   [:a {:href (rfe/href :app.data.router/post {:id (-> blog-post :meta :id)})}
     [:h3 (-> blog-post :meta :title)]
     [:time (common/display-date (-> blog-post :meta :date))]
-    [:p (-> blog-post :meta :subtitle)]])
+    [:p (-> blog-post :meta :subtitle)]]])
 
 (defn- blog-post-main-view
   [blog-post]
   (reagent/create-class
-   {:component-did-mount
-    (fn [_]
-      #_(highlight-code node)
-      (fitvids))
-    :reagent-render
-    (fn [blog-post]
-      [:<>
-       [:h1.mb-2 (-> blog-post :meta :title)]
-       [:time
-        (common/display-date (-> blog-post :meta :date))]
-       [:article {:class ["self-center" "prose-sm" "prose-blue" "sm:prose" "mt-4"]
-                  :dangerouslySetInnerHTML
-                  {:__html (:content blog-post)}}]])}))
+    {:component-did-mount
+     (fn [_]
+       #_(highlight-code node)
+       (fitvids))
+     :reagent-render
+     (fn [blog-post]
+       [:<>
+        [:h1.mb-2 (-> blog-post :meta :title)]
+        [:time
+         (common/display-date (-> blog-post :meta :date))]
+        [:article {:class ["prose" "prose-blue" "mt-4"]
+                   :dangerouslySetInnerHTML
+                   {:__html (:content blog-post)}}]])}))
 
 (defn blog-preview-page
   []
