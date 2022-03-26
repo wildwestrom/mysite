@@ -23,7 +23,7 @@
 (defn license
   []
   [:footer {:class ["p-2" "text-xs" "text-center" "self-center"]}
-   [:p "This webpage is "
+   [:p "This site is "
     (generic-link
       "https://www.gnu.org/licenses/agpl-3.0.html" "free software")
     ". " [:br.xs:hidden.block] "Get the source code " (generic-link "https://github.com/wildwestrom/mysite" "here.")

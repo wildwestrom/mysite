@@ -25,15 +25,15 @@
         "uniorg-util": "*"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-svg-core": "^1.2.36",
-        "@fortawesome/free-brands-svg-icons": "^5.15.4",
-        "@fortawesome/free-regular-svg-icons": "^5.15.4",
-        "@fortawesome/free-solid-svg-icons": "^5.15.4",
-        "@fortawesome/react-fontawesome": "^0.1.16",
-        "@headlessui/react": "^1.4.3",
-        "fitvids": "^2.1.1",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "@fortawesome/fontawesome-svg-core": "*",
+        "@fortawesome/free-brands-svg-icons": "*",
+        "@fortawesome/free-regular-svg-icons": "*",
+        "@fortawesome/free-solid-svg-icons": "*",
+        "@fortawesome/react-fontawesome": "*",
+        "@headlessui/react": "1",
+        "fitvids": "2",
+        "react": "17",
+        "react-dom": "17"
     },
     "version": "0.0.0",
     "packageManager": "yarn@3.1.1"

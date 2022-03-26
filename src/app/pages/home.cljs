@@ -47,12 +47,4 @@
       faKey
       "Public PGP Key"
       :href (:pgp global-config)
-      :styles "mt-4"]]]
-   [:div.about-section
-    [section-header "Fund"
-     "Coding is hard work; This helps me keep going."]
-    [:ul
-     [common/icon-link "Monero Wallet"
-      faMonero
-      "Monero wallet"
-      :href (str "monero:" (:monero global-config))]]]])
+      :styles "mt-4"]]]])
