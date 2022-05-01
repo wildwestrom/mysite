@@ -1,12 +1,12 @@
 <script context="module">
-  export async function load(context) {
-    const id = context.params.id;
+  export async function load({ params, fetch }) {
+    const id = params.id;
     const url = `/blog/${id}.json`;
     const res = await fetch(url);
 
     return {
-      status: 200,
-      props: await res.json(),
+      status: res.status,
+      props: res.ok && await res.json(),
     };
   }
 </script>

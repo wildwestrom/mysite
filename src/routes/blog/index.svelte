@@ -3,9 +3,9 @@
     const res = await fetch(`/blog.json`);
 
     return {
-      status: 200,
+      status: res.status,
       props: {
-        blog: await res.json(),
+        blog: res.ok && await res.json(),
       },
     };
   }
