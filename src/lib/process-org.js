@@ -1,4 +1,3 @@
-// src/lib/process-org.js
 // filesystem access
 import fs from "fs";
 
@@ -10,23 +9,26 @@ import rehype from "uniorg-rehype";
 import raw from "rehype-raw";
 import highlight from "rehype-highlight";
 import html from "rehype-stringify";
-import langClojure from "highlight.js/lib/languages/clojure";
 
+// HighlightJS
+import langClojure from "highlight.js/lib/languages/clojure";
 const languages = {
   clojure: langClojure,
 };
 
-const processor = unified()
-  .use(parse)
-  .use(extractKeywords)
-  .use(rehype)
-  .use(raw)
-  .use(highlight, { languages: languages })
-  .use(html);
-
+// Converts org document into HTML and JS.
 export function processOrg(filePath) {
-  const processedFile = processor.processSync(
-    fs.readFileSync(filePath, "utf8")
-  );
-  return processedFile;
+  const processor = unified()
+    .use(parse)
+    .use(extractKeywords)
+    .use(rehype)
+    .use(raw)
+    .use(highlight, { languages: languages })
+    .use(html);
+
+  const org_document = fs.readFileSync(filePath, "utf8");
+
+  const processed_document = processor.processSync(org_document);
+
+  return processed_document;
 }
