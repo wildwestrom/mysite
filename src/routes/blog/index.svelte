@@ -6,15 +6,15 @@
     return {
       status: 200,
       props: {
-        blog: await res.json()
-      }
+        blog: await res.json(),
+      },
     };
   }
 </script>
 
 <script>
   export let blog;
-  import BlogPreviewCard from '../../components/BlogPreviewCard.svelte';
+  import BlogPreviewCard from "../../components/BlogPreviewCard.svelte";
 </script>
 
 <h1>Here are all my blog posts.</h1>

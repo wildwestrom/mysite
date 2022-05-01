@@ -7,7 +7,7 @@
 
     return {
       status: 200,
-      props: await res.json()
+      props: await res.json(),
     };
   }
 </script>
@@ -28,6 +28,8 @@
 
 <style>
   article {
+    max-width: 65ch;
+
     h1 {
       font-size: 2rem;
     }

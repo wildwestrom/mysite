@@ -12,24 +12,22 @@
     <li>
       <a href="/blog">Blog</a>
     </li>
-    <!-- TODO Add Dark/Light Toggle -->
-    <li>
-      <button>🌞🌚</button>
-    </li>
   </ul>
 </nav>
 
 <style>
   nav {
-    background: #ddd;
+    background-color: var(--bg-secondary);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0.5em;
   }
+
   ul {
     margin: 0;
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
   }
 </style>
