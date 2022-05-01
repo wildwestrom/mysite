@@ -1,4 +1,3 @@
-<!-- src/routes/blog/[id].svelte -->
 <script context="module">
   export async function load(context) {
     const id = context.params.id;

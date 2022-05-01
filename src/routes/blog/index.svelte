@@ -1,4 +1,3 @@
-<!-- src/routes/blog/index.svelte -->
 <script context="module">
   export async function load({ fetch }) {
     const res = await fetch(`/blog.json`);

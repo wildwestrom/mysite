@@ -1,4 +1,3 @@
-<!-- src/routes/__layout.svlete -->
 <script>
   import NavBar from "../components/NavBar.svelte";
   import "../app.css";
