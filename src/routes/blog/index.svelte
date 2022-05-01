@@ -5,7 +5,7 @@
     return {
       status: res.status,
       props: {
-        blog: res.ok && await res.json(),
+        blog: res.ok && (await res.json()),
       },
     };
   }
@@ -16,8 +16,12 @@
   import BlogPreviewCard from "../../components/BlogPreviewCard.svelte";
 </script>
 
-<h1>Here are all my blog posts.</h1>
-<div class="grid gap-2">
+<svelte:head>
+  <title>Westrom.xyz - Blog Posts</title>
+</svelte:head>
+
+<h1>Blog</h1>
+<div>
   <ol>
     {#each blog.posts as post}
       <li>
@@ -27,6 +31,5 @@
   </ol>
 </div>
 
-<svelte:head>
-  <title>Westrom.xyz - Blog Posts</title>
-</svelte:head>
+<style>
+</style>

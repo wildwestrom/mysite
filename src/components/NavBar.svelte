@@ -22,6 +22,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0.5em;
+    margin-bottom: 1rem;
   }
 
   ul {

@@ -2,4 +2,10 @@
   <title>Westrom.xyz - Home</title>
 </svelte:head>
 
-<p>fucklefuck</p>
+<h1>Welcome to my site!</h1>
+
+<style>
+  h1 {
+    text-align: center;
+  }
+</style>

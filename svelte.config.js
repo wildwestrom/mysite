@@ -10,6 +10,12 @@ const config = {
     }),
   ],
 
+  vite: {
+    ssr: {
+      external: ["uniorg"],
+    },
+  },
+
   kit: {
     prerender: {
       default: true,

@@ -3,25 +3,13 @@ Find me at [[https://www.westrom.xyz/][https://www.westrom.xyz/]].
 
 I recently rewrote this site in Svelte from ClojureScript.
 
+** Forking
+This website is free software, however the content posted within it is not. You may not plagiarize my blog posts.
+
 ** Develop
 #+begin_src shell
   yarn watch
 #+end_src
-
-*** JankLog
-- Storybook cannot be built on packages using ~"type": "module"~.
-  Currently there's no good workaround; https://github.com/storybookjs/storybook/issues/11587
-  Wait until [[https://github.com/storybookjs/storybook/issues/11587][#345]] gets resolved.
-- For some reason CircleCI stopped working.
-  #+begin_example
-  Warning: No authentication provided, using CircleCI credentials for pulls from Docker Hub.
-    image cache not found on this host, downloading cimg/node:latest
-
-  Error response from daemon: manifest for cimg/node:latest not found: manifest unknown: manifest unknown
-  #+end_example
-- [[https://github.com/rasendubi/uniorg][Uniorg]] also doesn't support ES modules and the creator doesn't intend to anytime soon.
-  There might be a workaround by configuring ~vite.ssr~ in ~svelte.config.js~.
-
 
 *** TODO Figure out a design for this site.
 
@@ -32,7 +20,7 @@ I recently rewrote this site in Svelte from ClojureScript.
 
 ** License
 West's Personal Website\\
-Copyright © 2021 Christian Westrom
+Copyright © 2022 Christian Westrom
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as

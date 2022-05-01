@@ -6,7 +6,7 @@
 
     return {
       status: res.status,
-      props: res.ok && await res.json(),
+      props: res.ok && (await res.json()),
     };
   }
 </script>
@@ -26,11 +26,4 @@
 </article>
 
 <style>
-  article {
-    max-width: 65ch;
-
-    h1 {
-      font-size: 2rem;
-    }
-  }
 </style>

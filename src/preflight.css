@@ -6,22 +6,6 @@ Document
 ========
 */
 
-:root {
-  --bg-primary: white;
-  --text-color: black;
-  --bg-secondary: hsl(0, 0%, 80%);
-  background-color: var(--bg-primary);
-  color: var(--text-color);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: black;
-    --text-color: white;
-    --bg-secondary: hsl(0, 0%, 20%);
-  }
-}
-
 /**
 Use a better box model (opinionated).
 */
