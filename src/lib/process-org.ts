@@ -13,7 +13,6 @@ import rehypeShiftHeading from 'rehype-shift-heading'
 
 // HighlightJS
 import langClojure from 'highlight.js/lib/languages/clojure'
-import type { BlogPost } from 'src'
 const languages = {
 	clojure: langClojure
 }
@@ -27,10 +26,11 @@ const processor = unified()
 	.use(rehypeShiftHeading, { shift: 1 })
 	.use(rehypeStringify)
 
+import type { BlogPost } from 'src'
 // Converts org document into HTML and JS.
 export function processOrg(filePath: fs.PathLike): BlogPost {
 	const org_document = fs.readFileSync(filePath, 'utf8')
-	const processedDocument = processor.processSync(org_document)
+	const processedDocument: BlogPost = processor.processSync(org_document)
 
 	return processedDocument
 }
