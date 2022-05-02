@@ -34,33 +34,55 @@
 </article>
 
 <style>
-	:global {
-		article {
-			* {
-				margin: 1rem 0;
-			}
+	article :global {
+		--code-bg: hsl(0, 0%, 90%);
 
-			h1,
-			h2,
-			h3,
-			h4 {
-				line-height: 1.1;
-				margin-bottom: 1rem;
-			}
+		@media (prefers-color-scheme: dark) {
+			--code-bg: hsl(0, 0%, 15%);
+		}
 
-			h1 {
-				font-size: 2rem;
-				font-weight: 800;
-			}
+		p {
+			margin: 1rem 0;
+		}
 
-			h2 {
-				font-size: 1.75rem;
-				font-weight: 600;
-			}
+		h1,
+		h2,
+		h3,
+		h4 {
+			line-height: 1.1;
+			margin: 1rem 0;
+		}
 
-			h3 {
-				font-size: 1.5rem;
-				font-weight: 600;
+		h1 {
+			font-size: 2rem;
+			font-weight: 800;
+		}
+
+		h2 {
+			font-size: 1.75rem;
+			font-weight: 600;
+		}
+
+		h3 {
+			font-size: 1.5rem;
+			font-weight: 600;
+		}
+
+		pre {
+			overflow: scroll;
+			background-color: var(--code-bg);
+		}
+
+		code {
+			background-color: var(--code-bg);
+		}
+
+		a {
+			text-decoration: underline;
+
+			&:hover {
+				color: var(--hover-color);
+				text-decoration: none;
 			}
 		}
 	}
