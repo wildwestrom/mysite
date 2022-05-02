@@ -4,4 +4,7 @@ node_modules
 /.log
 /.svelte-kit
 /package
-.env
+.env.*
+!.env.example
+.vercel
+.output

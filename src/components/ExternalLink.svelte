@@ -1,18 +1,18 @@
-<script>
-  export let link;
+<script lang="ts">
+	export let link: string
 </script>
 
 <a href={link} target="_blank">
-  <slot />
+	<slot />
 </a>
 
 <style>
-  a {
-    text-decoration: underline;
+	a {
+		text-decoration: underline;
 
-    &:hover {
-      color: var(--hover-color);
-      text-decoration: none;
-    }
-  }
+		&:hover {
+			color: var(--hover-color);
+			text-decoration: none;
+		}
+	}
 </style>
