@@ -4,8 +4,16 @@
 // for information about these interfaces
 declare namespace App {}
 
-import type { VFile } from 'vfile'
+import type { VFile, VFileValue } from 'vfile'
 
 export interface BlogPost extends VFile {
-	data: any
+	data: BlogPostMetadata
+	value: VFileValue
+}
+
+export interface BlogPostMetadata extends VFileData {
+	id?: string
+	title?: string
+	description?: string
+	subtitle?: string
 }

@@ -28,7 +28,7 @@ const processor = unified()
 	.use(rehypeStringify)
 
 // Converts org document into HTML and JS.
-export function processOrg(filePath: fs.PathOrFileDescriptor): BlogPost {
+export function processOrg(filePath: fs.PathLike): BlogPost {
 	const org_document = fs.readFileSync(filePath, 'utf8')
 	const processedDocument = processor.processSync(org_document)
 

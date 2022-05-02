@@ -8,7 +8,7 @@ export function get(): { status: number; body: BlogPost[] } {
 		.readdirSync(`src/routes/blog/_posts`)
 		.filter(fileName => path.extname(fileName) == '.org')
 		.map(fileName => {
-			let post = processOrg(`src/routes/blog/_posts/${fileName}`)
+			const post = processOrg(`src/routes/blog/_posts/${fileName}`)
 			return post
 		})
 		.reverse()
