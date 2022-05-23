@@ -1,7 +1,5 @@
-// filesystem access
 import fs from 'fs'
-
-// Uniorg stuff for parsing org text
+import path from 'path'
 import { unified } from 'unified'
 import parse from 'uniorg-parse'
 import { extractKeywords } from 'uniorg-extract-keywords'
@@ -10,27 +8,30 @@ import rehypeRaw from 'rehype-raw'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeStringify from 'rehype-stringify'
 import rehypeShiftHeading from 'rehype-shift-heading'
-
-// HighlightJS
+import type { BlogPost } from 'src'
 import langClojure from 'highlight.js/lib/languages/clojure'
+
 const languages = {
-	clojure: langClojure
+  clojure: langClojure
 }
 
 const processor = unified()
-	.use(parse)
-	.use(extractKeywords)
-	.use(rehype)
-	.use(rehypeRaw)
-	.use(rehypeHighlight, { languages: languages })
-	.use(rehypeShiftHeading, { shift: 1 })
-	.use(rehypeStringify)
+  .use(parse)
+  .use(extractKeywords)
+  .use(rehype)
+  .use(rehypeRaw)
+  .use(rehypeHighlight, { languages: languages })
+  .use(rehypeShiftHeading, { shift: 1 })
+  .use(rehypeStringify)
 
-import type { BlogPost } from 'src'
 // Converts org document into HTML and JS.
 export function processOrg(filePath: fs.PathLike): BlogPost {
-	const org_document = fs.readFileSync(filePath, 'utf8')
-	const processedDocument: BlogPost = processor.processSync(org_document)
+  const org_document = fs.readFileSync(filePath, 'utf8')
+  const processedDocument: BlogPost = processor.processSync(org_document)
 
-	return processedDocument
+  processedDocument.data.filePath = path.basename(filePath as string, '.org')
+
+  console.log(processedDocument.data)
+
+  return processedDocument
 }

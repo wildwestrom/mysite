@@ -5,15 +5,15 @@
 declare namespace App {}
 
 import type { VFile, VFileValue } from 'vfile'
+import type { PathLike } from 'fs'
 
 export interface BlogPost extends VFile {
-	data: BlogPostMetadata
-	value: VFileValue
+  data: BlogPostMetadata
+  value: VFileValue
 }
 
 export interface BlogPostMetadata extends VFileData {
-	id?: string
-	title?: string
-	description?: string
-	subtitle?: string
+  filePath?: PathLike
+  title?: string
+  filetags?: string
 }
