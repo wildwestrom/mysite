@@ -9,8 +9,11 @@
 <h1>Welcome to my site!</h1>
 
 <p>
-	Right now there's not much here. If you wanna give me suggestions, submit an
-	issue or pull request via <ExternalLink
-		link="https://github.com/wildwestrom/mysite">GitHub</ExternalLink
-	>.
+	Right now there's not much here. If you wanna give me suggestions, submit an issue or pull request
+	via <ExternalLink link="https://github.com/wildwestrom/mysite">GitHub</ExternalLink>.
+</p>
+
+<p>
+	As you can see (if you open up the network tab of your browser's developer tools), there is no
+	JavaScript. Good riddance! Who needs it? I sure don't.
 </p>

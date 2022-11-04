@@ -40,8 +40,8 @@ dependencies:
   modern-normalize: 1.1.0
 
 devDependencies:
-  '@sveltejs/adapter-static': 1.0.0-next.47
-  '@sveltejs/kit': 1.0.0-next.532_svelte@3.52.0+vite@3.2.2
+  '@sveltejs/adapter-static': 1.0.0-next.48
+  '@sveltejs/kit': 1.0.0-next.535_svelte@3.52.0+vite@3.2.2
   '@types/html-minifier': 4.0.2
   autoprefixer: 10.4.13_postcss@8.4.18
   dayjs: 1.11.6
@@ -141,18 +141,18 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@sveltejs/adapter-static/1.0.0-next.47:
-    resolution: {integrity: sha512-pYY9/FhJAIWB3BXnLoKXj5yMZjQjtD9ZsW8UOqKE51H5sbCNHu+wdBlh2CkW20ww4yhfYrlvLWioxij6DPRO9w==}
+  /@sveltejs/adapter-static/1.0.0-next.48:
+    resolution: {integrity: sha512-Z5Z+QZOav6D0KDeU3ReksGERJg/sX1k5OKWWXyQ11OwGErEEwSXHYRUyjaBmZEPeGzpVVGwwMUK8YWJlG/MKeA==}
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.532_svelte@3.52.0+vite@3.2.2:
-    resolution: {integrity: sha512-g+t+dncoz/DBc1mfwSfBaIBqE5pl0caMUy7yZzjsnyw0WG3AevC04d2KfTOgtOMgXVDnSVqZxlTR+MM5tnKeyw==}
+  /@sveltejs/kit/1.0.0-next.535_svelte@3.52.0+vite@3.2.2:
+    resolution: {integrity: sha512-sbVFeidRGYKqahVWATuvl9PVnIDA/DvXUuq3LAV7eLXf9LWsdMt+9OhXmz8Ltxv8ov3+Ph6gcVSBvisF4BEvBQ==}
     engines: {node: '>=16.14'}
     hasBin: true
     requiresBuild: true
     peerDependencies:
       svelte: ^3.44.0
-      vite: ^3.1.0
+      vite: ^3.2.0
     dependencies:
       '@sveltejs/vite-plugin-svelte': 1.1.0_svelte@3.52.0+vite@3.2.2
       '@types/cookie': 0.5.1
@@ -295,7 +295,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.4
-      caniuse-lite: 1.0.30001429
+      caniuse-lite: 1.0.30001430
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -345,7 +345,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001429
+      caniuse-lite: 1.0.30001430
       electron-to-chromium: 1.4.284
       node-releases: 2.0.6
       update-browserslist-db: 1.0.10_browserslist@4.21.4
@@ -383,8 +383,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /caniuse-lite/1.0.30001429:
-    resolution: {integrity: sha512-511ThLu1hF+5RRRt0zYCf2U2yRr9GPF6m5y90SBCWsvSoYoW7yAGlv/elyPaNfvGCkp6kj/KFZWU0BMA69Prsg==}
+  /caniuse-lite/1.0.30001430:
+    resolution: {integrity: sha512-IB1BXTZKPDVPM7cnV4iaKaHxckvdr/3xtctB3f7Hmenx3qYBhGtTZ//7EllK66aKXW98Lx0+7Yr0kxBtIt3tzg==}
     dev: true
 
   /ccount/2.0.1:

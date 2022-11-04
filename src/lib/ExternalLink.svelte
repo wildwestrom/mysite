@@ -2,9 +2,7 @@
 	export let link: string;
 </script>
 
-<a href={link} target="_blank" rel="noreferrer">
-	<slot />
-</a>
+<a href={link} target="_blank" rel="noreferrer"><slot /></a>
 
 <style>
 	a {
