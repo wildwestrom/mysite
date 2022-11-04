@@ -19,7 +19,8 @@ export const load: PageServerLoad = ({ params }) => {
 	})[0];
 
 	if (blog_post) {
-		return structuredClone(blog_post);
+		// Hack to get around node 16 not having `structuredClone()`.
+		return JSON.parse(JSON.stringify(blog_post));
 	}
 
 	throw error(404, {
