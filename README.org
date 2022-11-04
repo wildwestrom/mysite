@@ -8,14 +8,14 @@ This website is free software, however the content posted within it is not. You 
 
 ** Develop
 #+begin_src shell
-  yarn watch
+  pnpm dev
 #+end_src
 
 *** TODO Figure out a design for this site.
 
 ** Release
 #+begin_src shell
-  yarn release
+  pnpm build
 #+end_src
 
 ** License
