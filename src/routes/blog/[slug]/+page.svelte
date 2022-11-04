@@ -1,24 +1,40 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import {onMount} from "svelte";
+
 	export let data: PageData;
+	let metadata = data.data;
+	// This parses the date using node's `Date.parse()`. This may not work correctly.
+	let date = new Date(metadata.date).getFullYear();
 </script>
 
 <svelte:head>
-	<title>{data.data.title} by Christian Westrom</title>
+	<title>{metadata.title} by Christian Westrom</title>
 </svelte:head>
 
 <h1>
-	{data.data.title}
+	{metadata.title}
 </h1>
 <p class="subtitle">by Christian Westrom</p>
 
 <article>
 	{@html data.value}
+	<footer>
+		Copyright © {date} Christian Westrom
+	</footer>
 </article>
 
 <style lang="postcss">
+	@import url('highlight.js/styles/atom-one-light.css') (prefers-color-scheme: light);
+	@import url('highlight.js/styles/atom-one-dark.css') (prefers-color-scheme: dark);
+
 	.subtitle {
 		color: var(--text-secondary);
+	}
+
+	footer {
+		font-size: small;
+		text-align: center;
 	}
 
 	article :global {
