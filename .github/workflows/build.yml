@@ -31,7 +31,13 @@ jobs:
           version: 6
 
       - name: Install Dependencies
-        run: pnpm deps
+        run: pnpm i
+
+      - name: Check for errors
+        run: pnpm check
+
+      - name: Check for errors
+        run: pnpm lint
 
       - name: Build
         run: pnpm build
