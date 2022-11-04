@@ -1,0 +1,43 @@
+:root {
+	--bg-primary: white;
+	--text-color: black;
+	--text-secondary: hsl(0, 0%, 30%);
+	--hover-color: hsl(0, 0%, 30%);
+	--bg-secondary: hsl(0, 0%, 80%);
+	background-color: var(--bg-primary);
+	color: var(--text-color);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg-primary: black;
+		--text-color: white;
+		--text-secondary: hsl(0, 0%, 80%);
+		--hover-color: hsl(0, 0%, 80%);
+		--bg-secondary: hsl(0, 0%, 20%);
+	}
+}
+
+* {
+	overflow-wrap: break-word;
+}
+
+body {
+	margin: 0;
+}
+
+h1 {
+	font-size: xx-large;
+	text-align: center;
+	font-weight: bold;
+}
+
+h2 {
+	font-size: x-large;
+	font-weight: bold;
+}
+
+h3 {
+	font-size: large;
+	font-weight: bold;
+}

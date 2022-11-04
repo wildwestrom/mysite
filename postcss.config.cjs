@@ -1,19 +1,8 @@
-const nested = require('postcss-nested')
-const autoprefixer = require('autoprefixer')
-const cssnano = require('cssnano')
-
-const mode = process.env.NODE_ENV
-const dev = mode === 'development'
+const nested = require('postcss-nested');
+const autoprefixer = require('autoprefixer');
 
 const config = {
-  plugins: [
-    nested(),
-    autoprefixer(),
-    !dev &&
-      cssnano({
-        preset: 'default'
-      })
-  ]
-}
+	plugins: [nested(), autoprefixer()]
+};
 
-module.exports = config
+module.exports = config;

@@ -10,3 +10,5 @@ node_modules
 .output
 /static/org
 .pnpm-debug.log
+/posts/
+vite.config.js*
