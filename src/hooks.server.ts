@@ -35,11 +35,7 @@ export async function handle({
 }): Promise<Response> {
 	const response = await resolve(event);
 
-	if (
-		!test_no_min &&
-		prerendering &&
-		response.headers.get('content-type') === 'text/html'
-	) {
+	if (!test_no_min && prerendering && response.headers.get('content-type') === 'text/html') {
 		const body = await response.text();
 		const minified_html = minify(body, minification_options);
 		return new Response(minified_html, response);

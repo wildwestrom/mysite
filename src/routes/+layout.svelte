@@ -14,11 +14,9 @@
 </div>
 <footer>
 	<p>
-		This website is <ExternalLink
-			link="https://www.gnu.org/licenses/agpl-3.0.html"
+		This website is <ExternalLink link="https://www.gnu.org/licenses/agpl-3.0.html"
 			>free software</ExternalLink
-		>. Get the source code
-		<ExternalLink link="https://github.com/wildwestrom/mysite"
+		>. Get the source code <ExternalLink link="https://github.com/wildwestrom/mysite"
 			>here</ExternalLink
 		>.
 	</p>
