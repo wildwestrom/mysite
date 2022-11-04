@@ -7,11 +7,15 @@ I recently rewrote this site in Svelte from ClojureScript.
 This website is free software, however the content posted within it is not. You may not plagiarize my blog posts.
 
 ** Develop
+To get the blog posts, run:
+#+begin_src shell
+	git submodule update --init --recursive
+#+end_src
+
+Then to get hot-reloading while working on it, use:
 #+begin_src shell
   pnpm dev
 #+end_src
-
-*** TODO Figure out a design for this site.
 
 ** Release
 #+begin_src shell
