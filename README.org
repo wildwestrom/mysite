@@ -1,40 +1,26 @@
 * My Personal Website
 Find me at [[https://www.westrom.xyz/][https://www.westrom.xyz/]].
 
+I recently rewrote this site in Svelte from ClojureScript.
+
+** Forking
+This website is free software, however the content posted within it is not. You may not plagiarize my blog posts.
+
 ** Develop
-
-Before running for the first time run:
 #+begin_src shell
-yarn install
+  pnpm dev
 #+end_src
 
-*** CLI
-
-#+begin_src shell
-yarn watch
-#+end_src
-
-*** [[https://cider.mx/][CIDER]] (Emacs)
-    - =M-x=
-    - =sesman-start=
-    - Select command: =cider-connect-cljs=
-    - host: =localhost=
-    - port: =3333=
-    - repl-type: =shadow=
-    - build: =:app=
+*** TODO Figure out a design for this site.
 
 ** Release
-This command will install dependencies as well as run the entire project. This means you can use it when running for the first time.
-
 #+begin_src shell
-yarn release
+  pnpm build
 #+end_src
-
-See [[https://shadow-cljs.github.io/docs/UsersGuide.html#release][Generating Production Code]] for more information.
 
 ** License
 West's Personal Website\\
-Copyright © 2021 Christian Westrom
+Copyright © 2022 Christian Westrom
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
