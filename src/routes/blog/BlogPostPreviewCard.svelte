@@ -24,25 +24,30 @@
 
 <style>
 	* {
-		padding-bottom: 0.75rem;
+		padding-bottom: 0.75em;
 		font-size: 0.8rem;
 	}
 
 	.preview-container {
 		margin: 0.5em;
-		border-style: solid;
-		border-width: 2px;
-		border-radius: 0.5em;
-		padding-left: 1em;
-		padding-right: 1em;
-		padding: 0.5em;
 		line-height: 1.1;
-		background: var(--bg-accent);
+		border-color: var(--text-color);
+		border-bottom-width: 1px;
+		margin-bottom: 0.75em;
+	}
+
+	a {
+		color: hsl(235 80% 60%)
 	}
 
 	h2 {
 		font-size: 1rem;
 		font-weight: 400;
+		text-decoration: underline;
+	}
+
+	h2:hover {
+		text-decoration: none;
 	}
 
 	.color-2 {
