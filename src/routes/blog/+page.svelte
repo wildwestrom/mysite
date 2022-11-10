@@ -10,11 +10,11 @@
 
 <h1>Blog</h1>
 <div>
-	<ol>
+	<ul>
 		{#each data.posts as post}
 			<li>
 				<BlogPostPreviewCard blogpost={post} />
 			</li>
 		{/each}
-	</ol>
+	</ul>
 </div>
