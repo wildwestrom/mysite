@@ -1,5 +1,6 @@
 <script>
 	import PortfolioPiece from './PortfolioPiece.svelte';
+	import TodoItem from '$lib/TodoItem.svelte'
 	import ExternalLink from '$lib/ExternalLink.svelte';
 </script>
 
@@ -8,6 +9,10 @@
 </svelte:head>
 
 <h1>Portfolio Pieces</h1>
+
+<TodoItem link="https://github.com/wildwestrom/mysite/issues/20">
+		Add some links to the repositories and working demos of my projects.
+</TodoItem>
 
 <PortfolioPiece name="This Website">
 	<p>

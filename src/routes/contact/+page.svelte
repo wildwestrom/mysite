@@ -1,8 +1,16 @@
+<script lang="ts">
+	import TodoItem from '$lib/TodoItem.svelte'
+</script>
+
 <svelte:head>
 	<title>Westrom.xyz - Contact</title>
 </svelte:head>
 
 <h1>Contact page</h1>
+
+<TodoItem link="https://github.com/wildwestrom/mysite/issues/21">
+		Add some actual links to the few social media sites I have.
+</TodoItem>
 
 <ul>
 	<li>Github</li>
