@@ -1,7 +1,5 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import {onMount} from "svelte";
-
 	export let data: PageData;
 	let metadata = data.data;
 	// This parses the date using node's `Date.parse()`. This may not work correctly.

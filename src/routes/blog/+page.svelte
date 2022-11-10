@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import type { BlogPostMetadata } from 'src';
-
 	export let data: PageData;
+
 </script>
 
 <svelte:head>
@@ -36,7 +35,7 @@
 	</ul>
 </div>
 
-<style>
+<style lang="postcss">
 	ul.blogposts > li:last-child .preview-container {
 		border: none;
 	}
