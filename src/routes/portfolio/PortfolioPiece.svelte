@@ -2,7 +2,13 @@
 	export let name: string;
 </script>
 
-<div>
+<li>
 	<h3>{name}</h3>
 	<slot />
-</div>
+</li>
+
+<style>
+	li {
+		margin-bottom: .75em;
+	}
+</style>
