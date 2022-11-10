@@ -17,7 +17,7 @@
 <ul>
 	<PortfolioPiece name="This Website">
 		<p>
-			This project started as an experiment in repl-driven development, using ClojureScript and React components. I rewrote it in <ExternalLink link="https://kit.svelte.dev">SvelteKit</ExternalLink> so I could build my site with components but render it with simple HTML and CSS.
+			This project started as an experiment in repl-driven development, using ClojureScript and React components. I rewrote it with <ExternalLink link="https://kit.svelte.dev">SvelteKit</ExternalLink> so I could build my site with components but render it with simple HTML and CSS.
 		</p>
 	</PortfolioPiece>
 	<PortfolioPiece name="Death Calendar">
@@ -34,7 +34,7 @@
 			There's this artist who makes some cool desktop wallpapers, so I decided to make a web-scraping tool to help me download all the images on her site. The earliest iteration of it was written in POSIX-compliant shell-script.
 		</p>
 		<p>
-			Now it's has a swing-based user interface (<ExternalLink link="https://github.com/clj-commons/seesaw">seesaw</ExternalLink>). This is also my first project where I use a logging framework (<ExternalLink link="https://github.com/BrunoBonacci/mulog">mulog</ExternalLink>) and make use of Clojure's concurrency model, <ExternalLink link="https://clojure.org/news/2013/06/28/clojure-clore-async-channels"><code>core.async</code></ExternalLink>.
+			Now it has a swing-based user interface (<ExternalLink link="https://github.com/clj-commons/seesaw">seesaw</ExternalLink>). This is also my first project where I use a logging framework (<ExternalLink link="https://github.com/BrunoBonacci/mulog">mulog</ExternalLink>) and make use of Clojure's concurrency model, <ExternalLink link="https://clojure.org/news/2013/06/28/clojure-clore-async-channels"><code>core.async</code></ExternalLink>.
 		</p>
 	</PortfolioPiece>
 	<PortfolioPiece name="Hexagram SVG Generator">
