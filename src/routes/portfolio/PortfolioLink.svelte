@@ -1,21 +1,32 @@
 <script lang="ts">
 	import ExternalLink from '$lib/ExternalLink.svelte';
 	export let href: string | undefined = '';
-	export let target: string | undefined = "_blank";
+	export let target: string | undefined = '_blank';
 	export let icon: string;
+	const icon_alt_text = (icon: string): string => {
+		switch (icon) {
+			case 'git-alt':
+				return 'Git';
+			case 'globe':
+				return 'Globe';
+			default:
+				throw new Error('Did not recognize icon');
+		}
+	};
 </script>
 
-<li>
-	<ExternalLink href={href} target={target}
-		><svg class="portfolio-link-icon" width="1rem" height="1rem"><use xlink:href="#{icon}" /></svg>{href}</ExternalLink
+<li class="portfolio-link-container">
+	<ExternalLink {href} {target}
+		><img alt="{icon_alt_text(icon)} icon" src="/icons/{icon}.svg" />{href}</ExternalLink
 	>
 </li>
 
 <style>
-	:global(.portfolio-link-icon) {
+	img {
 		margin-right: 0.25rem;
+		width: 1rem;
 	}
-	svg {
-		display: inline-block;
+	:global(.portfolio-link-container > *) {
+		display: inline-flex;
 	}
 </style>
