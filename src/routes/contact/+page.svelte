@@ -8,7 +8,7 @@
 
 <h1>Contact page</h1>
 
-<TodoItem link="https://github.com/wildwestrom/mysite/issues/21">
+<TodoItem href="https://github.com/wildwestrom/mysite/issues/21">
 		Add some actual links to the few social media sites I have.
 </TodoItem>
 
