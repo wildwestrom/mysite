@@ -21,14 +21,15 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
-		padding: 0.5em;
+		padding: 0.75em;
 		margin-bottom: 1rem;
 	}
 
 	ul {
-		margin: 0;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1rem;
+		row-gap: 0.5rem;
+		column-gap: 2rem;
+		margin: auto;
 	}
 </style>

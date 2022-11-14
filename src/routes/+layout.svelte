@@ -2,7 +2,6 @@
 	import '../app.postcss';
 	import NavBar from '$lib/NavBar.svelte';
 	import ExternalLink from '$lib/ExternalLink.svelte';
-	import 'tailwindcss/src/css/preflight.css';
 	import '$lib/global.css';
 </script>
 

@@ -10,8 +10,7 @@
 <h1>Blog</h1>
 <ul class="blogposts">
 	{#each data.posts as blogpost}
-		<li>
-			<div class="preview-container">
+		<li class="preview-container">
 				<a href="/blog/{blogpost.filePath}">
 					<h2>{blogpost.title}</h2>
 					<p class="subtitle color-2">{blogpost.subtitle}</p>
@@ -27,7 +26,6 @@
 				{:else}
 					No tags
 				{/if}
-			</div>
 		</li>
 	{/each}
 </ul>
@@ -39,25 +37,25 @@
 
 	.preview-container {
 		padding-bottom: 1em;
-		border-color: var(--text-color);
+		border: solid var(--text-color);
+		border-width: 0;
 		border-bottom-width: 1px;
 		margin-bottom: 1.5em;
 	}
 
 	a {
 		color: hsl(235 80% 60%);
-		p {
-			padding-bottom: 0.75em;
+
+		h2 {
+			text-decoration: underline;
 		}
-	}
 
-	h2 {
-		text-decoration: underline;
-		padding-bottom: 0.75em;
-	}
-
-	h2:hover {
-		text-decoration: none;
+		h2:hover {
+			text-decoration: none;
+		}
+		p {
+			line-height: 1.6;
+		}
 	}
 
 	.color-2 {

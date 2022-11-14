@@ -1,3 +1,5 @@
+@import 'modern-normalize/modern-normalize.css';
+
 :root {
 	--bg-primary: white;
 	--text-color: black;
@@ -20,6 +22,18 @@
 
 * {
 	overflow-wrap: break-word;
+	font-family: serif;
+}
+
+a {
+	text-decoration: inherit;
+	color: inherit;
+}
+
+ul,
+li {
+	list-style: none;
+	padding-left: 0;
 }
 
 h1 {
