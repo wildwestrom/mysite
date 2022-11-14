@@ -8,7 +8,6 @@ specifiers:
   '@types/html-minifier': ^4.0.2
   autoprefixer: ^10.4.13
   dayjs: ^1.11.6
-  fa-svelte: ^3.1.0
   glob: ^8.0.3
   highlight.js: ^11.6.0
   html-minifier: ^4.0.0
@@ -51,7 +50,6 @@ devDependencies:
   '@types/html-minifier': 4.0.2
   autoprefixer: 10.4.13_postcss@8.4.18
   dayjs: 1.11.6
-  fa-svelte: 3.1.0
   glob: 8.0.3
   html-minifier: 4.0.0
   onchange: 7.1.0
@@ -791,10 +789,6 @@ packages:
 
   /extend/3.0.2:
     resolution: {integrity: sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==}
-    dev: true
-
-  /fa-svelte/3.1.0:
-    resolution: {integrity: sha512-RqBOWwt7sc+ta9GFjbu5GOwKFRzn3rMPPSqvSGpIwsfVnpMjiI5ttv84lwNsCMEYI6/lu/iH21HUcE3TLz8RGQ==}
     dev: true
 
   /fast-glob/3.2.12:
