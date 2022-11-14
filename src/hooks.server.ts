@@ -15,7 +15,7 @@ const minification_options = {
 	removeAttributeQuotes: true,
 	removeComments: true,
 	removeEmptyAttributes: true,
-	removeEmptyElements: true,
+	removeEmptyElements: false, // Apparently if you turn this on, it clears out all SVG elements...
 	removeOptionalTags: true,
 	removeRedundantAttributes: true,
 	removeScriptTypeAttributes: true,
@@ -23,8 +23,6 @@ const minification_options = {
 	sortAttributes: true,
 	sortClassName: true
 };
-
-const test_no_min = true;
 
 export async function handle({
 	event,
@@ -35,7 +33,7 @@ export async function handle({
 }): Promise<Response> {
 	const response = await resolve(event);
 
-	if (!test_no_min && prerendering && response.headers.get('content-type') === 'text/html') {
+	if (prerendering && response.headers.get('content-type') === 'text/html') {
 		const body = await response.text();
 		const minified_html = minify(body, minification_options);
 		return new Response(minified_html, response);

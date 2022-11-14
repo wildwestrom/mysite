@@ -1,9 +1,9 @@
 <script lang="ts">
-	export let link: string;
+	export let href: string;
 	import ExternalLink from '$lib/ExternalLink.svelte'
 </script>
 
-<ExternalLink link={link}>
+<ExternalLink href={href}>
 	<p class="todo"><span>TODO: </span><slot /></p>
 </ExternalLink>
 

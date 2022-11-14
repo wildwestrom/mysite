@@ -10,7 +10,7 @@
 
 <p>
 	Right now there's not much here. If you wanna give me suggestions, submit an issue or pull request
-	via <ExternalLink link="https://github.com/wildwestrom/mysite">GitHub</ExternalLink>.
+	via <ExternalLink href="https://github.com/wildwestrom/mysite">GitHub</ExternalLink>.
 </p>
 
 <p>

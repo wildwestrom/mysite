@@ -1,11 +1,14 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@fortawesome/free-brands-svg-icons': ^6.2.0
+  '@fortawesome/free-solid-svg-icons': ^6.2.0
   '@sveltejs/adapter-static': next
   '@sveltejs/kit': next
   '@types/html-minifier': ^4.0.2
   autoprefixer: ^10.4.13
   dayjs: ^1.11.6
+  fa-svelte: ^3.1.0
   glob: ^8.0.3
   highlight.js: ^11.6.0
   html-minifier: ^4.0.0
@@ -23,6 +26,7 @@ specifiers:
   rehype-stringify: ^9.0.3
   svelte: ^3.52.0
   svelte-check: ^2.9.2
+  svelte-inline-svg: ^1.2.0
   svelte-loader: ^3.1.3
   svelte-preprocess: ^4.10.7
   tailwindcss: ^3.2.1
@@ -36,15 +40,18 @@ specifiers:
   vite: ^3.2.2
 
 dependencies:
+  '@fortawesome/free-brands-svg-icons': 6.2.0
+  '@fortawesome/free-solid-svg-icons': 6.2.0
   highlight.js: 11.6.0
   modern-normalize: 1.1.0
 
 devDependencies:
   '@sveltejs/adapter-static': 1.0.0-next.48
-  '@sveltejs/kit': 1.0.0-next.535_svelte@3.52.0+vite@3.2.2
+  '@sveltejs/kit': 1.0.0-next.544_svelte@3.52.0+vite@3.2.2
   '@types/html-minifier': 4.0.2
   autoprefixer: 10.4.13_postcss@8.4.18
   dayjs: 1.11.6
+  fa-svelte: 3.1.0
   glob: 8.0.3
   html-minifier: 4.0.0
   onchange: 7.1.0
@@ -60,6 +67,7 @@ devDependencies:
   rehype-stringify: 9.0.3
   svelte: 3.52.0
   svelte-check: 2.9.2_xyvwwpusdp7eiuesisaivc7wmm
+  svelte-inline-svg: 1.2.0
   svelte-loader: 3.1.3_svelte@3.52.0
   svelte-preprocess: 4.10.7_4n3z2octtzg5pdokl7pjruqnki
   tailwindcss: 3.2.1_postcss@8.4.18
@@ -99,6 +107,28 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@fortawesome/fontawesome-common-types/6.2.0:
+    resolution: {integrity: sha512-rBevIsj2nclStJ7AxTdfsa3ovHb1H+qApwrxcTVo+NNdeJiB9V75hsKfrkG5AwNcRUNxrPPiScGYCNmLMoh8pg==}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dev: false
+
+  /@fortawesome/free-brands-svg-icons/6.2.0:
+    resolution: {integrity: sha512-fm1y4NyZ2qKYNmYhdMz9VAWRw1Et7PMHNunSw3W0SVAwKwv6o0qiJworLH3Y9SnmhHzAymXJwCX1op22FFvGiA==}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.2.0
+    dev: false
+
+  /@fortawesome/free-solid-svg-icons/6.2.0:
+    resolution: {integrity: sha512-UjCILHIQ4I8cN46EiQn0CZL/h8AwCGgR//1c4R96Q5viSRwuKVo0NdQEc4bm+69ZwC0dUvjbDqAHF1RR5FA3XA==}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.2.0
+    dev: false
 
   /@jridgewell/resolve-uri/3.1.0:
     resolution: {integrity: sha512-F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==}
@@ -145,8 +175,8 @@ packages:
     resolution: {integrity: sha512-Z5Z+QZOav6D0KDeU3ReksGERJg/sX1k5OKWWXyQ11OwGErEEwSXHYRUyjaBmZEPeGzpVVGwwMUK8YWJlG/MKeA==}
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.535_svelte@3.52.0+vite@3.2.2:
-    resolution: {integrity: sha512-sbVFeidRGYKqahVWATuvl9PVnIDA/DvXUuq3LAV7eLXf9LWsdMt+9OhXmz8Ltxv8ov3+Ph6gcVSBvisF4BEvBQ==}
+  /@sveltejs/kit/1.0.0-next.544_svelte@3.52.0+vite@3.2.2:
+    resolution: {integrity: sha512-zgQHiSvxiTDjJJROj9mPwIEoT6sAopagDroh89cHKarKc2eK/1nISA2dascKz/atGF8mghOn7RXZPnPofr01fQ==}
     engines: {node: '>=16.14'}
     hasBin: true
     requiresBuild: true
@@ -761,6 +791,10 @@ packages:
 
   /extend/3.0.2:
     resolution: {integrity: sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==}
+    dev: true
+
+  /fa-svelte/3.1.0:
+    resolution: {integrity: sha512-RqBOWwt7sc+ta9GFjbu5GOwKFRzn3rMPPSqvSGpIwsfVnpMjiI5ttv84lwNsCMEYI6/lu/iH21HUcE3TLz8RGQ==}
     dev: true
 
   /fast-glob/3.2.12:
@@ -1751,6 +1785,10 @@ packages:
       svelte: '>=3.19.0'
     dependencies:
       svelte: 3.52.0
+    dev: true
+
+  /svelte-inline-svg/1.2.0:
+    resolution: {integrity: sha512-mYyvz7uddfaj/yXB5zyAyYSPUyE7vdK8En7dGJjZf3XImdAfOuDxhNn5OFF84BQeJFVZ7T8/rJU33emiHKdLhQ==}
     dev: true
 
   /svelte-loader/3.1.3_svelte@3.52.0:
