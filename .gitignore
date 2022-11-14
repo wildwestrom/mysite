@@ -9,3 +9,5 @@ node_modules
 .vercel
 .output
 .pnpm-debug.log
+# I have no idea what this is for, but I probably don't need to version control it.
+vite.config.ts.timestamp*
