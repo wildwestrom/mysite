@@ -1,31 +1,27 @@
 <script lang="ts">
-	import TodoItem from '$lib/TodoItem.svelte'
+	import ContactLink from './ContactLink.svelte';
 </script>
 
 <svelte:head>
 	<title>Westrom.xyz - Contact</title>
 </svelte:head>
 
-<h1>Contact page</h1>
-
-<TodoItem href="https://github.com/wildwestrom/mysite/issues/21">
-		Add some actual links to the few social media sites I have.
-</TodoItem>
+<h1>Find me</h1>
 
 <ul>
-	<li>Github</li>
-	<li>Matrix</li>
-	<li>Discord</li>
-	<li>Email</li>
+	<ContactLink href="https://github.com/wildwestrom" name="Github" icon="github" />
+	<ContactLink href="https://matrix.to/#/@westrom:matrix.org" name="Matrix" icon="matrix" />
+	<ContactLink href="mailto:c.westrom@westrom.xyz" name="Email" icon="envelope" />
+	<ContactLink href="https://discordapp.com/users/153415020556845056" name="Discord" icon="discord" />
 </ul>
 
-<style lang="postcss">
+<style>
 	ul {
-		li {
-			margin-left: 6rem;
-		}
-		li::marker {
-			content: image('/discord_default.svg');
-		}
+		display: flex;
+		flex-direction: column;
+		gap: 0.25em 1em;
+		align-items: center;
+		justify-content: space-evenly;
+		font-size: larger;
 	}
 </style>
