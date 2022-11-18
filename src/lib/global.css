@@ -22,7 +22,10 @@
 
 * {
 	overflow-wrap: break-word;
-	font-family: serif;
+}
+
+body {
+	font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 a {
