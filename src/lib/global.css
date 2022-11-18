@@ -22,6 +22,9 @@
 
 * {
 	overflow-wrap: break-word;
+}
+
+body {
 	font-family: serif;
 }
 
