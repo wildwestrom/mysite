@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.postcss';
-	import NavBar from '$lib/NavBar.svelte';
+	import NavBar from './NavBar.svelte';
 	import ExternalLink from '$lib/ExternalLink.svelte';
 	import '$lib/global.css';
 </script>
