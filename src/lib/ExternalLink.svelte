@@ -9,10 +9,11 @@
 	a {
 		text-decoration: underline;
 		cursor: pointer;
+		transition: all 0.1s ease-out;
 	}
 
 	a:hover {
 		color: var(--hover-color);
-		text-decoration: none;
+		text-decoration-color: transparent;
 	}
 </style>

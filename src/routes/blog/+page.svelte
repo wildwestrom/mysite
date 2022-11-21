@@ -45,13 +45,17 @@
 
 	a {
 		color: hsl(235 80% 60%);
+		@media (prefers-color-scheme: dark) {
+			color: hsl(215 100% 75%);
+		}
 
 		h2 {
 			text-decoration: underline;
+			transition: all 0.1s ease-out;
 		}
 
 		h2:hover {
-			text-decoration: none;
+			text-decoration-color: transparent;
 		}
 		p {
 			line-height: 1.6;

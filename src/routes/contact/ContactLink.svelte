@@ -3,34 +3,28 @@
 	export let href: string;
 	export let name: string;
 	export let icon: string;
-	import iconAltText from '$lib/iconAltText';
 </script>
 
-<li class="contact-link-container" title={name}>
-	<span>{name}</span><ExternalLink {href}
-		><img alt="{iconAltText(icon)} icon" src="/icons/{icon}.svg" /></ExternalLink
-	>
+<li title={name}>
+	<span>{name}</span>
+	<ExternalLink {href}>
+		<svg><use href="/icons/{icon}.svg#icon" /></svg>
+	</ExternalLink>
 </li>
 
 <style lang="postcss">
-	:global(.contact-link-container > a) {
-		display: contents;
-	}
-
 	li {
 		display: grid;
 		align-items: center;
 		grid-template-columns: 1fr 1fr;
-		gap: 25vw;
+		gap: 2rem;
 		justify-items: center;
-		@media (max-width: 359px) {
-			gap: 2rem;
-		}
 	}
 
-	img {
+	svg {
 		align-self: center;
 		width: 4rem;
+		height: 4rem;
 		margin: 0 1rem;
 	}
 </style>
