@@ -2,7 +2,6 @@
 	import '../app.postcss';
 	import NavBar from './NavBar.svelte';
 	import ExternalLink from '$lib/ExternalLink.svelte';
-	import '$lib/global.css';
 </script>
 
 <div class="container">
