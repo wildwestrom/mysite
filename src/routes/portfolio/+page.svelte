@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
 	import PortfolioPiece from './PortfolioPiece.svelte';
 	import PortfolioLink from './PortfolioLink.svelte';
 	import ExternalLink from '$lib/ExternalLink.svelte';
+
+	const NAME_FOR_REPOSITORY: string = "Source Code";
 </script>
 
 <svelte:head>
@@ -13,8 +15,8 @@
 <ul>
 	<PortfolioPiece name="This Website">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://www.westrom.xyz/" target="_self" icon="globe" />
-			<PortfolioLink href="https://github.com/wildwestrom/mysite" icon="git-alt" />
+			<PortfolioLink href="https://www.westrom.xyz/" target="_self" icon="globe">Westrom.xyz</PortfolioLink>
+			<PortfolioLink href="https://github.com/wildwestrom/mysite" icon="git-alt">{NAME_FOR_REPOSITORY}</PortfolioLink>
 		</ul>
 		<p>
 			This project started as an experiment in REPL-driven development using ClojureScript and React
@@ -25,7 +27,7 @@
 	</PortfolioPiece>
 	<PortfolioPiece name="Death Calendar">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://github.com/wildwestrom/death-calendar" icon="git-alt" />
+			<PortfolioLink href="https://github.com/wildwestrom/death-calendar" icon="git-alt" >{NAME_FOR_REPOSITORY}</PortfolioLink>
 		</ul>
 		Inspired by the <ExternalLink href="https://waitbutwhy.com/2014/05/life-weeks.html"
 			>waitbutwhy.com</ExternalLink
@@ -34,7 +36,7 @@
 	</PortfolioPiece>
 	<PortfolioPiece name="Feedback Box Component">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://github.com/wildwestrom/feedback-box-component" icon="git-alt" />
+			<PortfolioLink href="https://github.com/wildwestrom/feedback-box-component" icon="git-alt" >{NAME_FOR_REPOSITORY}</PortfolioLink>
 		</ul>
 		<p>
 			A component designed that allows a user to send feedback. It was designed to be
@@ -45,7 +47,7 @@
 	</PortfolioPiece>
 	<PortfolioPiece name="TSDL">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://github.com/wildwestrom/tsdl" icon="git-alt" />
+			<PortfolioLink href="https://github.com/wildwestrom/tsdl" icon="git-alt">{NAME_FOR_REPOSITORY}</PortfolioLink>
 		</ul>
 		<p>
 			There's this artist who makes some cool desktop wallpapers, so I decided to make a
@@ -65,8 +67,8 @@
 	</PortfolioPiece>
 	<PortfolioPiece name="Hexagram SVG Generator">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://hexagram-svg.netlify.app/" icon="globe" />
-			<PortfolioLink href="https://github.com/wildwestrom/hexagram-svg-generator" icon="git-alt" />
+			<PortfolioLink href="https://hexagram-svg.netlify.app/" icon="globe" >Demo</PortfolioLink>
+			<PortfolioLink href="https://github.com/wildwestrom/hexagram-svg-generator" icon="git-alt" >{NAME_FOR_REPOSITORY}</PortfolioLink>
 		</ul>
 		The I-Ching is an ancient Chinese system of divination. It involves creating a figure of 6 lines,
 		broken or unbroken, usually by casting coins or picking yarrow stalks. This demo generates an SVG
@@ -74,7 +76,7 @@
 	>
 	<PortfolioPiece name="Uniorg Util">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://github.com/wildwestrom/uniorg-util" icon="git-alt" />
+			<PortfolioLink href="https://github.com/wildwestrom/uniorg-util" icon="git-alt" >{NAME_FOR_REPOSITORY}</PortfolioLink>
 		</ul>
 		<p>
 			This project was a workaround for this website when I couldn't run certain code due to an

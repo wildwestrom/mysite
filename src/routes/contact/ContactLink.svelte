@@ -5,7 +5,7 @@
 	export let icon: string;
 </script>
 
-<li title={name}>
+<li>
 	<span>{name}</span>
 	<ExternalLink {href}>
 		<svg><use href="/icons/{icon}.svg#icon" /></svg>

@@ -7,7 +7,7 @@
 
 <li>
 	<ExternalLink {href} {target}>
-		<svg><use href="/icons/{icon}.svg#icon"></use></svg>{href}
+		<svg><use href="/icons/{icon}.svg#icon"></use></svg><slot/>
 	</ExternalLink>
 </li>
 
