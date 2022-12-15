@@ -38,8 +38,5 @@ jobs:
       - name: Check for errors
         run: pnpm check
 
-      - name: Check for errors
-        run: pnpm lint
-
       - name: Build
         run: pnpm build
