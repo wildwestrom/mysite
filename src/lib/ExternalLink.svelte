@@ -1,11 +1,12 @@
 <script lang="ts">
 	export let href: string | undefined = '';
 	export let target: string | undefined = '_blank';
+	export let isPortfolioLink: boolean | undefined = false;
 </script>
 
-<a href={href} target={target} rel="noreferrer"><slot /></a>
+<a class={isPortfolioLink ? 'portfolio' : ''} href={href} target={target} rel="noreferrer"><slot /></a>
 
-<style>
+<style lang="postcss">
 	a {
 		text-decoration: underline;
 		cursor: pointer;

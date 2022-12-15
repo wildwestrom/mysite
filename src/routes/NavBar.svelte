@@ -1,5 +1,12 @@
 <nav class="border-current">
-	<ul>
+	<button class="hamburger">
+		<svg viewBox="0 0 100 100" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+			<line x1="10" x2="90" y1="20" y2="20" />
+			<line x1="10" x2="90" y1="50" y2="50" />
+			<line x1="10" x2="90" y1="80" y2="80" />
+		</svg>
+	</button>
+	<ul class="nav-items">
 		<li>
 			<a href="/">Home</a>
 		</li>
@@ -16,13 +23,59 @@
 </nav>
 
 <style>
+	.hamburger {
+		background-color: inherit;
+		padding: 0.75em;
+		width: 4rem;
+		height: 4rem;
+		border-width: 0;
+		display: none;
+		color: var(--text-color);
+
+		@media (max-width: 639px) {
+			display: block;
+			padding: 0;
+			&:hover svg {
+				line {
+					y1: 50;
+					y2: 50;
+				}
+			}
+		}
+	}
+
+	@media (max-width: 639px) {
+		.nav-items {
+			display: none;
+		}
+
+		:hover {
+			display: block;
+		}
+	}
+
 	nav {
 		background-color: var(--bg-secondary);
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
-		padding: 0.75em;
 		margin-bottom: 1rem;
+		padding: 0.75em;
+
+		@media (max-width: 639px) {
+			position: fixed;
+			bottom: 2rem;
+			left: 0;
+			right: 0;
+			z-index: 5;
+			max-width: fit-content;
+			margin: auto;
+			border-radius: 0.5rem;
+
+			:hover {
+				border-radius: 0.5rem;
+			}
+		}
 	}
 
 	ul {

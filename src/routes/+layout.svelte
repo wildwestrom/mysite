@@ -4,7 +4,7 @@
 	import ExternalLink from '$lib/ExternalLink.svelte';
 </script>
 
-<div class="container">
+<div>
 	<NavBar />
 	<main>
 		<slot />
@@ -21,7 +21,7 @@
 </footer>
 
 <style>
-	.container {
+	div {
 		min-height: 100vh;
 	}
 
