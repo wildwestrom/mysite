@@ -17,36 +17,36 @@
 		"format"
 	],
 	"devDependencies": {
-		"@sveltejs/adapter-static": "next",
-		"@sveltejs/kit": "next",
+		"@sveltejs/adapter-static": "^1.0.0",
+		"@sveltejs/kit": "^1.0.1",
 		"@types/html-minifier": "^4.0.2",
 		"autoprefixer": "^10.4.13",
 		"html-minifier": "^4.0.0",
-		"postcss": "^8.4.19",
+		"postcss": "^8.4.20",
 		"postcss-load-config": "^4.0.1",
 		"postcss-nested": "^5.0.6",
-		"postcss-scss": "^4.0.5",
-		"prettier": "^2.7.1",
-		"prettier-plugin-svelte": "^2.8.1",
+		"postcss-scss": "^4.0.6",
+		"prettier": "^2.8.1",
+		"prettier-plugin-svelte": "^2.9.0",
 		"rehype-highlight": "^5.0.2",
 		"rehype-raw": "^6.1.1",
 		"rehype-shift-heading": "^1.0.2",
 		"rehype-stringify": "^9.0.3",
-		"sass": "^1.56.1",
-		"svelte": "^3.53.1",
-		"svelte-check": "^2.9.2",
+		"sass": "^1.57.1",
+		"svelte": "^3.55.0",
+		"svelte-check": "^2.10.2",
 		"svelte-loader": "^3.1.4",
 		"svelte-preprocess": "^4.10.7",
-		"typescript": "^4.9.3",
+		"typescript": "^4.9.4",
 		"unified": "^10.1.2",
 		"uniorg": "^0.5.3",
 		"uniorg-extract-keywords": "^0.5.3",
 		"uniorg-parse": "^0.5.3",
 		"uniorg-rehype": "^0.5.5",
-		"vite": "^3.2.4"
+		"vite": "^4.0.2"
 	},
 	"dependencies": {
-		"highlight.js": "^11.6.0",
+		"highlight.js": "^11.7.0",
 		"modern-normalize": "^1.1.0"
 	}
 }

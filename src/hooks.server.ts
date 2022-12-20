@@ -1,5 +1,4 @@
 import { minify } from 'html-minifier';
-import { prerendering } from '$app/environment';
 import type { RequestEvent, RequestHandler } from '@sveltejs/kit';
 
 const minification_options = {
@@ -33,7 +32,7 @@ export async function handle({
 }): Promise<Response> {
 	const response = await resolve(event);
 
-	if (prerendering && response.headers.get('content-type') === 'text/html') {
+	if (response.headers.get('content-type') === 'text/html') {
 		const body = await response.text();
 		const minified_html = minify(body, minification_options);
 		return new Response(minified_html, response);
