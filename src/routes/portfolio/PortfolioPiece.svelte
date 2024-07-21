@@ -9,6 +9,6 @@
 
 <style>
 	li {
-		margin-bottom: .75em;
+		margin-bottom: 0.75em;
 	}
 </style>

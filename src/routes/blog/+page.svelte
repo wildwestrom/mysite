@@ -11,21 +11,21 @@
 <ul class="blogposts">
 	{#each data.posts as blogpost}
 		<li class="preview-container">
-				<a href="/blog/{blogpost.filePath}">
-					<h2>{blogpost.title}</h2>
-					<p class="subtitle color-2">{blogpost.subtitle}</p>
-				</a>
-				{#if blogpost.tags}
-					<ul class="tags color-2">
-						{#each blogpost.tags.split(' ') as tag}
-							<li class="tag">
-								<a href="/blog/?tag={tag}">{tag}</a>
-							</li>
-						{/each}
-					</ul>
-				{:else}
-					No tags
-				{/if}
+			<a href="/blog/{blogpost.filepath}">
+				<h2>{blogpost.title}</h2>
+				<p class="subtitle color-2">{blogpost.subtitle}</p>
+			</a>
+			{#if blogpost.tags}
+				<ul class="tags color-2">
+					{#each blogpost.tags as tag}
+						<li class="tag">
+							<a href="/blog/?tag={tag}">{tag}</a>
+						</li>
+					{/each}
+				</ul>
+			{:else}
+				No tags
+			{/if}
 		</li>
 	{/each}
 </ul>

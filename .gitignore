@@ -1,8 +1,8 @@
 .DS_Store
 node_modules
-/build
-/.log
-/.svelte-kit
+**/build
+**/.log
+**/.svelte-kit
 /package
 .env.*
 !.env.example
@@ -11,3 +11,5 @@ node_modules
 .pnpm-debug.log
 # I have no idea what this is for, but I probably don't need to version control it.
 vite.config.ts.timestamp*
+.devenv
+.direnv

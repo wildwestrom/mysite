@@ -4,7 +4,7 @@
 	export let isPortfolioLink: boolean | undefined = false;
 </script>
 
-<a class={isPortfolioLink ? 'portfolio' : ''} href={href} target={target} rel="noreferrer"><slot /></a>
+<a class={isPortfolioLink ? 'portfolio' : ''} {href} {target} rel="noreferrer"><slot /></a>
 
 <style lang="postcss">
 	a {

@@ -1,8 +1,13 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import type { UserConfig } from 'vite';
+import { defineConfig } from 'vite';
 
-const config: UserConfig = {
-	plugins: [sveltekit()]
-};
+const config = defineConfig({
+	plugins: [sveltekit()],
+	server: {
+		watch: {
+			ignored: ['**/.direnv/**', '**/.devenv/**']
+		}
+	}
+});
 
 export default config;

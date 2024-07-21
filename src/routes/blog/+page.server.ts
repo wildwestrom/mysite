@@ -1,14 +1,14 @@
 import fs from 'fs';
 import path from 'path';
-import { processOrg } from '$lib/process-org';
+import { processMd } from '$lib/process-md';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	const posts = fs
 		.readdirSync(`./posts`)
-		.filter((fileName) => path.extname(fileName) == '.org')
+		.filter((fileName) => path.extname(fileName) == '.md')
 		.map((fileName) => {
-			const post = processOrg(`./posts/${fileName}`);
+			const post = processMd(`./posts/${fileName}`);
 			return post.data;
 		})
 		.reverse();
