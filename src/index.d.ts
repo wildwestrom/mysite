@@ -19,7 +19,7 @@ export interface BlogPost extends VFile {
 }
 
 export interface BlogPostMetadata extends VFileData {
-	filePath?: PathLike;
+	filepath?: PathLike;
 	title?: string;
 	tags?: string;
 	subtitle?: string;
