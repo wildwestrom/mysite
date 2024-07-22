@@ -1,49 +1,49 @@
 {
-  "name": "westrom.xyz",
-  "private": true,
-  "license": "AGPL-3.0-or-later",
-  "type": "module",
-  "scripts": {
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "dev": "vite dev",
-    "lint": "prettier --ignore-path .gitignore --check .",
-    "format": "prettier --ignore-path .gitignore --write .",
-    "ci": "pnpm check && pnpm lint && pnpm build"
-  },
-  "pre-commit": [
-    "format"
-  ],
-  "devDependencies": {
-    "@sveltejs/adapter-static": "^1.0.0",
-    "@sveltejs/kit": "^1.0.1",
-    "@types/highlight.js": "^10.1.0",
-    "@types/html-minifier": "^4.0.2",
-    "@types/showdown": "^2.0.6",
-    "autoprefixer": "^10.4.13",
-    "html-minifier": "^4.0.0",
-    "postcss": "^8.4.20",
-    "postcss-load-config": "^4.0.1",
-    "postcss-nested": "^5.0.6",
-    "postcss-scss": "^4.0.6",
-    "prettier": "^2.8.1",
-    "prettier-plugin-svelte": "^2.9.0",
-    "remark-frontmatter": "^5.0.0",
-    "remark-html": "^16.0.1",
-    "sass": "^1.57.1",
-    "showdown": "^2.1.0",
-    "svelte": "^3.55.0",
-    "svelte-check": "^2.10.2",
-    "svelte-loader": "^3.1.4",
-    "svelte-preprocess": "^4.10.7",
-    "typescript": "^4.9.4",
-    "vite": "^4.0.2",
-    "yaml": "^2.4.5"
-  },
-  "dependencies": {
-    "highlight.js": "^11.7.0",
-    "modern-normalize": "^1.1.0"
-  }
+	"name": "westrom.xyz",
+	"private": true,
+	"license": "AGPL-3.0-or-later",
+	"type": "module",
+	"scripts": {
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"dev": "vite dev",
+		"lint": "prettier --ignore-path .gitignore --check .",
+		"format": "prettier --ignore-path .gitignore --write .",
+		"ci": "bun run check && bun run lint && bun run build"
+	},
+	"pre-commit": [
+		"format"
+	],
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^1.0.0",
+		"@sveltejs/kit": "^1.0.1",
+		"@types/highlight.js": "^10.1.0",
+		"@types/html-minifier": "^4.0.2",
+		"@types/showdown": "^2.0.6",
+		"autoprefixer": "^10.4.13",
+		"html-minifier": "^4.0.0",
+		"postcss": "^8.4.20",
+		"postcss-load-config": "^4.0.1",
+		"postcss-nested": "^5.0.6",
+		"postcss-scss": "^4.0.6",
+		"prettier": "^2.8.1",
+		"prettier-plugin-svelte": "^2.9.0",
+		"remark-frontmatter": "^5.0.0",
+		"remark-html": "^16.0.1",
+		"sass": "^1.57.1",
+		"showdown": "^2.1.0",
+		"svelte": "^3.55.0",
+		"svelte-check": "^2.10.2",
+		"svelte-loader": "^3.1.4",
+		"svelte-preprocess": "^4.10.7",
+		"typescript": "^4.9.4",
+		"vite": "^4.0.2",
+		"yaml": "^2.4.5"
+	},
+	"dependencies": {
+		"highlight.js": "^11.7.0",
+		"modern-normalize": "^1.1.0"
+	}
 }

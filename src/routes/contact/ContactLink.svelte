@@ -8,7 +8,7 @@
 <li>
 	<span>{name}</span>
 	<ExternalLink {href}>
-		<svg><use href="/icons/{icon}.svg#icon" /></svg>
+		<img src="icons/{icon}.svg" alt="{name} Link" />
 	</ExternalLink>
 </li>
 
@@ -21,7 +21,7 @@
 		justify-items: center;
 	}
 
-	svg {
+	img {
 		align-self: center;
 		width: 4rem;
 		height: 4rem;
