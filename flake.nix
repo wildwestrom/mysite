@@ -1,34 +1,32 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     devenv.url = "github:cachix/devenv";
   };
 
   outputs =
     {
-      self,
       nixpkgs,
       flake-utils,
       devenv,
+      ...
     }@inputs:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = nixpkgs.legacyPackages.${system};
       in
       {
-        formatter = pkgs.alejandra;
-
         devShell = devenv.lib.mkShell {
           inherit inputs pkgs;
           modules = [
             (
-              { pkgs, config, ... }:
+              { pkgs, ... }:
               {
                 # packages = with pkgs; [ ];
                 languages.javascript = {
                   enable = true;
+                  package = pkgs.nodejs-slim_latest;
                   bun.enable = true;
                 };
               }
