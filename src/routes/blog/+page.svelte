@@ -31,7 +31,7 @@
 </ul>
 
 <style lang="postcss">
-	ul.blogposts > li:last-child .preview-container {
+	ul.blogposts > li.preview-container:last-child {
 		border: none;
 	}
 
