@@ -7,13 +7,14 @@
 	<p class="todo"><span>TODO: </span><slot /></p>
 </ExternalLink>
 
-<style lang="postcss">
+<style>
 	.todo {
 		padding-bottom: 1em;
 		margin-bottom: 1em;
 		border-bottom: solid 1px;
-		span {
-			color: hsl(10 90% 55%);
-		}
+	}
+
+	.todo span {
+		color: hsl(10 90% 55%);
 	}
 </style>

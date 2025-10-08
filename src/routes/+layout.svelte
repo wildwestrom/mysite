@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.postcss';
+	import '../app.css';
 	import NavBar from './NavBar.svelte';
 	import ExternalLink from '$lib/ExternalLink.svelte';
 </script>

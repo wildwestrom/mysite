@@ -12,7 +12,7 @@
 	</ExternalLink>
 </li>
 
-<style lang="postcss">
+<style>
 	li {
 		display: grid;
 		align-items: center;

@@ -6,7 +6,7 @@
 
 <a class={isPortfolioLink ? 'portfolio' : ''} {href} {target} rel="noreferrer"><slot /></a>
 
-<style lang="postcss">
+<style>
 	a {
 		text-decoration: underline;
 		cursor: pointer;

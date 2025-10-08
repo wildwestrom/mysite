@@ -30,7 +30,7 @@
 	{/each}
 </ul>
 
-<style lang="postcss">
+<style>
 	ul.blogposts > li.preview-container:last-child {
 		border: none;
 	}

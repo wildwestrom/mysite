@@ -1,15 +1,9 @@
-import { sveltePreprocess } from 'svelte-preprocess'
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import adapter from '@sveltejs/adapter-static';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://github.com/sveltejs/svelte-preprocess
-	// for more information about preprocessors
-	preprocess: [
-		sveltePreprocess({
-			postcss: true
-		})
-	],
+	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter()
 	},

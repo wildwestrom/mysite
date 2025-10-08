@@ -16,7 +16,7 @@
 	>
 </li>
 
-<style lang="postcss">
+<style>
 	:global(li.portfoliolink_container > .portfolio) {
 		display: flex;
 		grid-auto-flow: column;

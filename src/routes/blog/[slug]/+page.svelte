@@ -22,7 +22,7 @@
 	</footer>
 </article>
 
-<style lang="postcss">
+<style>
 	@import url('highlight.js/styles/atom-one-light.css') (prefers-color-scheme: light);
 	@import url('highlight.js/styles/atom-one-dark.css') (prefers-color-scheme: dark);
 
