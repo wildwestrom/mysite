@@ -29,6 +29,21 @@
 			> so I could build my site with components but render it with simple HTML and CSS.
 		</p>
 	</PortfolioPiece>
+	<PortfolioPiece name="Hantracker">
+		<ul class="portfolio-links">
+			<PortfolioLink href="https://github.com/wildwestrom/hantracker" icon="git-alt"
+				>{NAME_FOR_REPOSITORY}</PortfolioLink
+			>
+		</ul>
+		<p>
+			A tool for keeping track of how many Chinese characters you can read. Anki is too complicated
+			for what I wanted it to do, and <ExternalLink
+				href="https://github.com/fabd/kanji-koohii/pull/204"
+				>this feature from Kanji Koohii</ExternalLink
+			> got removed, so I decided to build my own. It doesn't actually test you, you just have to say
+			"yes" or "no" to whether you recognize each character.
+		</p>
+	</PortfolioPiece>
 	<PortfolioPiece name="Death Calendar">
 		<ul class="portfolio-links">
 			<PortfolioLink href="https://github.com/wildwestrom/death-calendar" icon="git-alt"
@@ -39,6 +54,17 @@
 			>waitbutwhy.com</ExternalLink
 		> article, I decided to create a visual representation of how much time you have until your ultimate
 		demise. It's designed to help you spend more time on the things that really matter to you.
+	</PortfolioPiece>
+	<PortfolioPiece name="Factorio Blueprint String Creator">
+		<ul class="portfolio-links">
+			<PortfolioLink href="https://github.com/wildwestrom/blueprint-string-creator" icon="git-alt"
+				>{NAME_FOR_REPOSITORY}</PortfolioLink
+			>
+		</ul>
+		<p>
+			A command line tool for turning text into Factorio blueprint strings. This is yet another rust
+			rewrite from Clojure.
+		</p>
 	</PortfolioPiece>
 	<PortfolioPiece name="Feedback Box Component">
 		<ul class="portfolio-links">
@@ -52,28 +78,6 @@
 			using the <ExternalLink href="https://github.com/tonsky/rum">Rum</ExternalLink> library.
 		</p>
 		<p>This was my first paid commission.</p>
-	</PortfolioPiece>
-	<PortfolioPiece name="TSDL">
-		<ul class="portfolio-links">
-			<PortfolioLink href="https://github.com/wildwestrom/tsdl" icon="git-alt"
-				>{NAME_FOR_REPOSITORY}</PortfolioLink
-			>
-		</ul>
-		<p>
-			There's this artist who makes some cool desktop wallpapers, so I decided to make a
-			web-scraping tool to help me download all the images on her site. The earliest iteration of it
-			was written in POSIX-compliant shell-script.
-		</p>
-		<p>
-			Now it has a swing-based user interface (<ExternalLink
-				href="https://github.com/clj-commons/seesaw">seesaw</ExternalLink
-			>). This is also my first project where I use a logging framework (<ExternalLink
-				href="https://github.com/BrunoBonacci/mulog">mulog</ExternalLink
-			>) and make use of Clojure's concurrency model, <ExternalLink
-				href="https://clojure.org/news/2013/06/28/clojure-clore-async-channels"
-				><code>core.async</code></ExternalLink
-			>.
-		</p>
 	</PortfolioPiece>
 	<PortfolioPiece name="Hexagram SVG Generator">
 		<ul class="portfolio-links">
