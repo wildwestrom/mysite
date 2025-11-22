@@ -1,9 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	let metadata = data.data;
+	const metadata = data.data;
 	// This parses the date using node's `Date.parse()`. This may not work correctly.
-	let date = new Date(metadata.date).getFullYear();
+	const year = new Date(metadata.date).getFullYear();
+	const date = new Date(metadata.date);
+	const formatted_date = (date: Date) =>
+		`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 </script>
 
 <svelte:head>
@@ -14,11 +17,12 @@
 	{metadata.title}
 </h1>
 <p class="subtitle">by Christian Westrom</p>
+<p class="subtitle">Written {formatted_date(date)}.</p>
 
 <article>
 	{@html data.value}
 	<footer>
-		Copyright © {date} Christian Westrom
+		Copyright © {year} Christian Westrom
 	</footer>
 </article>
 

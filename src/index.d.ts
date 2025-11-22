@@ -24,4 +24,5 @@ export interface BlogPostMetadata extends VFileData {
 	tags?: string;
 	subtitle?: string;
 	id?: string;
+	date?: string;
 }

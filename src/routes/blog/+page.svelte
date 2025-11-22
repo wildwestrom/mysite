@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
+	const formatted_date = (date: Date) =>
+		`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 </script>
 
 <svelte:head>
@@ -13,6 +15,7 @@
 		<li class="preview-container">
 			<a href="/blog/{blogpost.filepath}">
 				<h2>{blogpost.title}</h2>
+				<p class="color-2">{formatted_date(new Date(blogpost.date))}</p>
 				<p class="subtitle color-2">{blogpost.subtitle}</p>
 			</a>
 			{#if blogpost.tags}
