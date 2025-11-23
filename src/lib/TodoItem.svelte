@@ -1,10 +1,15 @@
 <script lang="ts">
-	export let href: string;
 	import ExternalLink from '$lib/ExternalLink.svelte';
+	interface Props {
+		href: string;
+		children?: import('svelte').Snippet;
+	}
+
+	let { href, children }: Props = $props();
 </script>
 
 <ExternalLink {href}>
-	<p class="todo"><span>TODO: </span><slot /></p>
+	<p class="todo"><span>TODO: </span>{@render children?.()}</p>
 </ExternalLink>
 
 <style>

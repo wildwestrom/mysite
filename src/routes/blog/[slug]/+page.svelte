@@ -1,6 +1,10 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const metadata = data.data;
 	// This parses the date using node's `Date.parse()`. This may not work correctly.
 	const year = new Date(metadata.date).getFullYear();

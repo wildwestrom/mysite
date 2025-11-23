@@ -1,6 +1,10 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const formatted_date = (date: Date) =>
 		`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 </script>

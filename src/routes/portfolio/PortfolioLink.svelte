@@ -2,9 +2,19 @@
 	import ExternalLink from '$lib/ExternalLink.svelte';
 	import type { SVGAttributes } from 'svelte/elements';
 
-	export let href: string | undefined = '';
-	export let target: string | undefined = '_blank';
-	export let icon: SVGAttributes<SVGElement>['inline-src'];
+	interface Props {
+		href?: string | undefined;
+		target?: string | undefined;
+		icon: SVGAttributes<SVGElement>['inline-src'];
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		href = '',
+		target = '_blank',
+		icon,
+		children
+	}: Props = $props();
 </script>
 
 <li class="portfoliolink_container">
@@ -29,7 +39,7 @@
 			/>
 		{/if}
 		<span id="content"
-			><slot /><span>
+			>{@render children?.()}<span>
 				<svg
 					inline-src="external-link"
 					aria-hidden="true"

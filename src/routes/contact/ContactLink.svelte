@@ -2,9 +2,13 @@
 	import ExternalLink from '$lib/ExternalLink.svelte';
 	import type { SVGAttributes } from 'svelte/elements';
 
-	export let href: string;
-	export let name: string;
-	export let icon: SVGAttributes<SVGElement>['inline-src'];
+	interface Props {
+		href: string;
+		name: string;
+		icon: SVGAttributes<SVGElement>['inline-src'];
+	}
+
+	let { href, name, icon }: Props = $props();
 </script>
 
 <li>

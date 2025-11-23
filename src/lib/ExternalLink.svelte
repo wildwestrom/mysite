@@ -1,10 +1,20 @@
 <script lang="ts">
-	export let href: string | undefined = '';
-	export let target: string | undefined = '_blank';
-	export let isPortfolioLink: boolean | undefined = false;
+	interface Props {
+		href?: string | undefined;
+		target?: string | undefined;
+		isPortfolioLink?: boolean | undefined;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		href = '',
+		target = '_blank',
+		isPortfolioLink = false,
+		children
+	}: Props = $props();
 </script>
 
-<a class={isPortfolioLink ? 'portfolio' : ''} {href} {target} rel="noreferrer"><slot /></a>
+<a class={isPortfolioLink ? 'portfolio' : ''} {href} {target} rel="noreferrer">{@render children?.()}</a>
 
 <style>
 	a {
