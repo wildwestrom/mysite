@@ -62,10 +62,10 @@
 		h2 {
 			text-decoration: underline;
 			transition: all 0.1s ease-out;
-		}
 
-		h2:hover {
-			text-decoration-color: transparent;
+			&:hover {
+				text-decoration-color: transparent;
+			}
 		}
 		p {
 			line-height: 1.6;
