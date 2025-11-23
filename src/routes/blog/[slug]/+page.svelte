@@ -104,6 +104,10 @@
 			}
 		}
 
+		p {
+			line-height: 1.6;
+		}
+
 		code {
 			background-color: var(--code-bg);
 		}

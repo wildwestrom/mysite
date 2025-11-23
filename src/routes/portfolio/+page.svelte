@@ -110,9 +110,11 @@
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
 			>
 		</ul>
-		The I-Ching is an ancient Chinese system of divination. It involves creating a figure of 6 lines,
-		broken or unbroken, usually by casting coins or picking yarrow stalks. This demo generates an SVG
-		graphic based on the hexagram number.</PortfolioPiece
+		<p>
+			The I-Ching is an ancient Chinese system of divination. It involves creating a figure of 6
+			lines, broken or unbroken, usually by casting coins or picking yarrow stalks. This demo
+			generates an SVG graphic based on the hexagram number.
+		</p></PortfolioPiece
 	>
 	<PortfolioPiece name="Uniorg Util">
 		<ul class="portfolio-links">
@@ -135,6 +137,10 @@
 <style>
 	.portfolio-links {
 		margin: 0.5em 0;
+	}
+
+	p {
+		line-height: 1.6;
 	}
 
 	svg {
