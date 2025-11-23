@@ -20,30 +20,30 @@
 		"@sveltejs/adapter-static": "3.0.10",
 		"@sveltejs/kit": "2.46.3",
 		"@types/highlightjs": "^9.12.6",
-		"@types/html-minifier": "^4.0.2",
+		"@types/html-minifier": "^4.0.6",
 		"@types/showdown": "^2.0.6",
 		"html-minifier": "^4.0.0",
 		"prettier": "3.6.2",
 		"prettier-plugin-svelte": "3.4.0",
-		"rehype-highlight": "^7.0.0",
+		"rehype-highlight": "^7.0.2",
 		"rehype-raw": "^7.0.0",
 		"rehype-shift-heading": "^2.0.0",
-		"rehype-stringify": "^10.0.0",
+		"rehype-stringify": "^10.0.1",
 		"remark-frontmatter": "^5.0.0",
 		"remark-html": "^16.0.1",
 		"remark-parse": "^11.0.0",
-		"remark-rehype": "^11.1.0",
-		"sass": "^1.57.1",
+		"remark-rehype": "^11.1.2",
+		"sass": "^1.94.2",
 		"showdown": "^2.1.0",
 		"svelte": "5.39.11",
 		"svelte-check": "4.3.2",
-		"svelte-loader": "^3.1.4",
+		"svelte-loader": "^3.2.4",
 		"typescript": "5.9.3",
 		"vite": "7.1.9",
-		"yaml": "^2.4.5"
+		"yaml": "^2.8.1"
 	},
 	"dependencies": {
-		"highlight.js": "^11.7.0",
+		"highlight.js": "^11.11.1",
 		"modern-normalize": "3.0.1"
 	}
 }

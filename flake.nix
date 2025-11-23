@@ -14,6 +14,7 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
+        # Just use the nixpkgs on the user's system
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
