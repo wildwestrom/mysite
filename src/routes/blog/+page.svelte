@@ -15,9 +15,12 @@
 		<li class="preview-container">
 			<a href="/blog/{blogpost.filepath}">
 				<h2>{blogpost.title}</h2>
-				<p class="color-2">{formatted_date(new Date(blogpost.date))}</p>
+				{#if blogpost.date}
+					<p class="color-2">{formatted_date(new Date(blogpost.date))}</p>
+				{/if}
 				<p class="subtitle color-2">{blogpost.subtitle}</p>
 			</a>
+			<!-- TODO: Make these tags actually do something on the page -->
 			{#if blogpost.tags}
 				<ul class="tags color-2">
 					{#each blogpost.tags as tag}
