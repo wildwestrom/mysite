@@ -15,7 +15,8 @@
 		"ci": "bun run check && bun run lint && bun run build"
 	},
 	"pre-commit": [
-		"format"
+		"format",
+		"ci"
 	],
 	"devDependencies": {
 		"@sveltejs/adapter-static": "3.0.10",
