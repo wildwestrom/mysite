@@ -2,12 +2,17 @@
 	import '../app.css';
 	import NavBar from './NavBar.svelte';
 	import ExternalLink from '$lib/ExternalLink.svelte';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 </script>
 
 <div>
 	<NavBar />
 	<main>
-		<slot />
+		{@render children?.()}
 	</main>
 </div>
 <footer>

@@ -1,6 +1,10 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const formatted_date = (date: Date) =>
 		`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 </script>
@@ -58,10 +62,10 @@
 		h2 {
 			text-decoration: underline;
 			transition: all 0.1s ease-out;
-		}
 
-		h2:hover {
-			text-decoration-color: transparent;
+			&:hover {
+				text-decoration-color: transparent;
+			}
 		}
 		p {
 			line-height: 1.6;

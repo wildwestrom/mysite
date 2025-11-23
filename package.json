@@ -4,6 +4,7 @@
 	"license": "AGPL-3.0-or-later",
 	"type": "module",
 	"scripts": {
+		"postinstall": "svelte-kit sync",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -14,9 +15,11 @@
 		"ci": "bun run check && bun run lint && bun run build"
 	},
 	"pre-commit": [
-		"format"
+		"format",
+		"ci"
 	],
 	"devDependencies": {
+		"@svelte-put/inline-svg": "^4.0.2",
 		"@sveltejs/adapter-static": "3.0.10",
 		"@sveltejs/kit": "2.46.3",
 		"@types/highlightjs": "^9.12.6",

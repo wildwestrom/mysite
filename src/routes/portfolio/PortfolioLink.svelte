@@ -1,16 +1,24 @@
 <script lang="ts">
 	import ExternalLink from '$lib/ExternalLink.svelte';
-	export let href: string | undefined = '';
-	export let target: string | undefined = '_blank';
-	export let icon: string;
+
+	interface Props {
+		href?: string | undefined;
+		target?: string | undefined;
+		icon?: import('svelte').Snippet;
+		children?: import('svelte').Snippet;
+	}
+
+	let { href = '', target = '_blank', icon, children }: Props = $props();
 </script>
 
 <li class="portfoliolink_container">
 	<ExternalLink {href} {target} isPortfolioLink>
-		<img src="/icons/{icon}.svg" class="before" alt="icon" />
+		{#if icon}
+			{@render icon()}
+		{/if}
 		<span id="content"
-			><slot /><span>
-				<img src="/icons/external-link.svg" class="after" alt="link icon" />
+			>{@render children?.()}<span>
+				<svg inline-src="external-link" aria-hidden="true" class="after" focusable="false" />
 			</span></span
 		></ExternalLink
 	>
@@ -23,14 +31,9 @@
 		align-items: center;
 		margin: 0.25rem 0;
 	}
-
-	img {
+	svg {
 		width: 1.5em;
 		height: 1.5em;
-
-		&.before {
-			margin-right: 0.25rem;
-		}
 
 		&.after {
 			align-self: flex-start;

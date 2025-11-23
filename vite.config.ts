@@ -1,46 +1,96 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import inlineSvg from '@svelte-put/inline-svg/vite';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const SOURCE_DIR = path.resolve(__dirname, 'posts', 'images');
+const BLOG_ROUTE = '/blog/images';
+const DEFAULT_OUTPUT_DIR = path.resolve(__dirname, '.svelte-kit', 'output', 'client');
+const CONTENT_TYPES: Record<string, string> = {
+	'.png': 'image/png',
+	'.jpg': 'image/jpeg',
+	'.jpeg': 'image/jpeg',
+	'.gif': 'image/gif',
+	'.svg': 'image/svg+xml',
+	'.webp': 'image/webp'
+};
 
-/** @type {import('vite').Plugin} */
-const copyBlogImages = {
+const serveDuringDev: Plugin['configureServer'] = (server) => {
+	server.middlewares.use(BLOG_ROUTE, (req, res, next) => {
+		if (!req.url || !fs.existsSync(SOURCE_DIR)) {
+			return next();
+		}
+
+		const requestedFile = decodeURIComponent(req.url.split('?')[0] ?? '').replace(/^\/+/, '');
+		const filePath = path.resolve(SOURCE_DIR, requestedFile);
+
+		if (!filePath.startsWith(SOURCE_DIR)) {
+			return next();
+		}
+
+		if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
+			return next();
+		}
+
+		const ext = path.extname(filePath).toLowerCase();
+		res.setHeader('Content-Type', CONTENT_TYPES[ext] ?? 'application/octet-stream');
+		fs.createReadStream(filePath).pipe(res);
+	});
+};
+
+const copyForBuild = (targetDir: string) => {
+	if (!fs.existsSync(SOURCE_DIR)) {
+		console.warn(`[copy-blog-images] Warning: ${SOURCE_DIR} does not exist`);
+		return;
+	}
+
+	if (!fs.existsSync(targetDir)) {
+		fs.mkdirSync(targetDir, { recursive: true });
+	}
+
+	for (const file of fs.readdirSync(SOURCE_DIR)) {
+		const sourcePath = path.join(SOURCE_DIR, file);
+
+		if (!fs.statSync(sourcePath).isFile()) {
+			continue;
+		}
+
+		const targetPath = path.join(targetDir, file);
+		fs.copyFileSync(sourcePath, targetPath);
+		console.log(`[copy-blog-images] Copied ${file} to ${path.relative(__dirname, targetDir)}/`);
+	}
+};
+
+const copyBlogImages: Plugin = {
 	name: 'copy-blog-images',
-	buildStart() {
-		const sourceDir = path.join(__dirname, 'posts', 'images');
-		const targetDir = path.join(__dirname, 'static', 'blog', 'images');
-
-		// Create target directory if it doesn't exist
-		if (!fs.existsSync(targetDir)) {
-			fs.mkdirSync(targetDir, { recursive: true });
-		}
-
-		// Copy all files from source to target
-		if (fs.existsSync(sourceDir)) {
-			const files = fs.readdirSync(sourceDir);
-
-			for (const file of files) {
-				const sourcePath = path.join(sourceDir, file);
-				const targetPath = path.join(targetDir, file);
-
-				// Only copy files (not directories)
-				if (fs.statSync(sourcePath).isFile()) {
-					fs.copyFileSync(sourcePath, targetPath);
-					console.log(`[copy-blog-images] Copied ${file} to static/blog/images/`);
-				}
-			}
-		} else {
-			console.warn(`[copy-blog-images] Warning: ${sourceDir} does not exist`);
-		}
+	configureServer: serveDuringDev,
+	writeBundle(options) {
+		const outputDir = options.dir || DEFAULT_OUTPUT_DIR;
+		const targetDir = path.join(outputDir, 'blog', 'images');
+		copyForBuild(targetDir);
 	}
 };
 
 const config = defineConfig({
-	plugins: [copyBlogImages, sveltekit()],
+	plugins: [
+		copyBlogImages,
+		inlineSvg(
+			[
+				{
+					directories: path.resolve(__dirname, 'static/icons'),
+					attributes: {
+						class: 'icon'
+					}
+				}
+			],
+			{ typedef: true }
+		),
+		sveltekit()
+	],
 	server: {
 		watch: {
 			ignored: ['**/.direnv/**', '**/.devenv/**']
