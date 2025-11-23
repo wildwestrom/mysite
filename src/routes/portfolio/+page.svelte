@@ -18,7 +18,7 @@
 			<PortfolioLink href="https://www.westrom.xyz/" target="_self" icon="globe"
 				>Westrom.xyz</PortfolioLink
 			>
-			<PortfolioLink href="https://github.com/wildwestrom/mysite" icon="git-alt"
+			<PortfolioLink href="https://github.com/wildwestrom/mysite" icon="git"
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
 			>
 		</ul>
@@ -31,7 +31,7 @@
 	</PortfolioPiece>
 	<PortfolioPiece name="Hantracker">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://github.com/wildwestrom/hantracker" icon="git-alt"
+			<PortfolioLink href="https://github.com/wildwestrom/hantracker" icon="git"
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
 			>
 		</ul>
@@ -46,7 +46,7 @@
 	</PortfolioPiece>
 	<PortfolioPiece name="Death Calendar">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://github.com/wildwestrom/death-calendar" icon="git-alt"
+			<PortfolioLink href="https://github.com/wildwestrom/death-calendar" icon="git"
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
 			>
 		</ul>
@@ -57,7 +57,7 @@
 	</PortfolioPiece>
 	<PortfolioPiece name="Factorio Blueprint String Creator">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://github.com/wildwestrom/blueprint-string-creator" icon="git-alt"
+			<PortfolioLink href="https://github.com/wildwestrom/blueprint-string-creator" icon="git"
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
 			>
 		</ul>
@@ -68,7 +68,7 @@
 	</PortfolioPiece>
 	<PortfolioPiece name="Feedback Box Component">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://github.com/wildwestrom/feedback-box-component" icon="git-alt"
+			<PortfolioLink href="https://github.com/wildwestrom/feedback-box-component" icon="git"
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
 			>
 		</ul>
@@ -82,7 +82,7 @@
 	<PortfolioPiece name="Hexagram SVG Generator">
 		<ul class="portfolio-links">
 			<PortfolioLink href="https://hexagram-svg.netlify.app/" icon="globe">Demo</PortfolioLink>
-			<PortfolioLink href="https://github.com/wildwestrom/hexagram-svg-generator" icon="git-alt"
+			<PortfolioLink href="https://github.com/wildwestrom/hexagram-svg-generator" icon="git"
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
 			>
 		</ul>
@@ -92,7 +92,7 @@
 	>
 	<PortfolioPiece name="Uniorg Util">
 		<ul class="portfolio-links">
-			<PortfolioLink href="https://github.com/wildwestrom/uniorg-util" icon="git-alt"
+			<PortfolioLink href="https://github.com/wildwestrom/uniorg-util" icon="git"
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
 			>
 		</ul>

@@ -1,14 +1,26 @@
 <script lang="ts">
 	import ExternalLink from '$lib/ExternalLink.svelte';
+	import type { SVGAttributes } from 'svelte/elements';
+
 	export let href: string;
 	export let name: string;
-	export let icon: string;
+	export let icon: SVGAttributes<SVGElement>['inline-src'];
 </script>
 
 <li>
 	<span>{name}</span>
 	<ExternalLink {href}>
-		<img src="icons/{icon}.svg" alt="{name} Link" />
+		{#if icon === 'github'}
+			<svg inline-src="github" aria-hidden="true" class="icon" focusable="false" />
+		{:else if icon === 'hackerspub'}
+			<svg inline-src="hackerspub" aria-hidden="true" class="icon" focusable="false" />
+		{:else if icon === 'matrix'}
+			<svg inline-src="matrix" aria-hidden="true" class="icon" focusable="false" />
+		{:else if icon === 'envelope'}
+			<svg inline-src="envelope" aria-hidden="true" class="icon" focusable="false" />
+		{:else if icon === 'discord'}
+			<svg inline-src="discord" aria-hidden="true" class="icon" focusable="false" />
+		{/if}
 	</ExternalLink>
 </li>
 
@@ -21,8 +33,7 @@
 		justify-items: center;
 	}
 
-	img {
-		align-self: center;
+	svg.icon {
 		width: 4rem;
 		height: 4rem;
 		margin: 0 1rem;

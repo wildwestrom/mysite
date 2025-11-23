@@ -19,6 +19,7 @@
 		"ci"
 	],
 	"devDependencies": {
+		"@svelte-put/inline-svg": "^4.0.2",
 		"@sveltejs/adapter-static": "3.0.10",
 		"@sveltejs/kit": "2.46.3",
 		"@types/highlightjs": "^9.12.6",

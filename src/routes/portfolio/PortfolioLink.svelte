@@ -1,16 +1,43 @@
 <script lang="ts">
 	import ExternalLink from '$lib/ExternalLink.svelte';
+	import type { SVGAttributes } from 'svelte/elements';
+
 	export let href: string | undefined = '';
 	export let target: string | undefined = '_blank';
-	export let icon: string;
+	export let icon: SVGAttributes<SVGElement>['inline-src'];
 </script>
 
 <li class="portfoliolink_container">
 	<ExternalLink {href} {target} isPortfolioLink>
-		<img src="/icons/{icon}.svg" class="before" alt="icon" />
+		{#if icon === 'git'}
+			<svg
+				inline-src="git"
+				aria-hidden="true"
+				class="before"
+				focusable="false"
+				height="24"
+				width="24"
+			/>
+		{:else if icon === 'globe'}
+			<svg
+				inline-src="globe"
+				aria-hidden="true"
+				class="before"
+				focusable="false"
+				height="24"
+				width="24"
+			/>
+		{/if}
 		<span id="content"
 			><slot /><span>
-				<img src="/icons/external-link.svg" class="after" alt="link icon" />
+				<svg
+					inline-src="external-link"
+					aria-hidden="true"
+					class="after"
+					focusable="false"
+					height="16"
+					width="16"
+				/>
 			</span></span
 		></ExternalLink
 	>
@@ -24,7 +51,7 @@
 		margin: 0.25rem 0;
 	}
 
-	img {
+	svg {
 		width: 1.5em;
 		height: 1.5em;
 

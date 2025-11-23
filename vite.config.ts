@@ -3,6 +3,7 @@ import { defineConfig, type Plugin } from 'vite';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import inlineSvg from '@svelte-put/inline-svg/vite';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -75,7 +76,21 @@ const copyBlogImages: Plugin = {
 };
 
 const config = defineConfig({
-	plugins: [copyBlogImages, sveltekit()],
+	plugins: [
+		copyBlogImages,
+		inlineSvg(
+			[
+				{
+					directories: path.resolve(__dirname, 'static/icons'),
+					attributes: {
+						class: 'icon'
+					}
+				},
+			],
+			{ typedef: true }
+		),
+		sveltekit()
+	],
 	server: {
 		watch: {
 			ignored: ['**/.direnv/**', '**/.devenv/**']
