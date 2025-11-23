@@ -3,6 +3,7 @@ import path from 'path';
 import type { VFile } from 'vfile';
 
 import langClojure from 'highlight.js/lib/languages/clojure';
+import langYaml from 'highlight.js/lib/languages/yaml';
 import type { Options as RehypeHighlightOptions } from 'rehype-highlight';
 
 import yaml from 'yaml';
@@ -20,7 +21,8 @@ import rehypeShiftHeading from 'rehype-shift-heading';
 
 const options: RehypeHighlightOptions = {
 	languages: {
-		clojure: langClojure
+		clojure: langClojure,
+		yaml: langYaml
 	}
 };
 
