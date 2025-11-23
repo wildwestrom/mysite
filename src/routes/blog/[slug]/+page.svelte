@@ -27,8 +27,10 @@
 </article>
 
 <style>
-	@import url('highlight.js/styles/atom-one-light.css') (prefers-color-scheme: light);
-	@import url('highlight.js/styles/atom-one-dark.css') (prefers-color-scheme: dark);
+	:global {
+		@import url('highlight.js/styles/atom-one-light.css') (prefers-color-scheme: light);
+		@import url('highlight.js/styles/atom-one-dark.css') (prefers-color-scheme: dark);
+	}
 
 	.subtitle {
 		color: var(--text-secondary);
@@ -37,6 +39,7 @@
 	footer {
 		font-size: small;
 		text-align: center;
+		padding-top: 4rem;
 	}
 
 	article :global {
@@ -108,6 +111,14 @@
 				color: var(--hover-color);
 				text-decoration: none;
 			}
+		}
+
+		figure img,
+		img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+			margin-inline: auto;
 		}
 	}
 </style>

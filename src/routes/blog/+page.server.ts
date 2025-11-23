@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { processMd } from '$lib/process-md';
+import { processMd } from '$lib/processMd';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {

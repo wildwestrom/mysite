@@ -4,7 +4,8 @@ Find me at [https://www.westrom.xyz/](https://www.westrom.xyz/).
 
 ## Forking
 
-This website is free software, however the content posted within it is not. You may not plagiarize my blog posts.
+This website is free software, however the content posted within it is not.
+You may not plagiarize my blog posts.
 
 ## Develop
 
