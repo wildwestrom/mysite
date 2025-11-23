@@ -10,19 +10,19 @@
 
 <ul>
 	<ContactLink href="https://github.com/wildwestrom" name="Github">
-		<svg inline-src="github" />
+		<svg inline-src="github" width="4rem" height="4rem" />
 	</ContactLink>
 	<ContactLink href="https://hackers.pub/@wildwestrom" name="Fediverse">
-		<svg inline-src="hackerspub" />
+		<svg inline-src="hackerspub" width="4rem" height="4rem" />
 	</ContactLink>
 	<ContactLink href="https://matrix.to/#/@wildwestrom:nitro.chat" name="Matrix">
-		<svg inline-src="matrix" />
+		<svg inline-src="matrix" width="4rem" height="4rem" />
 	</ContactLink>
 	<ContactLink href="mailto:c.westrom@westrom.xyz" name="Email">
-		<svg inline-src="envelope" />
+		<svg inline-src="envelope" width="4rem" height="4rem" />
 	</ContactLink>
 	<ContactLink href="https://discordapp.com/users/153415020556845056" name="Discord">
-		<svg inline-src="discord" />
+		<svg inline-src="discord" width="4rem" height="4rem" />
 	</ContactLink>
 </ul>
 
@@ -37,8 +37,6 @@
 	}
 
 	svg {
-		width: 4rem;
-		height: 4rem;
 		margin: 0 1rem;
 	}
 

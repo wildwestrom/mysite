@@ -16,10 +16,10 @@
 	<PortfolioPiece name="This Website">
 		<ul class="portfolio-links">
 			{#snippet iconGlobe()}
-				<svg inline-src="globe" />
+				<svg inline-src="globe" width="1.5em" height="1.5em" />
 			{/snippet}
 			{#snippet iconGit()}
-				<svg inline-src="git" />
+				<svg inline-src="git" width="1.5em" height="1.5em" />
 			{/snippet}
 			<PortfolioLink href="https://www.westrom.xyz/" target="_self" icon={iconGlobe}
 				>Westrom.xyz</PortfolioLink
@@ -38,7 +38,7 @@
 	<PortfolioPiece name="Hantracker">
 		<ul class="portfolio-links">
 			{#snippet iconGit()}
-				<svg inline-src="git" />
+				<svg inline-src="git" width="1.5em" height="1.5em" />
 			{/snippet}
 			<PortfolioLink href="https://github.com/wildwestrom/hantracker" icon={iconGit}
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
@@ -56,7 +56,7 @@
 	<PortfolioPiece name="Death Calendar">
 		<ul class="portfolio-links">
 			{#snippet iconGit()}
-				<svg inline-src="git" />
+				<svg inline-src="git" width="1.5em" height="1.5em" />
 			{/snippet}
 			<PortfolioLink href="https://github.com/wildwestrom/death-calendar" icon={iconGit}
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
@@ -70,7 +70,7 @@
 	<PortfolioPiece name="Factorio Blueprint String Creator">
 		<ul class="portfolio-links">
 			{#snippet iconGit()}
-				<svg inline-src="git" />
+				<svg inline-src="git" width="1.5em" height="1.5em" />
 			{/snippet}
 			<PortfolioLink href="https://github.com/wildwestrom/blueprint-string-creator" icon={iconGit}
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
@@ -84,7 +84,7 @@
 	<PortfolioPiece name="Feedback Box Component">
 		<ul class="portfolio-links">
 			{#snippet iconGit()}
-				<svg inline-src="git" />
+				<svg inline-src="git" width="1.5em" height="1.5em" />
 			{/snippet}
 			<PortfolioLink href="https://github.com/wildwestrom/feedback-box-component" icon={iconGit}
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
@@ -100,10 +100,10 @@
 	<PortfolioPiece name="Hexagram SVG Generator">
 		<ul class="portfolio-links">
 			{#snippet iconGlobe()}
-				<svg inline-src="globe" />
+				<svg inline-src="globe" width="1.5em" height="1.5em" />
 			{/snippet}
 			{#snippet iconGit()}
-				<svg inline-src="git" />
+				<svg inline-src="git" width="1.5em" height="1.5em" />
 			{/snippet}
 			<PortfolioLink href="https://hexagram-svg.netlify.app/" icon={iconGlobe}>Demo</PortfolioLink>
 			<PortfolioLink href="https://github.com/wildwestrom/hexagram-svg-generator" icon={iconGit}
@@ -117,7 +117,7 @@
 	<PortfolioPiece name="Uniorg Util">
 		<ul class="portfolio-links">
 			{#snippet iconGit()}
-				<svg inline-src="git" />
+				<svg inline-src="git" width="1.5em" height="1.5em" />
 			{/snippet}
 			<PortfolioLink href="https://github.com/wildwestrom/uniorg-util" icon={iconGit}
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
@@ -138,8 +138,6 @@
 	}
 
 	svg {
-		width: 1.5em;
-		height: 1.5em;
 		margin-right: 0.25rem;
 	}
 </style>
