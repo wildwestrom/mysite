@@ -10,6 +10,7 @@
 
 <ul>
 	<ContactLink href="https://github.com/wildwestrom" name="Github" icon="github" />
+	<ContactLink href="https://hackers.pub/@wildwestrom" name="Fediverse" icon="hackerspub" />
 	<ContactLink href="https://matrix.to/#/@wildwestrom:nitro.chat" name="Matrix" icon="matrix" />
 	<ContactLink href="mailto:c.westrom@westrom.xyz" name="Email" icon="envelope" />
 	<ContactLink
