@@ -1,53 +1,24 @@
 <script lang="ts">
 	import ExternalLink from '$lib/ExternalLink.svelte';
-	import type { SVGAttributes } from 'svelte/elements';
 
 	interface Props {
 		href?: string | undefined;
 		target?: string | undefined;
-		icon: SVGAttributes<SVGElement>['inline-src'];
+		icon?: import('svelte').Snippet;
 		children?: import('svelte').Snippet;
 	}
 
-	let {
-		href = '',
-		target = '_blank',
-		icon,
-		children
-	}: Props = $props();
+	let { href = '', target = '_blank', icon, children }: Props = $props();
 </script>
 
 <li class="portfoliolink_container">
 	<ExternalLink {href} {target} isPortfolioLink>
-		{#if icon === 'git'}
-			<svg
-				inline-src="git"
-				aria-hidden="true"
-				class="before"
-				focusable="false"
-				height="24"
-				width="24"
-			/>
-		{:else if icon === 'globe'}
-			<svg
-				inline-src="globe"
-				aria-hidden="true"
-				class="before"
-				focusable="false"
-				height="24"
-				width="24"
-			/>
+		{#if icon}
+			{@render icon()}
 		{/if}
 		<span id="content"
 			>{@render children?.()}<span>
-				<svg
-					inline-src="external-link"
-					aria-hidden="true"
-					class="after"
-					focusable="false"
-					height="16"
-					width="16"
-				/>
+				<svg inline-src="external-link" aria-hidden="true" class="after" focusable="false" />
 			</span></span
 		></ExternalLink
 	>
@@ -60,14 +31,9 @@
 		align-items: center;
 		margin: 0.25rem 0;
 	}
-
 	svg {
 		width: 1.5em;
 		height: 1.5em;
-
-		&.before {
-			margin-right: 0.25rem;
-		}
 
 		&.after {
 			align-self: flex-start;
