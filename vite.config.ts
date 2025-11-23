@@ -85,7 +85,7 @@ const config = defineConfig({
 					attributes: {
 						class: 'icon'
 					}
-				},
+				}
 			],
 			{ typedef: true }
 		),

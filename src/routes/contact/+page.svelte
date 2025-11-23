@@ -41,4 +41,45 @@
 		height: 4rem;
 		margin: 0 1rem;
 	}
+
+	/* The Hackers.pub icon is special. It needs an outline so the body always shows up dark. I also wanted it to match whatever text color or background color is set. */
+	:global(.hackerspub-outline) {
+		fill: white;
+		@media (prefers-color-scheme: light) {
+			fill: #00000000; /* transparent */
+		}
+		@media (prefers-color-scheme: dark) {
+			fill: var(--text-color);
+		}
+	}
+	:global(.hackerspub-white-parts) {
+		fill: var(--text-color);
+		@media (prefers-color-scheme: light) {
+			fill: var(--bg-primary);
+		}
+		@media (prefers-color-scheme: dark) {
+			fill: var(--text-color);
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:global(svg:hover .hackerspub-outline, svg:hover .hackerspub-white-parts) {
+			fill: var(--hover-color);
+		}
+	}
+	@media (prefers-color-scheme: light) {
+		:global(svg:hover .hackerspub-black-parts) {
+			fill: var(--hover-color);
+		}
+	}
+
+	:global(.hackerspub-black-parts) {
+		fill: var(--text-color);
+		@media (prefers-color-scheme: light) {
+			fill: var(--text-color);
+		}
+		@media (prefers-color-scheme: dark) {
+			fill: var(--bg-primary);
+		}
+	}
 </style>
