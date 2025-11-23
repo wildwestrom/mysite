@@ -112,5 +112,13 @@
 				text-decoration: none;
 			}
 		}
+
+		figure img,
+		img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+			margin-inline: auto;
+		}
 	}
 </style>
