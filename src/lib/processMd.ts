@@ -15,7 +15,9 @@ import type { Literal, Node, Parent } from 'unist';
 
 import remarkParse from 'remark-parse';
 import remarkFrontmatter from 'remark-frontmatter';
+import remarkMath from 'remark-math';
 import remarkRehype from 'remark-rehype';
+import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
@@ -64,8 +66,10 @@ const processor = unified()
 	.use(remarkParse as Plugin)
 	.use(remarkFrontmatter as Plugin)
 	.use(extractMetadataFromFrontmatter)
+	.use(remarkMath, { singleDollarTextMath: false })
 	.use(remarkRehype)
 	.use(rehypeRaw)
+	.use(rehypeKatex)
 	.use(rehypeHighlight, options)
 	.use(rehypeShiftHeading, { shift: 1 })
 	.use(wrapImagesWithFigure)

@@ -29,11 +29,13 @@
 		"prettier": "3.6.2",
 		"prettier-plugin-svelte": "3.4.0",
 		"rehype-highlight": "^7.0.2",
+		"rehype-katex": "^7.0.1",
 		"rehype-raw": "^7.0.0",
 		"rehype-shift-heading": "^2.0.0",
 		"rehype-stringify": "^10.0.1",
 		"remark-frontmatter": "^5.0.0",
 		"remark-html": "^16.0.1",
+		"remark-math": "^6.0.0",
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.2",
 		"sass": "^1.98.0",
@@ -47,6 +49,7 @@
 	},
 	"dependencies": {
 		"highlight.js": "^11.11.1",
+		"katex": "^0.16.40",
 		"modern-normalize": "3.0.1"
 	}
 }

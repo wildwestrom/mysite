@@ -128,5 +128,15 @@
 			height: auto;
 			margin-inline: auto;
 		}
+
+		.katex {
+			font-size: 1.05em;
+		}
+
+		.katex-display {
+			overflow-x: auto;
+			overflow-y: hidden;
+			padding: 0.25rem 0;
+		}
 	}
 </style>
