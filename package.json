@@ -36,14 +36,14 @@
 		"remark-html": "^16.0.1",
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.2",
-		"sass": "^1.94.2",
+		"sass": "^1.98.0",
 		"showdown": "^2.1.0",
 		"svelte": "5.39.11",
 		"svelte-check": "4.3.2",
 		"svelte-loader": "^3.2.4",
 		"typescript": "5.9.3",
 		"vite": "7.1.9",
-		"yaml": "^2.8.1"
+		"yaml": "^2.8.3"
 	},
 	"dependencies": {
 		"highlight.js": "^11.11.1",

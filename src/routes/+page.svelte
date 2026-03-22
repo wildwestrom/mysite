@@ -71,7 +71,7 @@
 		border-radius: 0.75rem;
 		box-shadow: 0.7rem 0.7rem 0 var(--bg-secondary);
 		overflow: hidden;
-		transition: 
+		transition:
 			/* for hovering */
 			box-shadow 0.05s ease,
 			background-color 0.1s ease,
