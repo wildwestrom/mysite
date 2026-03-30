@@ -1,0 +1,81 @@
+#import "resume_template.typst": *
+
+#let name = "Christian Westrom"
+// #let location = "Seoul, South Korea (US Citizen)"
+#let location = "Staten Island, NY"
+#let email = "c.westrom@westrom.xyz"
+#let github = "github.com/wildwestrom"
+// #let phone = "010-5938-2253"
+#let phone = "+1 347-837-7633"
+#let personal-site = "westrom.xyz"
+
+#show: resume.with(
+  author: name,
+  location: location,
+  email: email,
+  github: github,
+  phone: phone,
+  personal-site: personal-site,
+  personal-info-lines: 2,
+  accent-color: "#26428b",
+  font: "New Computer Modern",
+  font-size: 11pt,
+  paper: "a4",
+  author-position: left,
+  personal-info-position: left,
+)
+
+== Objective
+
+Software engineer with 5+ years of self-taught experience, focused on correctness and trustworthy systems. Projects span bare-metal RISC-V bootstrapping, formal verification in Lean 4, and geometric modeling in Rust. Studying AI and Data Science at Sejong University.
+
+== Education
+
+#edu(
+  institution: "Sejong University",
+  location: "Seoul, South Korea",
+  dates: dates-helper(start-date: "September 2024", end-date: "June 2028"),
+  degree: "Bachelor's of Science, Artificial Intelligence and Data Science",
+)
+- Cumulative GPA: 3.2/4.0
+- Relevant Coursework: Data Structures, Algorithms, Machine Learning, Data Analysis, Computer Architecture, Mathematics for Artificial Intelligence, Discrete Mathematics, Databases, Linear Algebra
+
+== Skills
+- *Programming Languages*: Rust, C, RISC-V Assembly, Python, JavaScript / TypeScript, Nix
+- *Tools & Platforms*: QEMU, GDB, Git, NixOS, Linux, Svelte
+- *Human Languages*: English (native), Korean (TOPIK Level 5), Japanese (approx. B2)
+
+== Projects
+
+#project(
+  name: "node-compiler",
+  dates: dates-helper(start-date: "March 2026", end-date: "Present"),
+  url: "github.com/wildwestrom/node-compiler",
+)
+- Created a node-graph editor that is designed to output bytes via a data pipeline
+- Supports logical and arithmetic operations, as well as concatenating and splitting byte streams
+
+#project(
+  name: "stage0-riscv64-baremetal",
+  dates: dates-helper(start-date: "January 2026", end-date: "Present"),
+  url: "github.com/wildwestrom/stage0-riscv64-baremetal",
+)
+- Ported the stage0 bootstrap chain (hex0 → hex1 → hex2 → M0) from stage0-posix-riscv64 to bare-metal RISC-V 64-bit, replacing all POSIX syscalls with direct UART I/O, executing directly in memory
+- Validated each stage with automated QEMU-based integration tests before every commit
+- Manually audited hex0 — the trust anchor of the entire chain — verifying each byte of machine code against the RISC-V ISA spec
+
+#project(
+	name: "smoothstep-curve-proof",
+	dates: dates-helper(start-date: "September 2025", end-date: "Present"),
+	url: "github.com/wildwestrom/smoothstep-curve-proof",
+)
+- Formally proved smoothness properties (infinite differentiability / $G^infinity$ continuity) of a smoothstep curve family in Lean 4, with mechanically checked proofs
+- Adding preliminary support for numerical integration of smoothstep curves, allowing them to be integrated into other programs for calculation
+
+#project(
+  name: "track-geometry-experiments",
+  dates: dates-helper(start-date: "June 2025", end-date: "Present"),
+  url: "github.com/wildwestrom/track-geometry-experiments",
+)
+- Researched transition curve geometry for railway alignment, motivated by the physics of jerk — the discontinuous force passengers experience when a straight track meets a circular arc without a smooth transition
+- Implementing a user interface for creating railway alignments using splines composed of straight lines, circular arcs, and clothoid transitions

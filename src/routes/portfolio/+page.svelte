@@ -4,6 +4,8 @@
 	import ExternalLink from '$lib/ExternalLink.svelte';
 
 	const NAME_FOR_REPOSITORY: string = 'Source Code';
+
+	let { data } = $props();
 </script>
 
 <svelte:head>
@@ -35,6 +37,63 @@
 			> so I could build my site with components but render it with simple HTML and CSS.
 		</p>
 	</PortfolioPiece>
+	<PortfolioPiece name="Bare Metal RISC-V Bootstrap">
+		<ul class="portfolio-links">
+			{#snippet iconGit()}
+				<svg inline-src="git" width="1.5em" height="1.5em" />
+			{/snippet}
+			<PortfolioLink href="https://github.com/wildwestrom/stage0-riscv64-baremetal" icon={iconGit}
+				>{NAME_FOR_REPOSITORY}</PortfolioLink
+			>
+		</ul>
+		<p>
+			Ported the stage0 bootstrap chain (hex0 → hex1 → hex2 → M0) from stage0-posix-riscv64 to
+			bare-metal RISC-V 64-bit, replacing all POSIX syscalls with direct UART I/O, executing
+			directly in memory. Each stage is validated with automated QEMU-based integration tests, and
+			hex0 — the trust anchor of the entire chain — was manually audited byte-by-byte against the
+			RISC-V ISA spec.
+		</p>
+	</PortfolioPiece>
+	<PortfolioPiece name="Node-Graph Editor and Compiler">
+		<ul class="portfolio-links">
+			{#snippet iconGit()}
+				<svg inline-src="git" width="1.5em" height="1.5em" />
+			{/snippet}
+			<PortfolioLink href="https://github.com/wildwestrom/node-compiler" icon={iconGit}
+				>{NAME_FOR_REPOSITORY}</PortfolioLink
+			>
+		</ul>
+		<p>
+			A node-graph editor designed to output bytes via a data pipeline. Supports logical and
+			arithmetic operations, as well as concatenating and splitting byte streams. This is a companion project to the bootstrapping chain above. I think content-addressed, graphically represented code is the future.
+		</p>
+	</PortfolioPiece>
+	<PortfolioPiece name="Track Geometry Experiments">
+		<ul class="portfolio-links">
+			{#snippet iconGit()}
+				<svg inline-src="git" width="1.5em" height="1.5em" />
+			{/snippet}
+			<PortfolioLink href="https://github.com/wildwestrom/track-geometry-experiments" icon={iconGit}
+				>{NAME_FOR_REPOSITORY}</PortfolioLink
+			>
+		</ul>
+		<p>
+			I made an editor with the Bevy game engine with procedural terrain generation and a railway alignment editor. The railway alignments are splines composed of straight segments, circular arcs, and clothoid transitions. In the future I'd like to get vertical alignments working as well.
+		</p>
+	</PortfolioPiece>
+	<PortfolioPiece name="Proof of the Smoothstep Curve">
+		<ul class="portfolio-links">
+			{#snippet iconGit()}
+				<svg inline-src="git" width="1.5em" height="1.5em" />
+			{/snippet}
+			<PortfolioLink href="https://github.com/wildwestrom/smoothstep-curve-proof" icon={iconGit}
+				>{NAME_FOR_REPOSITORY}</PortfolioLink
+			>
+		</ul>
+		<p>
+			A companion project to Track Geometry Experiments. I wanted to prove that you could design a perfect transition curve. Jerk is the 2nd derivative of angular velocity, but what if I could make a curve that's continuous on infinite higher derivatives? With this in mind, I sought to prove that there's a curve family that has exactly this property ({@html data.gInfinity} continuity) among others. I used Lean 4 to prove my intuition was correct and I wasn't just speculating by looking at Desmos graphs.
+		</p>
+	</PortfolioPiece>
 	<PortfolioPiece name="Hantracker">
 		<ul class="portfolio-links">
 			{#snippet iconGit()}
@@ -62,10 +121,12 @@
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
 			>
 		</ul>
+		<p>
 		Inspired by the <ExternalLink href="https://waitbutwhy.com/2014/05/life-weeks.html"
 			>waitbutwhy.com</ExternalLink
 		> article, I decided to create a visual representation of how much time you have until your ultimate
 		demise. It's designed to help you spend more time on the things that really matter to you.
+		</p>
 	</PortfolioPiece>
 	<PortfolioPiece name="Factorio Blueprint String Creator">
 		<ul class="portfolio-links">
