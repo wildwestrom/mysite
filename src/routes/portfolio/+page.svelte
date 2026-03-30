@@ -65,7 +65,9 @@
 		</ul>
 		<p>
 			A node-graph editor designed to output bytes via a data pipeline. Supports logical and
-			arithmetic operations, as well as concatenating and splitting byte streams. This is a companion project to the bootstrapping chain above. I think content-addressed, graphically represented code is the future.
+			arithmetic operations, as well as concatenating and splitting byte streams. This is a
+			companion project to the bootstrapping chain above. I think content-addressed, graphically
+			represented code is the future.
 		</p>
 	</PortfolioPiece>
 	<PortfolioPiece name="Track Geometry Experiments">
@@ -78,7 +80,10 @@
 			>
 		</ul>
 		<p>
-			I made an editor with the Bevy game engine with procedural terrain generation and a railway alignment editor. The railway alignments are splines composed of straight segments, circular arcs, and clothoid transitions. In the future I'd like to get vertical alignments working as well.
+			I made an editor with the Bevy game engine with procedural terrain generation and a railway
+			alignment editor. The railway alignments are splines composed of straight segments, circular
+			arcs, and clothoid transitions. In the future I'd like to get vertical alignments working as
+			well.
 		</p>
 	</PortfolioPiece>
 	<PortfolioPiece name="Proof of the Smoothstep Curve">
@@ -91,7 +96,12 @@
 			>
 		</ul>
 		<p>
-			A companion project to Track Geometry Experiments. I wanted to prove that you could design a perfect transition curve. Jerk is the 2nd derivative of angular velocity, but what if I could make a curve that's continuous on infinite higher derivatives? With this in mind, I sought to prove that there's a curve family that has exactly this property ({@html data.gInfinity} continuity) among others. I used Lean 4 to prove my intuition was correct and I wasn't just speculating by looking at Desmos graphs.
+			A companion project to Track Geometry Experiments. I wanted to prove that you could design a
+			perfect transition curve. Jerk is the 2nd derivative of angular velocity, but what if I could
+			make a curve that's continuous on infinite higher derivatives? With this in mind, I sought to
+			prove that there's a curve family that has exactly this property ({@html data.gInfinity} continuity)
+			among others. I used Lean 4 to prove my intuition was correct and I wasn't just speculating by
+			looking at Desmos graphs.
 		</p>
 	</PortfolioPiece>
 	<PortfolioPiece name="Hantracker">
@@ -122,10 +132,10 @@
 			>
 		</ul>
 		<p>
-		Inspired by the <ExternalLink href="https://waitbutwhy.com/2014/05/life-weeks.html"
-			>waitbutwhy.com</ExternalLink
-		> article, I decided to create a visual representation of how much time you have until your ultimate
-		demise. It's designed to help you spend more time on the things that really matter to you.
+			Inspired by the <ExternalLink href="https://waitbutwhy.com/2014/05/life-weeks.html"
+				>waitbutwhy.com</ExternalLink
+			> article, I decided to create a visual representation of how much time you have until your ultimate
+			demise. It's designed to help you spend more time on the things that really matter to you.
 		</p>
 	</PortfolioPiece>
 	<PortfolioPiece name="Factorio Blueprint String Creator">
