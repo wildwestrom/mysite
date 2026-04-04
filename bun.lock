@@ -6,6 +6,7 @@
       "name": "westrom.xyz",
       "dependencies": {
         "highlight.js": "^11.11.1",
+        "highlightjs-lean": "^1.2.0",
         "katex": "^0.16.40",
         "modern-normalize": "3.0.1",
       },
@@ -328,6 +329,8 @@
     "he": ["he@1.2.0", "", { "bin": { "he": "bin/he" } }, "sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw=="],
 
     "highlight.js": ["highlight.js@11.11.1", "", {}, "sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w=="],
+
+    "highlightjs-lean": ["highlightjs-lean@1.2.0", "", {}, "sha512-GH4tsvbzzZVZiHfrZ7FyaSecnY1ba54XSZB19Iz7VG0N+YYeOPLf2vi0v7Sds+/shaTtRqqxK5Oss9f4wro+uQ=="],
 
     "html-minifier": ["html-minifier@4.0.0", "", { "dependencies": { "camel-case": "^3.0.0", "clean-css": "^4.2.1", "commander": "^2.19.0", "he": "^1.2.0", "param-case": "^2.1.1", "relateurl": "^0.2.7", "uglify-js": "^3.5.1" }, "bin": { "html-minifier": "./cli.js" } }, "sha512-aoGxanpFPLg7MkIl/DDFYtb0iWz7jMFGqFhvEDZga6/4QTjneiD8I/NXL1x5aaoCp7FSIT6h/OhykDdPsbtMig=="],
 

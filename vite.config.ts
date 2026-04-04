@@ -65,6 +65,18 @@ const copyForBuild = (targetDir: string) => {
 	}
 };
 
+const watchBlogPosts: Plugin = {
+	name: 'watch-blog-posts',
+	configureServer(server) {
+		server.watcher.add(path.resolve(__dirname, 'posts'));
+		server.watcher.on('change', (file) => {
+			if (file.startsWith(path.resolve(__dirname, 'posts')) && file.endsWith('.md')) {
+				server.ws.send({ type: 'full-reload' });
+			}
+		});
+	}
+};
+
 const copyBlogImages: Plugin = {
 	name: 'copy-blog-images',
 	configureServer: serveDuringDev,
@@ -77,6 +89,7 @@ const copyBlogImages: Plugin = {
 
 const config = defineConfig({
 	plugins: [
+		watchBlogPosts,
 		copyBlogImages,
 		inlineSvg(
 			[

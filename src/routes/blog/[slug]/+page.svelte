@@ -121,6 +121,11 @@
 			}
 		}
 
+		iframe {
+			width: 100%;
+			aspect-ratio: attr(width) / attr(height);
+		}
+
 		figure img,
 		img {
 			display: block;

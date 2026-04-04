@@ -4,6 +4,7 @@ import type { VFile } from 'vfile';
 
 import langClojure from 'highlight.js/lib/languages/clojure';
 import langYaml from 'highlight.js/lib/languages/yaml';
+import leanHljs from 'highlightjs-lean';
 import type { Options as RehypeHighlightOptions } from 'rehype-highlight';
 
 import yaml from 'yaml';
@@ -26,7 +27,8 @@ import rehypeShiftHeading from 'rehype-shift-heading';
 const options: RehypeHighlightOptions = {
 	languages: {
 		clojure: langClojure,
-		yaml: langYaml
+		yaml: langYaml,
+		lean: leanHljs,
 	}
 };
 
@@ -67,7 +69,7 @@ const processor = unified()
 	.use(remarkFrontmatter as Plugin)
 	.use(extractMetadataFromFrontmatter)
 	.use(remarkMath, { singleDollarTextMath: false })
-	.use(remarkRehype)
+	.use(remarkRehype, { allowDangerousHtml: true })
 	.use(rehypeRaw)
 	.use(rehypeKatex)
 	.use(rehypeHighlight, options)
@@ -76,6 +78,7 @@ const processor = unified()
 	.use(rehypeStringify);
 
 import type { BlogPost } from '..';
+import type { LanguageFn } from 'highlight.js';
 // converts markdown document into html and js.
 export function processMd(filepath: fs.PathLike): BlogPost {
 	const markdown_doc = fs.readFileSync(filepath, 'utf8');
