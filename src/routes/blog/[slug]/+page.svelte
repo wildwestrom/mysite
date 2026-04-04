@@ -5,10 +5,9 @@
 	}
 
 	let { data }: Props = $props();
-	const metadata = data.data;
-	// This parses the date using node's `Date.parse()`. This may not work correctly.
-	const year = new Date(metadata.date).getFullYear();
-	const date = new Date(metadata.date);
+	const metadata = $derived(data.data);
+	const date = $derived(new Date(metadata.date));
+	const year = $derived(date.getFullYear());
 	const formatted_date = (date: Date) =>
 		`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 </script>
