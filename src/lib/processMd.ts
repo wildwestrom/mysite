@@ -28,7 +28,7 @@ const options: RehypeHighlightOptions = {
 	languages: {
 		clojure: langClojure,
 		yaml: langYaml,
-		lean: leanHljs,
+		lean: leanHljs
 	}
 };
 
