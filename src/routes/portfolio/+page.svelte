@@ -76,8 +76,15 @@
 			{#snippet iconGit()}
 				<svg inline-src="git" width="1.5em" height="1.5em" />
 			{/snippet}
+			{#snippet iconGlobe()}
+				<svg inline-src="globe" width="1.5em" height="1.5em" />
+			{/snippet}
 			<PortfolioLink href="https://github.com/wildwestrom/track-geometry-experiments" icon={iconGit}
 				>{NAME_FOR_REPOSITORY}</PortfolioLink
+			>
+			<PortfolioLink
+				href="https://wildwestrom.github.io/track-geometry-experiments/"
+				icon={iconGlobe}>Demo</PortfolioLink
 			>
 		</ul>
 		<p>
