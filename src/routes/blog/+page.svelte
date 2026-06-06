@@ -67,9 +67,6 @@
 				text-decoration-color: transparent;
 			}
 		}
-		p {
-			line-height: 1.6;
-		}
 	}
 
 	.color-2 {

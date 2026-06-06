@@ -33,10 +33,10 @@
 	main {
 		margin-inline: auto;
 		padding: 0.5rem;
-		max-width: 65ch;
+		max-width: 100ch;
 	}
 
-	footer {
+	footer > * {
 		padding: 1rem;
 		text-align: center;
 		position: relative;

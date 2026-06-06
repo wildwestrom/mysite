@@ -54,6 +54,12 @@
 
 		p {
 			margin: 1rem 0;
+			line-height: 2;
+			text-indent: 4em;
+		}
+
+		li {
+			line-height: 1.6;
 		}
 
 		h1,
@@ -101,10 +107,6 @@
 			li {
 				list-style: disc;
 			}
-		}
-
-		p {
-			line-height: 1.6;
 		}
 
 		code {

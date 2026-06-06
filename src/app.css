@@ -29,6 +29,11 @@ body {
 	font-family: serif;
 }
 
+p {
+	line-height: 1.6;
+	font-size: 1.1rem;
+}
+
 a {
 	text-decoration: inherit;
 	color: inherit;

@@ -218,10 +218,6 @@
 		margin: 0.5em 0;
 	}
 
-	p {
-		line-height: 1.6;
-	}
-
 	svg {
 		margin-right: 0.25rem;
 	}
