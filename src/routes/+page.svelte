@@ -6,7 +6,10 @@
 	let timer: ReturnType<typeof setTimeout> | null = null;
 	let hoverTimer: ReturnType<typeof setTimeout> | null = null;
 
-	onMount(() => {
+	function startTimer() {
+		// Avoid stacking timers, and don't restart once the tooltip has shown.
+		if (timer || hoverTimer || showTooltip) return;
+
 		timer = setTimeout(() => {
 			showTooltip = true;
 			timer = null;
@@ -17,10 +20,46 @@
 				hoverTimer = null;
 			}, 5 * 1000);
 		}, 8 * 1000);
+	}
+
+	function resetTimer() {
+		if (timer) clearTimeout(timer);
+		if (hoverTimer) clearTimeout(hoverTimer);
+		timer = null;
+		hoverTimer = null;
+		showTooltip = false;
+		showHoverStyles = false;
+	}
+
+	// The page is "focused" only when its tab is visible AND the window itself
+	// has focus (i.e. the user isn't off in another window/app).
+	function isFocused() {
+		return document.visibilityState === 'visible' && document.hasFocus();
+	}
+
+	function syncTimer() {
+		if (isFocused()) {
+			startTimer();
+		} else if (!showTooltip) {
+			// Focus lost before the tooltip appeared — reset so the countdown
+			// starts over when it returns. Once it's showing, let it run.
+			resetTimer();
+		}
+	}
+
+	onMount(() => {
+		// Only start counting down if the page is actually focused on load.
+		syncTimer();
+
+		document.addEventListener('visibilitychange', syncTimer);
+		window.addEventListener('focus', syncTimer);
+		window.addEventListener('blur', syncTimer);
 
 		return () => {
-			if (timer) clearTimeout(timer);
-			if (hoverTimer) clearTimeout(hoverTimer);
+			document.removeEventListener('visibilitychange', syncTimer);
+			window.removeEventListener('focus', syncTimer);
+			window.removeEventListener('blur', syncTimer);
+			resetTimer();
 		};
 	});
 </script>
