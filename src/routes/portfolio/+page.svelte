@@ -54,23 +54,6 @@
 			RISC-V ISA spec.
 		</p>
 	</PortfolioPiece>
-	<PortfolioPiece name="Node-Graph Editor/Compiler">
-		<ul class="portfolio-links">
-			{#snippet iconGit()}
-				<svg inline-src="git" width="1.5em" height="1.5em" />
-			{/snippet}
-			<PortfolioLink href="https://github.com/wildwestrom/node-compiler" icon={iconGit}
-				>{NAME_FOR_REPOSITORY}</PortfolioLink
-			>
-		</ul>
-		<p>
-			A node-graph editor designed to output bytes via a data pipeline. A compiler is really just a
-			machine that takes in bytes and outputs bytes right? Anyway, it supports logical and
-			arithmetic operations, as well as concatenating and splitting byte streams. This is a
-			companion project to the bootstrapping chain above. I think content-addressed, graphically
-			represented code is the future.
-		</p>
-	</PortfolioPiece>
 	<PortfolioPiece name="Track Geometry Experiments">
 		<ul class="portfolio-links">
 			{#snippet iconGit()}
