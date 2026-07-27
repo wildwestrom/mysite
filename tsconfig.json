@@ -6,7 +6,6 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"lib": ["esnext", "DOM"],
-		"moduleResolution": "node",
 		"module": "esnext",
 		"resolveJsonModule": true,
 		"skipLibCheck": true,

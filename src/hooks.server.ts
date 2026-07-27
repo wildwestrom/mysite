@@ -1,4 +1,4 @@
-import { minify } from 'html-minifier';
+import { minify } from 'html-minifier-terser';
 import type { RequestEvent, RequestHandler } from '@sveltejs/kit';
 
 const minification_options = {
@@ -34,7 +34,7 @@ export async function handle({
 
 	if (response.headers.get('content-type') === 'text/html') {
 		const body = await response.text();
-		const minified_html = minify(body, minification_options);
+		const minified_html = await minify(body, minification_options);
 		return new Response(minified_html, response);
 	}
 
