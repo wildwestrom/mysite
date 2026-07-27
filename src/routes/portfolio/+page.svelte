@@ -91,8 +91,8 @@
 			perfect transition curve. Jerk is the 2nd derivative of angular velocity, but what if I could
 			make a curve that's continuous on infinite higher derivatives? With this in mind, I sought to
 			prove that there's a curve family that has exactly this property ({@html data.gInfinity} continuity)
-			among others. I used Lean 4 to prove my intuition was correct and I wasn't just speculating by
-			looking at Desmos graphs.
+			among others. I used Lean 4 to prove my intuition was correct and I wasn't just speculating by looking
+			at Desmos graphs.
 		</p>
 	</PortfolioPiece>
 	<PortfolioPiece name="Hantracker">

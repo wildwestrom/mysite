@@ -1,5 +1,5 @@
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-cloudflare';
 import { fileURLToPath } from 'node:url';
 
 const projectRoot = fileURLToPath(new URL('.', import.meta.url));

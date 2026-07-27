@@ -13,3 +13,5 @@ node_modules
 vite.config.ts.timestamp*
 .devenv
 .direnv
+# What the hell is this?
+.wrangler
