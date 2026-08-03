@@ -21,7 +21,7 @@
 	"devDependencies": {
 		"@svelte-put/inline-svg": "^4.0.2",
 		"@sveltejs/adapter-cloudflare": "^7.2.9",
-		"@sveltejs/kit": "2.70.1",
+		"@sveltejs/kit": "2.70.2",
 		"@types/html-minifier-terser": "^7.0.2",
 		"@types/node": "^26.1.1",
 		"html-minifier-terser": "^7.2.0",
